@@ -1,6 +1,6 @@
 /** Client-safe LINE URLs (NEXT_PUBLIC_* only) */
 
-export const CONTACT_EMAIL = "axora.office.tw@gmail.com";
+export const CONTACT_EMAIL = "americalin6@gmail.com";
 export const LINE_OFFICIAL_ID = "@460jxzer";
 export const DEFAULT_LINE_ADD_URL = "https://line.me/R/ti/p/@460jxzer";
 
