@@ -97,9 +97,10 @@ export async function POST(request: Request) {
     });
 
     if (!res.ok) {
-      console.error("[api/contact] FormSubmit error:", res.status, await res.text());
+      const errorText = await res.text();
+      console.error("[api/contact] FormSubmit error:", res.status, errorText);
       return NextResponse.json(
-        { ok: false, error: "送出失敗，請稍後再試或改用 LINE 聯絡" },
+        { ok: false, error: `FormSubmit 錯誤 ${res.status}: ${errorText}` },
         { status: 500 },
       );
     }
