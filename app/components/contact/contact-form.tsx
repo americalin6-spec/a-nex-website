@@ -30,18 +30,26 @@ export function ContactForm() {
     setErrorMessage(null);
 
     try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-      const json = (await res.json()) as { ok?: boolean; error?: string };
+      const formData = new FormData(form);
+      formData.set("name", payload.name);
+      formData.set("company", payload.company);
+      formData.set("email", payload.email);
+      formData.set("phone", payload.phone);
+      formData.set("projectType", payload.projectType);
+      formData.set("message", payload.message);
+      formData.append("_subject", "AXORA 官網新詢問");
+      formData.append("_template", "table");
+      formData.append("_captcha", "false");
 
-      if (!res.ok || !json.ok) {
+      const res = await fetch("https://formsubmit.co/americalin6@gmail.com", {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: formData,
+      });
+
+      if (!res.ok) {
         setStatus("error");
-        setErrorMessage(
-          json.error ?? "送出失敗，請稍後再試或改用 LINE 聯絡",
-        );
+        setErrorMessage("送出失敗，請稍後再試或改用 LINE 聯絡");
         return;
       }
 
