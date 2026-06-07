@@ -91,7 +91,7 @@ export function CaseStudySection({
           {study.techTags.map((tag) => (
             <li
               key={tag}
-              className="border border-border px-3 py-1.5 font-mono text-xs uppercase tracking-wider text-muted"
+              className="border border-border px-3 py-1.5 font-mono text-sm uppercase tracking-wider text-muted"
             >
               {tag}
             </li>
@@ -134,7 +134,7 @@ export function CaseStudyPreviewCard({
           {study.techTags.slice(0, 3).map((tag) => (
             <li
               key={tag}
-              className="font-mono text-xs uppercase tracking-wider text-muted"
+              className="font-mono text-sm uppercase tracking-wider text-muted"
             >
               {tag}
             </li>

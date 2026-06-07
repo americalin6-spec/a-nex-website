@@ -16,7 +16,7 @@ export function LineAddButton({
   const href = getLineAddFriendUrl();
 
   const base =
-    "inline-flex items-center justify-center gap-2 font-mono text-xs uppercase tracking-[0.15em] transition-all duration-300";
+    "inline-flex items-center justify-center gap-2 font-mono text-sm uppercase tracking-[0.15em] transition-all duration-300";
 
   const variants = {
     primary:

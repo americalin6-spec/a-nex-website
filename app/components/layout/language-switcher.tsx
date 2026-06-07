@@ -18,7 +18,7 @@ export function LanguageSwitcher() {
           key={option.id}
           type="button"
           onClick={() => setLocale(option.id)}
-          className={`px-2.5 py-1 font-mono text-[11px] font-semibold uppercase tracking-wider transition-all duration-500 ${
+          className={`px-2.5 py-1 font-mono text-sm font-semibold uppercase tracking-wider transition-all duration-500 ${
             locale === option.id
               ? "bg-foreground text-background"
               : "text-muted hover:text-foreground"

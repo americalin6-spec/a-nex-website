@@ -102,7 +102,7 @@ export function CrmTablePreview() {
                 {headers.map((h) => (
                   <th
                     key={h}
-                    className="px-3 py-2.5 font-mono text-xs font-medium uppercase tracking-wider text-muted"
+                    className="px-3 py-2.5 font-mono text-sm font-medium uppercase tracking-wider text-muted"
                   >
                     {h}
                   </th>
@@ -252,7 +252,7 @@ export function AiFlowChart() {
         <div className="space-y-3">
           {nodes.map((n, i) => (
             <div key={n.t} className="flex items-center gap-3">
-              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-accent-cyan/30 bg-accent-cyan/10 font-mono text-xs text-accent-cyan">
+              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-accent-cyan/30 bg-accent-cyan/10 font-mono text-sm text-accent-cyan">
                 {i + 1}
               </span>
               <div className={`dash-card ${n.accent} flex-1 !p-3`}>

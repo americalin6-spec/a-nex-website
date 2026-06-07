@@ -71,7 +71,7 @@ export function SaaSProductBento() {
             <span className="h-2.5 w-2.5 rounded-full bg-red-400/80" />
             <span className="h-2.5 w-2.5 rounded-full bg-amber-400/80" />
             <span className="h-2.5 w-2.5 rounded-full bg-emerald-400/80" />
-            <span className="ml-2 font-mono text-xs text-muted">
+            <span className="ml-2 font-mono text-sm text-muted">
               {zh ? "客戶租戶 · Production" : "Client tenant · Production"}
             </span>
           </div>
@@ -79,7 +79,7 @@ export function SaaSProductBento() {
             <span className="text-caption text-muted">
               {zh ? "工作區" : "Workspace"}
             </span>
-            <span className="rounded bg-accent-blue/15 px-2 py-0.5 font-mono text-xs text-accent-blue">
+            <span className="rounded bg-accent-blue/15 px-2 py-0.5 font-mono text-sm text-accent-blue">
               acme-prod
             </span>
           </div>
@@ -129,7 +129,7 @@ export function SaaSProductBento() {
                   key={x.l}
                   className="rounded-lg border border-border/60 bg-background/40 px-2 py-2 text-center sm:px-3"
                 >
-                  <p className="text-[10px] uppercase tracking-wider text-muted">
+                  <p className="text-sm uppercase tracking-wider text-muted">
                     {x.l}
                   </p>
                   <p className="mt-0.5 font-mono text-sm font-medium text-foreground sm:text-base">
@@ -147,17 +147,17 @@ export function SaaSProductBento() {
               </p>
               <div className="mt-3 grid grid-cols-3 gap-2">
                 <div className="rounded-lg border border-border/60 p-2 text-center">
-                  <p className="text-[10px] text-muted">{starter}</p>
+                  <p className="text-sm text-muted">{starter}</p>
                   <p className="mt-1 font-mono text-sm text-foreground">$49</p>
                 </div>
                 <div className="rounded-lg border border-accent-cyan/40 bg-accent-cyan/10 p-2 text-center ring-1 ring-accent-cyan/30">
-                  <p className="text-[10px] text-accent-cyan">{pro}</p>
+                  <p className="text-sm text-accent-cyan">{pro}</p>
                   <p className="mt-1 font-mono text-sm font-semibold text-foreground">
                     $199
                   </p>
                 </div>
                 <div className="rounded-lg border border-border/60 p-2 text-center">
-                  <p className="text-[10px] text-muted">{ent}</p>
+                  <p className="text-sm text-muted">{ent}</p>
                   <p className="mt-1 font-mono text-sm text-foreground">Custom</p>
                 </div>
               </div>
@@ -167,13 +167,13 @@ export function SaaSProductBento() {
                 <p className="text-label font-mono uppercase tracking-wider text-accent-blue">
                   {api}
                 </p>
-                <span className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2 py-0.5 text-[10px] text-emerald-400">
+                <span className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2 py-0.5 text-sm text-emerald-400">
                   {live}
                 </span>
               </div>
-              <div className="mt-3 flex items-center gap-2 rounded-md border border-border bg-background/60 px-3 py-2 font-mono text-xs text-muted-light">
+              <div className="mt-3 flex items-center gap-2 rounded-md border border-border bg-background/60 px-3 py-2 font-mono text-sm text-muted-light">
                 <span className="truncate">{mask}</span>
-                <span className="ml-auto shrink-0 rounded bg-surface-elevated px-2 py-0.5 text-[10px] text-muted">
+                <span className="ml-auto shrink-0 rounded bg-surface-elevated px-2 py-0.5 text-sm text-muted">
                   {zh ? "複製" : "Copy"}
                 </span>
               </div>
@@ -193,7 +193,7 @@ export function SaaSProductBento() {
                   <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-accent-violet/80" />
                   <div className="min-w-0 flex-1">
                     <p className="text-caption text-foreground/90">{a.t}</p>
-                    <p className="text-[10px] text-muted">{a.m}</p>
+                    <p className="text-sm text-muted">{a.m}</p>
                   </div>
                 </li>
               ))}
@@ -210,7 +210,7 @@ export function SaaSProductBento() {
                   key={u.r}
                   className={`dash-card ${u.c} flex items-center gap-2 !p-2.5`}
                 >
-                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-background/80 font-mono text-xs text-foreground">
+                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-background/80 font-mono text-sm text-foreground">
                     {u.n}
                   </span>
                   <span className="text-caption text-muted-light">{u.r}</span>
@@ -227,7 +227,7 @@ export function SaaSProductBento() {
               {hooks.map((h) => (
                 <li
                   key={h.id}
-                  className="flex items-center justify-between rounded-md border border-border/50 bg-background/40 px-2.5 py-2 font-mono text-[11px]"
+                  className="flex items-center justify-between rounded-md border border-border/50 bg-background/40 px-2.5 py-2 font-mono text-sm"
                 >
                   <span className="text-muted">{h.id}</span>
                   <span className="flex items-center gap-2">
@@ -242,12 +242,12 @@ export function SaaSProductBento() {
                     </span>
                     <span className="text-muted">{h.ms}</span>
                     {h.code !== 200 && (
-                      <span className="rounded bg-rose-500/15 px-1.5 py-0.5 text-[10px] text-rose-300">
+                      <span className="rounded bg-rose-500/15 px-1.5 py-0.5 text-sm text-rose-300">
                         {retry}
                       </span>
                     )}
                     {h.code === 200 && (
-                      <span className="text-[10px] text-emerald-400/80">
+                      <span className="text-sm text-emerald-400/80">
                         {ok}
                       </span>
                     )}
@@ -298,10 +298,10 @@ export function SaaSIntegrationsConsole() {
                 <span className={`h-2 w-2 rounded-full ${int.dot}`} />
                 <div>
                   <p className="font-mono text-sm text-foreground">{int.name}</p>
-                  <p className="text-[11px] text-muted">{int.status}</p>
+                  <p className="text-sm text-muted">{int.status}</p>
                 </div>
               </div>
-              <span className="rounded border border-border/60 px-2 py-1 font-mono text-[10px] text-muted">
+              <span className="rounded border border-border/60 px-2 py-1 font-mono text-sm text-muted">
                 {zh ? "設定" : "Config"}
               </span>
             </div>

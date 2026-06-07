@@ -68,7 +68,7 @@ export function ContactForm() {
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         className="flex min-h-[480px] flex-col items-center justify-center text-center"
       >
-        <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted">
+        <p className="font-mono text-base uppercase tracking-[0.3em] text-muted">
           ✓
         </p>
         <h2 className="text-display mt-8 text-3xl text-foreground">
@@ -82,7 +82,7 @@ export function ContactForm() {
   }
 
   const inputClass =
-    "w-full rounded-lg border border-border bg-surface/50 px-4 py-3 text-foreground placeholder:text-muted/50 outline-none transition-colors duration-300 focus:border-accent-blue/50 focus:ring-1 focus:ring-accent-blue/30";
+    "w-full rounded-lg border border-border bg-surface/50 px-4 py-3 text-base text-foreground placeholder:text-muted/50 outline-none transition-colors duration-300 focus:border-accent-blue/50 focus:ring-1 focus:ring-accent-blue/30";
 
   const isSubmitting = status === "submitting";
 
@@ -90,7 +90,7 @@ export function ContactForm() {
     <form onSubmit={(e) => void handleSubmit(e)} className="glass-card space-y-10 rounded-xl p-8 lg:p-10">
       <motion.div className="grid gap-10 sm:grid-cols-2">
         <label className="block">
-          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
+          <span className="font-mono text-base uppercase tracking-[0.2em] text-muted">
             {t.contact.form.name}
           </span>
           <input
@@ -103,7 +103,7 @@ export function ContactForm() {
           />
         </label>
         <label className="block">
-          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
+          <span className="font-mono text-base uppercase tracking-[0.2em] text-muted">
             {t.contact.form.company}
           </span>
           <input
@@ -118,7 +118,7 @@ export function ContactForm() {
       </motion.div>
 
       <label className="block">
-        <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
+        <span className="font-mono text-base uppercase tracking-[0.2em] text-muted">
           {t.contact.form.email}
         </span>
         <input
@@ -132,7 +132,7 @@ export function ContactForm() {
       </label>
 
       <label className="block">
-        <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
+        <span className="font-mono text-base uppercase tracking-[0.2em] text-muted">
           {t.contact.form.phone}
         </span>
         <input
@@ -145,7 +145,7 @@ export function ContactForm() {
       </label>
 
       <label className="block">
-        <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
+        <span className="font-mono text-base uppercase tracking-[0.2em] text-muted">
           {t.contact.form.projectType}
         </span>
         <select
@@ -167,7 +167,7 @@ export function ContactForm() {
       </label>
 
       <label className="block">
-        <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
+        <span className="font-mono text-base uppercase tracking-[0.2em] text-muted">
           {t.contact.form.message}
         </span>
         <textarea
@@ -183,16 +183,16 @@ export function ContactForm() {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="border border-foreground px-10 py-4 font-mono text-[10px] uppercase tracking-[0.2em] text-foreground transition-all duration-500 hover:bg-foreground hover:text-background disabled:cursor-not-allowed disabled:opacity-60"
+        className="border border-foreground px-10 py-4 font-mono text-base uppercase tracking-[0.2em] text-foreground transition-all duration-500 hover:bg-foreground hover:text-background disabled:cursor-not-allowed disabled:opacity-60"
       >
         {isSubmitting ? "送出中..." : t.contact.form.submit}
       </button>
 
       {status === "error" && errorMessage ? (
-        <p className="font-mono text-[10px] text-red-400">{errorMessage}</p>
+        <p className="font-mono text-base text-red-400">{errorMessage}</p>
       ) : null}
 
-      <p className="font-mono text-[10px] text-muted">{t.contact.form.consent}</p>
+      <p className="font-mono text-base text-muted">{t.contact.form.consent}</p>
     </form>
   );
 }

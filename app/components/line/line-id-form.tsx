@@ -39,7 +39,7 @@ export function LineIdForm() {
           value={lineId}
           onChange={(e) => setLineId(e.target.value)}
           placeholder={t.lineAi.form.placeholder}
-          className="mt-2 w-full rounded-lg border border-border bg-surface/50 px-4 py-3 text-foreground outline-none focus:border-accent-blue/50 focus:ring-1 focus:ring-accent-blue/30"
+          className="mt-2 w-full rounded-lg border border-border bg-surface/50 px-4 py-3 text-base text-foreground outline-none focus:border-accent-blue/50 focus:ring-1 focus:ring-accent-blue/30"
         />
       </label>
       <p className="mt-3 text-caption leading-relaxed text-muted-light">

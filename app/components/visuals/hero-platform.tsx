@@ -68,7 +68,7 @@ export function HeroPlatform() {
             <span className="h-2.5 w-2.5 rounded-full bg-red-400/70" />
             <span className="h-2.5 w-2.5 rounded-full bg-amber-400/70" />
             <span className="h-2.5 w-2.5 rounded-full bg-emerald-400/70" />
-            <span className="ml-3 font-mono text-xs text-muted">
+            <span className="ml-3 font-mono text-sm text-muted">
               AXORA Platform
             </span>
             <span className="ml-auto flex items-center gap-1.5 text-caption text-emerald-400/90">
@@ -92,13 +92,13 @@ export function HeroPlatform() {
                 </motion.div>
               ))}
               <div className="dash-card dash-card-cyan mt-6 !p-3">
-                <p className="text-[10px] uppercase tracking-wider text-muted">
+                <p className="text-sm uppercase tracking-wider text-muted">
                   {isZh ? "本月潛客" : "Leads"}
                 </p>
                 <p className="stat-value-gradient mt-1 text-xl font-semibold">
                   1,284
                 </p>
-                <p className="mt-0.5 text-xs text-accent-cyan">+18%</p>
+                <p className="mt-0.5 text-sm text-accent-cyan">+18%</p>
               </div>
             </div>
 
@@ -109,11 +109,11 @@ export function HeroPlatform() {
                     key={k.l}
                     className={`dash-card ${KPI_CARDS[i]} !p-3`}
                   >
-                    <p className="text-[10px] text-muted">{k.l}</p>
+                    <p className="text-sm text-muted">{k.l}</p>
                     <p className="stat-value-gradient mt-1 text-lg font-semibold">
                       {k.v}
                     </p>
-                    <p className="text-[10px] text-accent-cyan">{k.c}</p>
+                    <p className="text-sm text-accent-cyan">{k.c}</p>
                   </div>
                 ))}
               </div>
@@ -160,7 +160,7 @@ export function HeroPlatform() {
               <div className="ui-panel-inner mt-3 overflow-hidden">
                 <table className="w-full text-caption">
                   <thead>
-                    <tr className="border-b border-border text-left text-[10px] uppercase tracking-wider text-muted">
+                    <tr className="border-b border-border text-left text-sm uppercase tracking-wider text-muted">
                       <th className="px-3 py-2">
                         {isZh ? "客戶" : "Customer"}
                       </th>

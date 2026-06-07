@@ -198,7 +198,7 @@ export function HomePage() {
             {t.home.whatWeBuild.items.map((item, i) => (
               <Reveal key={item.title} delay={i * 0.04}>
                 <div className="glass-card group rounded-xl p-6 transition-transform duration-300 hover:-translate-y-0.5">
-                  <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-accent-blue/15 font-mono text-xs text-accent-blue">
+                  <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-accent-blue/15 font-mono text-sm text-accent-blue">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <p className="mt-4 text-body font-medium text-foreground">
@@ -270,7 +270,7 @@ export function HomePage() {
               <Reveal key={step.title} delay={i * 0.05}>
                 <div className="gradient-border h-full">
                   <div className="gradient-border-inner h-full p-6">
-                    <span className="font-mono text-sm text-accent-blue">
+                    <span className="font-mono text-base text-accent-blue">
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <h3 className="mt-3 text-body font-medium text-foreground">
@@ -340,7 +340,7 @@ export function HomePage() {
             {t.home.platform.features.map((feature, i) => (
               <Reveal key={feature} delay={i * 0.03}>
                 <div className="glass-card flex items-center gap-3 rounded-xl px-5 py-4">
-                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-accent-blue/30 to-accent-purple/30 text-xs text-accent-blue">
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-accent-blue/30 to-accent-purple/30 text-sm text-accent-blue">
                     ✓
                   </span>
                   <span className="text-body-sm text-foreground">{feature}</span>

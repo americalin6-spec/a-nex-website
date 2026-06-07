@@ -60,7 +60,7 @@ export function LineQrSection({ compact = false }: { compact?: boolean }) {
 function QrPlaceholder({ title, hint }: { title: string; hint: string }) {
   return (
     <div className="flex h-full w-full flex-col items-center justify-center gap-2 px-3 text-center">
-      <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#9ef0b5]">
+      <p className="font-mono text-sm uppercase tracking-[0.18em] text-[#9ef0b5]">
         {title}
       </p>
       <p className="text-caption leading-relaxed text-muted-light">{hint}</p>

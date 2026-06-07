@@ -53,7 +53,7 @@ export function ProjectCard({
             transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
           />
           <div className="absolute inset-0 flex flex-col justify-end p-8 lg:p-10">
-            <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-muted">
+            <p className="mb-3 font-mono text-sm uppercase tracking-[0.2em] text-muted">
               {category}
             </p>
             <h3
@@ -61,10 +61,10 @@ export function ProjectCard({
             >
               {title}
             </h3>
-            <p className="mt-3 max-w-md text-sm font-light leading-relaxed text-muted-light opacity-0 transition-all duration-700 group-hover:opacity-100">
+            <p className="mt-3 max-w-md text-base font-light leading-relaxed text-muted-light opacity-0 transition-all duration-700 group-hover:opacity-100">
               {description}
             </p>
-            <span className="mt-6 inline-flex items-center gap-2 text-xs uppercase tracking-[0.15em] text-muted transition-colors duration-500 group-hover:text-foreground">
+            <span className="mt-6 inline-flex items-center gap-2 text-sm uppercase tracking-[0.15em] text-muted transition-colors duration-500 group-hover:text-foreground">
               {t.common.learnMore}
               <span className="inline-block transition-transform duration-500 group-hover:translate-x-1">
                 →

@@ -15,7 +15,7 @@ export function LineWorkflowDiagram() {
         {steps.map((step, i) => (
           <div key={step} className="flex flex-1 items-center gap-2">
             <div className="glass-card flex min-h-[72px] flex-1 flex-col justify-center rounded-lg px-4 py-3 text-center">
-              <span className="font-mono text-[10px] text-muted">
+              <span className="font-mono text-sm text-muted">
                 {String(i + 1).padStart(2, "0")}
               </span>
               <span className="mt-1 text-caption text-foreground">{step}</span>
@@ -105,7 +105,7 @@ export function LineCrmLeadCard() {
             <p className="font-medium text-foreground">{lead.name}</p>
             <p className="text-caption text-muted">{lead.source}</p>
           </div>
-          <span className="rounded-full bg-emerald-500/15 px-2.5 py-0.5 text-[10px] uppercase tracking-wider text-emerald-400">
+          <span className="rounded-full bg-emerald-500/15 px-2.5 py-0.5 text-sm uppercase tracking-wider text-emerald-400">
             {lead.status}
           </span>
         </div>

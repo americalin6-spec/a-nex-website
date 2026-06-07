@@ -31,7 +31,7 @@ export function Footer() {
             <p className="mt-2 text-label font-mono uppercase tracking-[0.15em] text-muted">
               {t.footer.tagline}
             </p>
-            <p className="mt-4 max-w-sm text-sm font-light leading-relaxed text-muted">
+            <p className="mt-4 max-w-sm text-base font-light leading-relaxed text-muted">
               {t.footer.description}
             </p>
             <div className="mt-6">
@@ -48,7 +48,7 @@ export function Footer() {
                 <li key={item.key}>
                   <Link
                     href={item.href}
-                    className="text-sm font-light text-muted-light transition-colors duration-300 hover:text-foreground"
+                    className="text-base font-light text-muted-light transition-colors duration-300 hover:text-foreground"
                   >
                     {t.nav[item.key]}
                   </Link>
@@ -61,7 +61,7 @@ export function Footer() {
             <p className="text-label font-mono uppercase tracking-[0.15em] text-muted">
               {t.footer.contact}
             </p>
-            <ul className="mt-5 space-y-4 text-sm font-light text-muted-light">
+            <ul className="mt-5 space-y-4 text-base font-light text-muted-light">
               <li>
                 <ContactEmailActions variant="footer" />
               </li>

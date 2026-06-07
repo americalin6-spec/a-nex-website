@@ -58,7 +58,7 @@ export function Navbar() {
       <nav className="mx-auto grid h-16 max-w-[1400px] grid-cols-[1fr_auto] items-center gap-x-3 px-6 md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] lg:gap-x-4 lg:px-12">
         <div className="flex min-w-0 items-center justify-self-start">
           <Link href="/" className="transition-opacity duration-300 hover:opacity-70">
-            <span className="text-[0.8125rem] font-mono font-semibold tracking-[0.32em] text-foreground">
+            <span className="text-sm font-mono font-semibold tracking-[0.32em] text-foreground">
               AXORA
             </span>
           </Link>
@@ -69,7 +69,7 @@ export function Navbar() {
             <li key={item.key}>
               <Link
                 href={item.href}
-                className={`whitespace-nowrap text-[0.8125rem] font-mono font-semibold uppercase leading-none tracking-[0.14em] antialiased transition-colors duration-300 ${
+                className={`whitespace-nowrap text-sm font-mono font-semibold uppercase leading-none tracking-[0.14em] antialiased transition-colors duration-300 ${
                   isActive(item.href)
                     ? "text-foreground"
                     : "text-muted-light/85 hover:text-foreground"
@@ -86,7 +86,7 @@ export function Navbar() {
           <LineAddButton variant="nav" className="hidden sm:inline-flex" />
           <Link
             href="/contact"
-            className="btn-primary hidden rounded-lg px-4 py-2.5 text-[0.8125rem] font-mono font-semibold uppercase leading-none tracking-[0.12em] md:inline-block"
+            className="btn-primary hidden rounded-lg px-4 py-2.5 text-sm font-mono font-semibold uppercase leading-none tracking-[0.12em] md:inline-block"
           >
             {t.nav.contact}
           </Link>
@@ -121,7 +121,7 @@ export function Navbar() {
                 <li key={item.key}>
                   <Link
                     href={item.href}
-                    className="block py-3 text-[0.8125rem] font-mono font-semibold uppercase leading-snug tracking-[0.14em] text-muted-light/90 antialiased transition-colors hover:text-foreground"
+                    className="block py-3 text-sm font-mono font-semibold uppercase leading-snug tracking-[0.14em] text-muted-light/90 antialiased transition-colors hover:text-foreground"
                   >
                     {t.nav[item.key]}
                   </Link>

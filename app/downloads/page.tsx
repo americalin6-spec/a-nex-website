@@ -67,7 +67,7 @@ export default function DownloadsPage() {
             {t.downloads.features.items.map((item, i) => (
               <Reveal key={item.title} delay={i * 0.04}>
                 <div className="glass-card h-full rounded-xl p-6">
-                  <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-accent-blue/15 font-mono text-xs text-accent-blue">
+                  <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-accent-blue/15 font-mono text-sm text-accent-blue">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <h3 className="mt-4 text-body font-medium text-foreground">

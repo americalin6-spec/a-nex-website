@@ -12,7 +12,7 @@ function BrowserChrome({ children }: { children: ReactNode }) {
         <span className="h-1.5 w-1.5 rounded-full bg-red-400/80" />
         <span className="h-1.5 w-1.5 rounded-full bg-amber-400/80" />
         <span className="h-1.5 w-1.5 rounded-full bg-emerald-400/80" />
-        <div className="ml-2 flex-1 rounded bg-background/80 px-2 py-0.5 font-mono text-[8px] text-muted">
+        <div className="ml-2 flex-1 rounded bg-background/80 px-2 py-0.5 font-mono text-xs text-muted">
           app.example.com
         </div>
       </div>
@@ -108,7 +108,7 @@ export function PlatformServiceVisualCards() {
       {cards.map(({ key, title }, i) => (
         <div key={key} className="gradient-border rounded-xl">
           <div className="gradient-border-inner p-3">
-            <p className="text-[10px] font-mono uppercase tracking-wider text-accent-cyan">
+            <p className="text-xs font-mono uppercase tracking-wider text-accent-cyan">
               {title}
             </p>
             <div className="mt-2">
@@ -138,7 +138,7 @@ export function PlatformServiceVisualCards() {
               )}
               {key === "crm" && (
                 <div className="overflow-hidden rounded-md border border-border/60">
-                  <div className="grid grid-cols-3 gap-px bg-border/40 text-[8px]">
+                  <div className="grid grid-cols-3 gap-px bg-border/40 text-xs">
                     <div className="bg-surface-elevated/90 px-1 py-1 text-muted">
                       {zh ? "客戶" : "Acct"}
                     </div>
@@ -187,11 +187,11 @@ export function PlatformServiceVisualCards() {
                   {[zh ? "表單" : "Form", zh ? "審批" : "OK", zh ? "通知" : "Push"].map(
                     (s, j) => (
                       <div key={s} className="flex flex-1 items-center gap-0.5">
-                        <div className="min-w-0 flex-1 rounded border border-accent-purple/30 bg-accent-purple/10 px-1 py-1.5 text-center text-[8px] text-muted-light">
+                        <div className="min-w-0 flex-1 rounded border border-accent-purple/30 bg-accent-purple/10 px-1 py-1.5 text-center text-xs text-muted-light">
                           {s}
                         </div>
                         {j < 2 && (
-                          <span className="text-[8px] text-accent-cyan">→</span>
+                          <span className="text-xs text-accent-cyan">→</span>
                         )}
                       </div>
                     ),
@@ -224,7 +224,7 @@ export function LineWorkAiDownloadMockups() {
             <div className="mx-auto max-w-[220px] space-y-3">
               <div className="h-9 rounded-md border border-border bg-background/80" />
               <div className="h-9 rounded-md border border-border bg-background/80" />
-              <div className="flex items-center justify-center gap-2 rounded-md border border-border/80 bg-surface/60 py-2.5 font-mono text-[10px] text-muted-light">
+              <div className="flex items-center justify-center gap-2 rounded-md border border-border/80 bg-surface/60 py-2.5 font-mono text-xs text-muted-light">
                 <span className="h-3 w-3 rounded-sm bg-foreground/80" />
                 Continue with Google
               </div>
@@ -241,12 +241,12 @@ export function LineWorkAiDownloadMockups() {
           </p>
           <div className="mt-4 grid grid-cols-2 gap-2">
             <div className="dash-card dash-card-cyan !p-2">
-              <p className="text-[9px] text-muted">{zh ? "剩餘分析" : "Analyses left"}</p>
+              <p className="text-sm text-muted">{zh ? "剩餘分析" : "Analyses left"}</p>
               <p className="stat-value-gradient text-lg font-semibold">30</p>
-              <p className="text-[9px] text-muted">{zh ? "次" : "uses"}</p>
+              <p className="text-sm text-muted">{zh ? "次" : "uses"}</p>
             </div>
             <div className="dash-card dash-card-purple !p-2">
-              <p className="text-[9px] text-muted">{zh ? "訊息量" : "Messages"}</p>
+              <p className="text-sm text-muted">{zh ? "訊息量" : "Messages"}</p>
               <p className="stat-value-gradient text-lg font-semibold">1.2k</p>
             </div>
           </div>
@@ -271,7 +271,7 @@ export function LineWorkAiDownloadMockups() {
           <p className="text-label font-mono uppercase tracking-wider text-muted">
             {zh ? "客戶管理" : "Customer mgmt"} · {zh ? "名單" : "Leads"}
           </p>
-          <div className="mt-3 overflow-hidden rounded-md border border-border/60 text-[9px]">
+          <div className="mt-3 overflow-hidden rounded-md border border-border/60 text-sm">
             <div className="grid grid-cols-4 border-b border-border/50 bg-surface-elevated/80 px-1.5 py-1 text-muted">
               <span>{zh ? "客戶" : "Lead"}</span>
               <span>LINE</span>
@@ -309,15 +309,15 @@ export function LineWorkAiDownloadMockups() {
             {zh ? "自動回覆" : "Auto-reply"}
           </p>
           <div className="mt-3 space-y-2 rounded-lg border border-border/50 bg-background/50 p-3">
-            <div className="rounded-md bg-surface/60 px-2 py-1.5 text-[9px] text-muted-light">
+            <div className="rounded-md bg-surface/60 px-2 py-1.5 text-sm text-muted-light">
               {zh ? "使用者：報價與導入時程？" : "User: pricing & timeline?"}
             </div>
-            <div className="rounded-md border border-accent-cyan/25 bg-accent-cyan/10 px-2 py-1.5 text-[9px] text-foreground/90">
+            <div className="rounded-md border border-accent-cyan/25 bg-accent-cyan/10 px-2 py-1.5 text-sm text-foreground/90">
               {zh
                 ? "系統：已記錄需求，顧問將於 24h 內回覆。"
                 : "System: logged — consultant replies within 24h."}
             </div>
-            <div className="flex gap-1 text-[8px] text-muted">
+            <div className="flex gap-1 text-xs text-muted">
               <span className="rounded bg-accent-purple/15 px-1.5 py-0.5">
                 intent: quote
               </span>
@@ -365,7 +365,7 @@ export function LineAiDashboardPreview() {
               key={x.l}
               className="rounded border border-border/50 bg-background/40 py-2"
             >
-              <p className="text-[9px] text-muted">{x.l}</p>
+              <p className="text-sm text-muted">{x.l}</p>
               <p className="font-mono text-sm text-accent-cyan">{x.v}</p>
             </div>
           ))}
@@ -414,7 +414,7 @@ export function CaseStudyVisualThumb({ type }: { type: CaseStudyVisual }) {
           </div>
         )}
         {type === "crm-table" && (
-          <div className="grid h-full grid-rows-4 gap-px bg-border/40 text-[7px]">
+          <div className="grid h-full grid-rows-4 gap-px bg-border/40 text-sm">
             <div className="grid grid-cols-3 bg-surface-elevated/90 px-1 py-0.5 text-muted">
               <span>A</span>
               <span>B</span>
@@ -436,7 +436,7 @@ export function CaseStudyVisualThumb({ type }: { type: CaseStudyVisual }) {
           <div className="flex h-full items-center justify-center gap-1 px-1">
             {["1", "2", "3", "4"].map((s, i) => (
               <div key={s} className="flex items-center gap-1">
-                <div className="rounded border border-accent-cyan/30 bg-accent-cyan/10 px-1.5 py-1 text-[8px] text-muted-light">
+                <div className="rounded border border-accent-cyan/30 bg-accent-cyan/10 px-1.5 py-1 text-xs text-muted-light">
                   {s}
                 </div>
                 {i < 3 && <span className="text-accent-cyan">→</span>}
