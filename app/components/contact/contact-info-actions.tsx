@@ -13,10 +13,10 @@ type ContactInfoActionsProps = {
 };
 
 const copyBtnClass =
-  "rounded-lg border border-border bg-surface/50 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.12em] text-muted-light transition-colors duration-300 hover:border-accent-blue/40 hover:text-foreground";
+  "rounded-lg border border-border bg-surface/50 px-3 py-1.5 font-mono text-sm uppercase tracking-[0.12em] text-muted-light transition-colors duration-300 hover:border-accent-blue/40 hover:text-foreground";
 
 const addLineBtnClass =
-  "rounded-lg bg-[#06C755] px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.12em] text-white transition-all duration-300 hover:brightness-110";
+  "rounded-lg bg-[#06C755] px-3 py-1.5 font-mono text-sm uppercase tracking-[0.12em] text-white transition-all duration-300 hover:brightness-110";
 
 export function ContactEmailActions({ variant = "page" }: ContactInfoActionsProps) {
   const { t } = useLanguage();
@@ -56,7 +56,7 @@ export function ContactEmailActions({ variant = "page" }: ContactInfoActionsProp
       </span>
       <a
         href={`mailto:${email}`}
-        className="mt-1 block lowercase text-foreground transition-opacity hover:opacity-60"
+        className="mt-1 block text-base lowercase text-foreground transition-opacity hover:opacity-60"
       >
         {email}
       </a>
@@ -115,7 +115,7 @@ export function ContactLineActions({ variant = "page" }: ContactInfoActionsProps
       <span className="text-label font-mono uppercase tracking-[0.15em] text-muted">
         LINE
       </span>
-      <p className="mt-1 text-foreground">{lineLabel}</p>
+      <p className="mt-1 text-base text-foreground">{lineLabel}</p>
       <div className="mt-3 flex flex-wrap gap-2">
         <button type="button" onClick={handleCopyLineId} className={copyBtnClass}>
           {copied ? t.contact.actions.copiedLineId : t.contact.actions.copyLineId}
