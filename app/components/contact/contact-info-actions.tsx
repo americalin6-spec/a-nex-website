@@ -18,6 +18,8 @@ const copyBtnClass =
 const addLineBtnClass =
   "rounded-lg bg-[#06C755] px-3 py-1.5 font-mono text-sm uppercase tracking-[0.12em] text-white transition-all duration-300 hover:brightness-110";
 
+const CONTACT_PAGE_DISPLAY_EMAIL = "axora.office.tw@gmail.com";
+
 export function ContactEmailActions({ variant = "page" }: ContactInfoActionsProps) {
   const { t } = useLanguage();
   const email = getContactEmail();
@@ -58,7 +60,7 @@ export function ContactEmailActions({ variant = "page" }: ContactInfoActionsProp
         href={`mailto:${email}`}
         className="mt-1 block text-base lowercase text-foreground transition-opacity hover:opacity-60"
       >
-        {email}
+        {CONTACT_PAGE_DISPLAY_EMAIL}
       </a>
       <button
         type="button"
