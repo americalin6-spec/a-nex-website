@@ -39,10 +39,10 @@ export function ContactEmailActions({ variant = "page" }: ContactInfoActionsProp
     return (
       <div className="space-y-2">
         <a
-          href={`mailto:${email}`}
+          href={`mailto:${CONTACT_PAGE_DISPLAY_EMAIL}`}
           className="block lowercase transition-colors duration-300 hover:text-foreground"
         >
-          {email}
+          {CONTACT_PAGE_DISPLAY_EMAIL}
         </a>
         <button type="button" onClick={handleCopyEmail} className={copyBtnClass}>
           {copied ? t.contact.actions.copiedEmail : t.contact.actions.copyEmail}
