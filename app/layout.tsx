@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { Geist } from "next/font/google";
 import { Providers } from "./components/providers";
 import { SiteShell } from "./components/layout/site-shell";
 import "./globals.css";
+
+const GA_MEASUREMENT_ID = "G-78TN3S61HM";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,6 +34,9 @@ export default function RootLayout({
           <SiteShell>{children}</SiteShell>
         </Providers>
       </body>
+      {process.env.NODE_ENV === "production" ? (
+        <GoogleAnalytics gaId={GA_MEASUREMENT_ID} />
+      ) : null}
     </html>
   );
 }
