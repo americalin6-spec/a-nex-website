@@ -17,6 +17,9 @@ export const metadata: Metadata = {
   title: "AXORA | Smart Analytics & Business Management",
   description:
     "AXORA builds smart analytics platforms, customer management, automation workflows, SaaS, apps, websites, and scalable business software.",
+  verification: {
+    google: "ui1yOGHIuDFLC3qDkvHtIxwpw-BydSWQ1_0OB4c4MAw",
+  },
 };
 
 export default function RootLayout({
