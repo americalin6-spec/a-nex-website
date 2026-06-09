@@ -11,6 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/services/crm-system` },
     { url: `${baseUrl}/services/line-oa` },
     { url: `${baseUrl}/services/saas-development` },
+    { url: `${baseUrl}/services/ai-automation` },
     { url: `${baseUrl}/contact` },
   ];
 }
