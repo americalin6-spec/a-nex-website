@@ -13,6 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/services/saas-development` },
     { url: `${baseUrl}/services/ai-automation` },
     { url: `${baseUrl}/services/app-development` },
+    { url: `${baseUrl}/services/web-design` },
     { url: `${baseUrl}/contact` },
   ];
 }
