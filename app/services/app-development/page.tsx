@@ -1,13 +1,14 @@
-import type { Metadata } from "next";
 import Link from "next/link";
+import { pageMetadata } from "@/lib/seo/page-metadata";
 import { SectionHeader } from "../../components/ui/section-header";
 import { Reveal } from "../../components/ui/reveal";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "APP開發｜iOS與Android應用程式開發｜A-NEX",
   description:
     "A-NEX 提供 APP 開發服務，支援 iOS、Android、會員系統整合、API 串接與客製化應用程式開發。",
-};
+  path: "/services/app-development",
+});
 
 const features = [
   "iOS APP開發",

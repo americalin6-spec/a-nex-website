@@ -1,13 +1,14 @@
-import type { Metadata } from "next";
 import Link from "next/link";
+import { pageMetadata } from "@/lib/seo/page-metadata";
 import { SectionHeader } from "../../components/ui/section-header";
 import { Reveal } from "../../components/ui/reveal";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "AI客戶管理系統｜AXORA",
   description:
     "AI客戶管理系統，整合CRM客戶管理、成交分析、自動追蹤提醒與LINE官方帳號串接，協助企業提升成交率。",
-};
+  path: "/services/ai-crm",
+});
 
 const features = [
   "客戶資料管理",

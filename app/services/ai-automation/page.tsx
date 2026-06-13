@@ -1,13 +1,14 @@
-import type { Metadata } from "next";
 import Link from "next/link";
+import { pageMetadata } from "@/lib/seo/page-metadata";
 import { SectionHeader } from "../../components/ui/section-header";
 import { Reveal } from "../../components/ui/reveal";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "AI自動化系統｜企業流程自動化解決方案｜A-NEX",
   description:
     "A-NEX 提供 AI 自動化系統開發服務，協助企業導入 AI 客服、自動化流程、系統整合與工作流程優化。",
-};
+  path: "/services/ai-automation",
+});
 
 const features = [
   "AI客服自動化",

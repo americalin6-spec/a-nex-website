@@ -1,13 +1,14 @@
-import type { Metadata } from "next";
 import Link from "next/link";
+import { pageMetadata } from "@/lib/seo/page-metadata";
 import { SectionHeader } from "../../components/ui/section-header";
 import { Reveal } from "../../components/ui/reveal";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "網站設計｜企業官網與客製化網站開發｜A-NEX",
   description:
     "A-NEX 提供網站設計與客製化網站開發服務，打造企業官網、形象網站、SEO 架構與後台管理系統。",
-};
+  path: "/services/web-design",
+});
 
 const features = [
   "企業形象網站",

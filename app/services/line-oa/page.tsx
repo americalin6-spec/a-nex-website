@@ -1,13 +1,14 @@
-import type { Metadata } from "next";
 import Link from "next/link";
+import { pageMetadata } from "@/lib/seo/page-metadata";
 import { SectionHeader } from "../../components/ui/section-header";
 import { Reveal } from "../../components/ui/reveal";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "LINE官方帳號整合｜LINE CRM與自動回覆方案｜A-NEX",
   description:
     "A-NEX 提供 LINE 官方帳號整合服務，支援自動回覆、客戶管理與 CRM 串接，提升客服效率與客戶互動品質。",
-};
+  path: "/services/line-oa",
+});
 
 const features = [
   "LINE 官方帳號串接",

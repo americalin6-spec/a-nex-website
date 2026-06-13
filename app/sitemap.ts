@@ -1,19 +1,31 @@
 import type { MetadataRoute } from "next";
-
-const baseUrl = "https://axora.tw";
+import { SITE_URL } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return [
-    { url: `${baseUrl}/` },
-    { url: `${baseUrl}/about` },
-    { url: `${baseUrl}/services/ai-crm` },
-    { url: `${baseUrl}/services/ai-customer-service` },
-    { url: `${baseUrl}/services/crm-system` },
-    { url: `${baseUrl}/services/line-oa` },
-    { url: `${baseUrl}/services/saas-development` },
-    { url: `${baseUrl}/services/ai-automation` },
-    { url: `${baseUrl}/services/app-development` },
-    { url: `${baseUrl}/services/web-design` },
-    { url: `${baseUrl}/contact` },
-  ];
+  const lastModified = new Date();
+
+  const paths = [
+    "/",
+    "/about",
+    "/contact",
+    "/services",
+    "/work",
+    "/line-ai",
+    "/downloads",
+    "/services/ai-crm",
+    "/services/ai-customer-service",
+    "/services/crm-system",
+    "/services/line-oa",
+    "/services/saas-development",
+    "/services/ai-automation",
+    "/services/app-development",
+    "/services/web-design",
+  ] as const;
+
+  return paths.map((path) => ({
+    url: `${SITE_URL}${path === "/" ? "/" : path}`,
+    lastModified,
+    changeFrequency: path === "/" ? "weekly" : "monthly",
+    priority: path === "/" ? 1 : path.startsWith("/services/") ? 0.8 : 0.7,
+  }));
 }

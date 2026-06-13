@@ -1,13 +1,14 @@
-import type { Metadata } from "next";
 import Link from "next/link";
+import { pageMetadata } from "@/lib/seo/page-metadata";
 import { SectionHeader } from "../../components/ui/section-header";
 import { Reveal } from "../../components/ui/reveal";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "SaaS平台開發｜雲端系統與訂閱制平台開發｜A-NEX",
   description:
     "A-NEX 提供 SaaS 平台開發服務，協助企業打造雲端系統、會員平台、訂閱制服務與客製化管理系統。",
-};
+  path: "/services/saas-development",
+});
 
 const features = [
   "SaaS平台開發",

@@ -1,13 +1,14 @@
-import type { Metadata } from "next";
 import Link from "next/link";
+import { pageMetadata } from "@/lib/seo/page-metadata";
 import { SectionHeader } from "../../components/ui/section-header";
 import { Reveal } from "../../components/ui/reveal";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "CRM客戶管理系統｜客戶管理與業務追蹤平台｜A-NEX",
   description:
     "A-NEX 提供 CRM 客戶管理系統，協助企業管理客戶資料、追蹤商機、提升成交率與業務效率。",
-};
+  path: "/services/crm-system",
+});
 
 const features = [
   "客戶資料管理",
