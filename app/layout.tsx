@@ -55,6 +55,15 @@ export const metadata: Metadata = {
   verification: {
     google: "ui1yOGHIuDFLC3qDkvHtIxwpw-BydSWQ1_0OB4c4MAw",
   },
+  icons: {
+    icon: [
+      {
+        url: "/axora-logo-transparent.png",
+        type: "image/png",
+      },
+    ],
+    apple: "/axora-logo-transparent.png",
+  },
 };
 
 export default function RootLayout({

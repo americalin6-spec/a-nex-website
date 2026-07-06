@@ -1,6 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -57,10 +58,18 @@ export function Navbar() {
     >
       <nav className="mx-auto grid h-16 max-w-[1400px] grid-cols-[1fr_auto] items-center gap-x-3 px-6 md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] lg:gap-x-4 lg:px-12">
         <div className="flex min-w-0 items-center justify-self-start">
-          <Link href="/" className="transition-opacity duration-300 hover:opacity-70">
-            <span className="text-sm font-mono font-semibold tracking-[0.32em] text-foreground">
-              AXORA
-            </span>
+          <Link
+            href="/"
+            className="flex items-center transition-opacity duration-300 hover:opacity-70"
+          >
+            <Image
+              src="/axora-logo-transparent.png"
+              alt="AXORA"
+              width={50}
+              height={50}
+              className="h-[50px] w-auto"
+              priority
+            />
           </Link>
         </div>
 
