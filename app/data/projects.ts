@@ -64,14 +64,15 @@ export const projects: Project[] = [
     platform: "Web",
     coverImage: "/projects/ashley-english.jpg",
     overview: {
-      zh: "受託為語言教學品牌打造企業官網與課程展示系統，涵蓋分級課程、師資介紹、諮詢表單與後台名單管理，協助招生團隊集中追蹤潛在學員並縮短回覆時間。",
-      en: "Delivered a language-school brand site and course showcase — level-based programs, faculty pages, inquiry forms, and a lead admin workspace so admissions can track prospects and respond faster.",
+      zh: "為語言培訓品牌建置官網與課程展示系統，整合師資介紹、分級課程與諮詢表單，並連動後台名單管理，協助招生團隊追蹤每一位潛在學員。",
+      en: "Built a language-training brand site with course showcases, faculty pages, and inquiry forms tied to a lead admin — admissions tracks every prospect in one place.",
     },
     techTags: [
       "Next.js",
       "TypeScript",
       "Supabase",
       "PostgreSQL",
+      "Cloudflare",
       "Vercel",
     ],
   },
@@ -85,8 +86,8 @@ export const projects: Project[] = [
     platform: "AI Platform",
     coverImage: "/projects/onlymate.jpg",
     overview: {
-      zh: "正在開發的 AI 互動平台，整合對話引擎、使用者分群與後台話術管理，支援產品團隊驗證配對邏輯、留存流程與多情境回覆策略，作為後續商業化的技術基礎。",
-      en: "AI interaction platform in active development — conversational engine, user segments, and admin playbooks to validate matching logic, retention flows, and multi-scenario replies before commercial rollout.",
+      zh: "AI 互動平台開發中，以對話流程與使用者分群為核心，搭配營運後台調整話術與情境，讓團隊在上線前就能驗證配對邏輯與留存設計。",
+      en: "AI interaction platform in active development — conversation flows, user segments, and an ops console to tune playbooks before launch and validate retention design.",
     },
     techTags: [
       "Next.js",
@@ -95,6 +96,7 @@ export const projects: Project[] = [
       "PostgreSQL",
       "OpenAI",
       "Vercel",
+      "Cloudflare",
     ],
   },
   {
@@ -107,8 +109,8 @@ export const projects: Project[] = [
     platform: "Web",
     coverImage: "/projects/axora-website.jpg",
     overview: {
-      zh: "AXORA 企業官網已上線，呈現 AI 與軟體開發服務、作品集導覽與中英雙語內容，並完成 SEO 結構、Open Graph 與效能優化，作為品牌對外與客戶洽詢的主要入口。",
-      en: "AXORA corporate site in production — AI and software services, portfolio navigation, bilingual content, plus SEO structure, Open Graph, and performance tuning as the primary brand and inquiry entry point.",
+      zh: "AXORA 企業官網，完整呈現 AI 與軟體委託服務、案例作品集與中英雙語內容，並完成 SEO、社群預覽與正式環境部署，作為品牌對外主要窗口。",
+      en: "AXORA corporate site in production — AI and software services, portfolio, bilingual content, SEO and social previews, deployed as the main public entry point.",
     },
     techTags: [
       "Next.js",
@@ -128,8 +130,8 @@ export const projects: Project[] = [
     platform: "CRM",
     coverImage: "/projects/ai-crm.jpg",
     overview: {
-      zh: "已交付的 AI 客戶管理系統，串接 OpenAI 與 LINE 官方帳號，集中潛客資料、對話摘要與銷售階段管理，讓業務與客服在同一後台完成指派、跟進與結案紀錄。",
-      en: "Delivered AI customer management connecting OpenAI and LINE Official Account — lead records, conversation summaries, and pipeline stages in one back office for sales follow-up and case closure.",
+      zh: "已完成交付的 CRM 系統，串接 OpenAI 與 LINE 官方帳號，將潛客資料、對話摘要與銷售階段集中在同一後台，減少業務跨工具查資料的情況。",
+      en: "Delivered CRM connecting OpenAI and LINE Official Account — leads, conversation summaries, and pipeline stages in one back office so sales stops hopping between tools.",
     },
     techTags: [
       "Next.js",
@@ -138,6 +140,7 @@ export const projects: Project[] = [
       "PostgreSQL",
       "OpenAI",
       "LINE API",
+      "Vercel",
     ],
   },
   {
@@ -150,8 +153,8 @@ export const projects: Project[] = [
     platform: "Dashboard",
     coverImage: "/projects/teacher-dashboard.jpg",
     overview: {
-      zh: "教育機構教師營運儀表板開發中，整合班級名單、出席紀錄、作業進度與學習表現摘要，並串接日曆檢視課表，減少教師每週行政整理與向家長回報的負擔。",
-      en: "Teacher operations dashboard in build — class rosters, attendance, assignment progress, learning summaries, and calendar views to cut weekly admin and parent reporting overhead.",
+      zh: "教師端營運儀表板開發中，整理班級名單、出席、作業與學習表現，並串接課表日曆，讓教師把時間花在教學而非每週人工彙整報表。",
+      en: "Teacher operations dashboard in build — rosters, attendance, assignments, learning summaries, and calendar views so educators spend less time on weekly admin reports.",
     },
     techTags: [
       "Next.js",
@@ -172,8 +175,8 @@ export const projects: Project[] = [
     platform: "Web App",
     coverImage: "/projects/student-portal.jpg",
     overview: {
-      zh: "學員入口 Web App 概念規劃，預計提供課表查詢、作業繳交、學習紀錄與通知中心，讓學生與家長能隨時掌握課務進度，並與教師後台資料即時同步。",
-      en: "Concept-stage student web app — schedules, assignment submission, learning history, and a notification hub so learners and parents stay aligned with teacher back-office data.",
+      zh: "學員入口網站的概念方案，規劃課表、作業繳交、學習紀錄與通知中心，讓學生與家長隨時掌握課務，資料與教師後台保持同步。",
+      en: "Concept student portal — schedules, assignment submission, learning history, and notifications so learners and parents stay current while syncing with teacher back-office data.",
     },
     techTags: [
       "Next.js",
@@ -194,8 +197,8 @@ export const projects: Project[] = [
     platform: "Web App",
     coverImage: "/projects/trial-lesson-booking.jpg",
     overview: {
-      zh: "試聽課預約 Web App 開發中，串接 Google 日曆與視訊會議 API，完成時段選擇、Stripe 線上結帳與自動寄送會議連結，降低招生顧問人工排課與確認成本。",
-      en: "Trial lesson booking web app in build — Google calendar and video APIs, slot selection, Stripe checkout, and automated meeting links to reduce manual scheduling for admissions teams.",
+      zh: "試聽課預約系統開發中，結合 Google 日曆、視訊會議與 Stripe 付款，學員選完時段即可完成結帳並收到會議連結，減少顧問人工排課。",
+      en: "Trial lesson booking in build — Google calendar, video meetings, and Stripe checkout so learners book, pay, and receive meeting links without manual scheduling.",
     },
     techTags: [
       "Next.js",
@@ -204,6 +207,7 @@ export const projects: Project[] = [
       "Stripe",
       "Google APIs",
       "Vercel",
+      "Cloudflare",
     ],
   },
   {
@@ -216,8 +220,8 @@ export const projects: Project[] = [
     platform: "Dashboard",
     coverImage: "/projects/creator-dashboard.jpg",
     overview: {
-      zh: "創作者營運儀表板概念設計，規劃訂閱收入追蹤、內容表現分析、粉絲互動指標與方案管理模組，協助創作者與營運團隊掌握變現數據並完成收款對帳。",
-      en: "Concept creator dashboard — subscription revenue, content analytics, audience engagement metrics, and plan management so creators and ops teams can track monetization and reconcile payouts.",
+      zh: "創作者營運儀表板的概念設計，聚焦訂閱收入、內容表現與受眾互動，並保留方案管理與對帳模組，方便小型創作團隊掌握變現狀況。",
+      en: "Concept creator dashboard focused on subscription revenue, content performance, and audience engagement — plans and payout reconciliation for small creator teams.",
     },
     techTags: [
       "Next.js",
@@ -226,6 +230,7 @@ export const projects: Project[] = [
       "PostgreSQL",
       "Stripe",
       "Cloudflare",
+      "Vercel",
     ],
   },
   {
@@ -238,8 +243,8 @@ export const projects: Project[] = [
     platform: "SaaS",
     coverImage: "/projects/ai-membership-platform.jpg",
     overview: {
-      zh: "會員制 AI SaaS 平台概念，整合訂閱計費、用量控管與多模型對話服務，依方案分級開放 API 額度與進階工具，作為 B2C 或 B2B 訂閱產品的架構藍圖。",
-      en: "Concept membership AI SaaS — subscription billing, usage controls, and multi-model conversations with tiered API quotas and tools as an architecture blueprint for B2C or B2B subscription products.",
+      zh: "會員制 AI 平台的架構規劃，涵蓋訂閱計費、用量控管與多模型服務，依方案開放不同 API 額度，適合準備推出訂閱制 AI 產品的團隊參考。",
+      en: "Concept membership AI platform — subscription billing, usage controls, and multi-model access with tiered API quotas for teams preparing a subscription AI product.",
     },
     techTags: [
       "Next.js",
@@ -261,8 +266,8 @@ export const projects: Project[] = [
     platform: "AI Platform",
     coverImage: "/projects/ai-gallery.jpg",
     overview: {
-      zh: "AI 生成內容展示平台概念，支援作品上傳、標籤分類、搜尋瀏覽與權限分級，可作為團隊內部作品庫或對外 Demo 站，展示生成流程與策展能力。",
-      en: "Concept AI content gallery — uploads, tagging, search, and role-based access as an internal asset library or public demo showcasing generation workflows and curation.",
+      zh: "AI 作品展示平台的概念原型，支援上傳、標籤、搜尋與權限分級，可作為內部作品庫或對外 Demo，呈現生成流程與策展方式。",
+      en: "Concept AI gallery — uploads, tags, search, and role-based access as an internal library or public demo of generation workflows and curation.",
     },
     techTags: [
       "Next.js",
@@ -271,6 +276,7 @@ export const projects: Project[] = [
       "PostgreSQL",
       "OpenAI",
       "Cloudflare",
+      "Vercel",
     ],
   },
   {
@@ -283,8 +289,8 @@ export const projects: Project[] = [
     platform: "Dashboard",
     coverImage: "/projects/sales-dashboard.jpg",
     overview: {
-      zh: "已上線的銷售管理儀表板，即時呈現漏斗轉換、業績目標達成率、團隊排行與商機預測圖表，協助業務主管在單一畫面掌握成交節奏並調整資源配置。",
-      en: "Production sales dashboard — live funnel conversion, quota attainment, team rankings, and pipeline forecasting so revenue leaders adjust resources from a single view.",
+      zh: "銷售儀表板已上線，彙整漏斗、業績目標、團隊表現與商機預測，主管可在單一畫面判斷本季節奏，不必再從多份試算表拼資料。",
+      en: "Production sales dashboard — funnel, quota attainment, team performance, and pipeline forecasting in one view so leaders read the quarter without stitching spreadsheets.",
     },
     techTags: [
       "Next.js",
@@ -293,6 +299,7 @@ export const projects: Project[] = [
       "PostgreSQL",
       "OpenAI",
       "Vercel",
+      "Cloudflare",
     ],
   },
   {
@@ -305,8 +312,8 @@ export const projects: Project[] = [
     platform: "LINE",
     coverImage: "/projects/customer-service-center.jpg",
     overview: {
-      zh: "客服中心系統開發中，整合 LINE 官方帳號訊息、AI 輔助回覆建議與工單狀態追蹤，讓客服人員在統一介面處理對話、指派案件並記錄結案原因。",
-      en: "Customer service hub in build — LINE Official messaging, AI-assisted reply suggestions, and ticket tracking in one workspace for assignment, resolution, and closure notes.",
+      zh: "客服中心系統開發中，整合 LINE 訊息、AI 回覆建議與工單追蹤，客服在同一介面接案、結案並留下紀錄，縮短首次回應時間。",
+      en: "Customer service hub in build — LINE messaging, AI reply suggestions, and ticket tracking in one workspace for faster first response and documented closure.",
     },
     techTags: [
       "Next.js",
@@ -328,8 +335,8 @@ export const projects: Project[] = [
     platform: "SaaS",
     coverImage: "/projects/project-management-platform.jpg",
     overview: {
-      zh: "企業專案協作 SaaS 概念，涵蓋任務分派、里程碑追蹤、檔案版本與跨部門留言，適合委外專案與內部產品開發團隊，建立可稽核的交付進度與責任歸屬。",
-      en: "Concept enterprise project SaaS — task assignment, milestones, file versions, and cross-team comments for vendor and internal delivery with auditable progress and ownership.",
+      zh: "企業專案協作平台的概念方案，涵蓋任務、里程碑、檔案版本與留言討論，適合跨部門委外案與內部產品研發並行管理。",
+      en: "Concept project collaboration SaaS — tasks, milestones, file versions, and team comments for vendor work and internal product development in parallel.",
     },
     techTags: [
       "Next.js",
@@ -338,6 +345,7 @@ export const projects: Project[] = [
       "Supabase",
       "Google APIs",
       "Vercel",
+      "Cloudflare",
     ],
   },
   {
@@ -350,8 +358,8 @@ export const projects: Project[] = [
     platform: "Web App",
     coverImage: "/projects/restaurant-management-system.jpg",
     overview: {
-      zh: "餐廳營運 Web App 開發中，整合菜單管理、桌位狀態、點餐流程與 Stripe 線上付款，並可透過 LINE 通知取餐狀態，讓櫃台與廚房資訊即時同步。",
-      en: "Restaurant operations web app in build — menus, table status, order flow, Stripe payments, and optional LINE pickup notifications keeping front-of-house and kitchen aligned.",
+      zh: "餐廳營運系統開發中，處理菜單、桌位、點餐與線上付款，並可透過 LINE 推送取餐狀態，讓櫃台與廚房看到的訂單資訊一致。",
+      en: "Restaurant operations web app in build — menus, tables, ordering, Stripe payments, and LINE pickup updates so front-of-house and kitchen see the same orders.",
     },
     techTags: [
       "Next.js",
@@ -360,6 +368,7 @@ export const projects: Project[] = [
       "Supabase",
       "Stripe",
       "LINE API",
+      "Vercel",
     ],
   },
   {
@@ -372,8 +381,8 @@ export const projects: Project[] = [
     platform: "Web App",
     coverImage: "/projects/hotel-booking-platform.jpg",
     overview: {
-      zh: "飯店訂房 Web App 概念，支援房型展示、即時空房查詢、訂單與金流處理，並串接 Google 日曆管理住房與清潔排程，作為旅宿業數位訂房的前端架構參考。",
-      en: "Concept hotel booking web app — room showcases, live availability, orders and payments, plus Google calendar-driven stay and housekeeping schedules as a hospitality booking reference architecture.",
+      zh: "飯店訂房平台的概念架構，包含房型展示、空房查詢、訂單金流與住房排程，作為旅宿業自建訂房前台時的參考實作方向。",
+      en: "Concept hotel booking architecture — room showcases, availability, payments, and stay scheduling as a reference front-end for hospitality brands building their own channel.",
     },
     techTags: [
       "Next.js",
@@ -395,8 +404,8 @@ export const projects: Project[] = [
     platform: "Web App",
     coverImage: "/projects/healthcare-appointment-system.jpg",
     overview: {
-      zh: "醫療預約 Web App 開發中，提供科別掛號、醫師時段選擇、視訊問診連結與自動提醒通知，減少櫃台電話登記與人工確認，提升病患自助預約比例。",
-      en: "Healthcare appointment web app in build — department booking, physician slots, televisit links, and automated reminders to raise self-service scheduling and ease front-desk load.",
+      zh: "醫療預約系統開發中，支援科別掛號、醫師時段、視訊問診與提醒通知，讓病患可自行完成預約，櫃台電話量得以下降。",
+      en: "Healthcare appointment system in build — department booking, physician slots, televisit links, and reminders so patients self-schedule and front-desk phone load drops.",
     },
     techTags: [
       "Next.js",
@@ -405,6 +414,7 @@ export const projects: Project[] = [
       "PostgreSQL",
       "Google APIs",
       "Cloudflare",
+      "Vercel",
     ],
   },
   {
@@ -417,8 +427,8 @@ export const projects: Project[] = [
     platform: "SaaS",
     coverImage: "/projects/construction-management-platform.jpg",
     overview: {
-      zh: "工程專案管理 SaaS 概念，追蹤工地進度、材料清單、施工照片與驗收紀錄，方便監造單位與承包商在同一平台協作，降低 Excel 與通訊軟體分散管理風險。",
-      en: "Concept construction project SaaS — site progress, materials, site photos, and inspection logs so owners and contractors collaborate without spreadsheet and chat fragmentation.",
+      zh: "工程管理平台的概念設計，記錄工地進度、材料、照片與驗收項目，監造與承包方在同一系統更新，減少通訊軟體散落的重要資訊。",
+      en: "Concept construction management platform — site progress, materials, photos, and inspection items updated by owners and contractors in one system instead of scattered chat threads.",
     },
     techTags: [
       "Next.js",
@@ -439,8 +449,8 @@ export const projects: Project[] = [
     platform: "SaaS",
     coverImage: "/projects/e-commerce-platform.jpg",
     overview: {
-      zh: "已交付的多租戶電商 SaaS，含商品目錄、購物車、Stripe 金流、訂單管理與庫存同步，支援品牌自有網域部署，可作為零售客戶快速上線的標準化基底。",
-      en: "Delivered multi-tenant e-commerce SaaS — catalog, cart, Stripe payments, orders, and inventory sync on custom domains as a standardized retail launch foundation.",
+      zh: "多租戶電商 SaaS 已交付，提供商品、購物車、Stripe 金流、訂單與庫存模組，客戶可在自有網域快速上架，縮短零售品牌導入時間。",
+      en: "Delivered multi-tenant e-commerce SaaS — catalog, cart, Stripe payments, orders, and inventory on custom domains so retail brands launch faster.",
     },
     techTags: [
       "Next.js",
@@ -462,8 +472,8 @@ export const projects: Project[] = [
     platform: "SaaS",
     coverImage: "/projects/hr-management-system.jpg",
     overview: {
-      zh: "人資管理 SaaS 概念，涵蓋員工資料、出勤請假、薪資結構與招募流程模組，讓 HR 與部門主管在同一後台審批與查閱，建立可擴充的企業內部人事作業流程。",
-      en: "Concept HR SaaS — employee records, attendance and leave, compensation structures, and hiring workflows so HR and managers approve and review from one expandable back office.",
+      zh: "人資管理系統的概念規劃，涵蓋員工檔案、出勤請假、薪資結構與招募流程，HR 與主管在同一後台簽核，避免人事資料分散各處。",
+      en: "Concept HR SaaS — employee records, attendance and leave, compensation, and hiring workflows with HR and managers approving from one back office.",
     },
     techTags: [
       "Next.js",
@@ -472,6 +482,7 @@ export const projects: Project[] = [
       "Supabase",
       "Google APIs",
       "Stripe",
+      "Cloudflare",
     ],
   },
   {
@@ -484,8 +495,8 @@ export const projects: Project[] = [
     platform: "Dashboard",
     coverImage: "/projects/smart-factory-dashboard.jpg",
     overview: {
-      zh: "智慧工廠營運儀表板概念，彙整產線稼動、設備健康狀態、異常告警與產能趨勢圖表，協助製造端管理者即時掌握現場狀況並支援後續 IoT 資料串接擴充。",
-      en: "Concept smart factory dashboard — line utilization, equipment health, anomaly alerts, and capacity trends with room to extend into IoT data feeds for shop-floor leaders.",
+      zh: "智慧工廠儀表板的概念方案，彙整產線稼動、設備狀態與異常警示，為製造業現場管理預留 IoT 資料接入空間，方便後續擴充。",
+      en: "Concept smart factory dashboard — line utilization, equipment health, and anomaly alerts with headroom for IoT feeds as shop-floor visibility expands.",
     },
     techTags: [
       "Next.js",
@@ -494,6 +505,7 @@ export const projects: Project[] = [
       "Supabase",
       "OpenAI",
       "Cloudflare",
+      "Vercel",
     ],
   },
 ];

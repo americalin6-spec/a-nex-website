@@ -387,7 +387,7 @@ export const translations = {
       label: "案例實績",
       title: "AXORA Project Portfolio",
       subtitle:
-        "精選 AI 平台、CRM、教育、預約、電商與製造儀表板等專案架構展示。每張卡片為代表性交付類型，細節頁面將於後續上線。",
+        "展示 AXORA 在 AI、CRM、SaaS、企業系統、網站開發與數位轉型的代表性專案與解決方案。",
       viewProject: "查看專案",
     },
     services: {
@@ -962,7 +962,7 @@ export const translations = {
       label: "Projects",
       title: "AXORA Project Portfolio",
       subtitle:
-        "Selected builds across AI platforms, CRM, education, booking, e-commerce, and manufacturing dashboards. Cards represent delivery types — detail pages coming soon.",
+        "Selected software, AI, CRM, SaaS and enterprise digital transformation projects developed by AXORA.",
       viewProject: "View Project",
     },
     services: {

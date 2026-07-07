@@ -1,9 +1,44 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import type { Project } from "../../data/projects";
 import { useLanguage, useLocalized } from "../../context/language-context";
 import { Reveal } from "../ui/reveal";
+
+function ProjectCover({ project }: { project: Project }) {
+  const [imageReady, setImageReady] = useState(false);
+
+  return (
+    <div className="relative aspect-[16/10] overflow-hidden border-b border-border/60 bg-charcoal">
+      <div className="absolute inset-0 bg-gradient-to-br from-charcoal via-background to-accent-blue/20" />
+      <div
+        className={`absolute inset-0 flex flex-col items-center justify-center gap-3 transition-opacity duration-500 ${
+          imageReady ? "opacity-0" : "opacity-100"
+        }`}
+      >
+        <span className="font-mono text-sm uppercase tracking-[0.3em] text-foreground/90">
+          Project Showcase
+        </span>
+        <span className="font-mono text-xs uppercase tracking-[0.45em] text-muted/45">
+          AXORA
+        </span>
+      </div>
+      <Image
+        src={project.coverImage}
+        alt=""
+        fill
+        className={`object-cover transition-opacity duration-500 ${
+          imageReady ? "opacity-100" : "opacity-0"
+        }`}
+        sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+        onLoad={() => setImageReady(true)}
+        onError={() => setImageReady(false)}
+      />
+    </div>
+  );
+}
 
 export function ProjectCard({
   project,
@@ -19,17 +54,7 @@ export function ProjectCard({
     <Reveal delay={index * 0.04}>
       <article className="gradient-border group flex h-full flex-col transition-all duration-300 hover:-translate-y-0.5">
         <div className="gradient-border-inner flex h-full flex-col overflow-hidden rounded-[inherit]">
-          <div className="relative aspect-[16/10] overflow-hidden border-b border-border/60 bg-background/80">
-            <div className="absolute inset-0 bg-gradient-to-br from-accent-blue/15 via-background to-accent-purple/10" />
-            <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 p-6 text-center">
-              <span className="font-mono text-xs uppercase tracking-[0.25em] text-accent-cyan">
-                {project.category}
-              </span>
-              <span className="text-label font-mono uppercase tracking-wider text-muted">
-                Placeholder
-              </span>
-            </div>
-          </div>
+          <ProjectCover project={project} />
 
           <div className="flex flex-1 flex-col p-6 lg:p-8">
             <p className="text-label font-mono uppercase tracking-wider text-accent-cyan">
