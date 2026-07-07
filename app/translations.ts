@@ -8,7 +8,7 @@ export const translations = {
         "AXORA 為企業開發智能分析系統、SaaS 平台、客戶管理、商業自動化、LINE 官方帳號整合、網站、應用程式、儀表板與內部營運系統。從需求到上線，一站式交付。",
     },
     nav: {
-      platform: "服務總覽",
+      platform: "服務項目",
       solutions: "案例",
       services: "服務項目",
       lineAi: "智能分析平台",
@@ -326,7 +326,7 @@ export const translations = {
       },
       services: {
         label: "完整服務清單",
-        title: "我們接受的委託類型",
+        title: "服務項目",
         items: [
           "自動化流程與對話系統",
           "SaaS 平台開發",
