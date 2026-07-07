@@ -472,10 +472,10 @@ export const translations = {
       ],
     },
     about: {
-      label: "關於 AXORA",
-      headline: "專注企業智能分析軟體、客戶管理與自動化的開發團隊",
+      label: "企業 AI 與軟體開發",
+      headline: "從需求到上線，為企業打造可運作的數位系統",
       intro:
-        "AXORA 服務需要「把營運做成系統」的企業：銷售團隊要客戶管理、客服要 智能分析平台、管理層要儀表板、新創要 SaaS。AXORA 專注打造智能分析系統、自動化平台、客戶管理、Dashboard 與企業數位解決方案。",
+        "AXORA 接受企業委託，開發 AI 對話與代理系統、客製化網站與 SaaS、CRM 與營運後台、LINE 官方帳號串接、第三方 API 整合、雲端部署，以及 AI 自動化流程。我們依實際業務設計架構與介面，交付可維護、可擴充的系統，而非套版網站。",
       mission:
         "讓每一家成長中的企業，都能擁有符合自己流程的數位系統，而不是將就現成套件。",
       whoWeServe: {
@@ -1039,10 +1039,10 @@ export const translations = {
       ],
     },
     about: {
-      label: "About AXORA",
-      headline: "A Team Focused on Business Analytics Software, Customer Management & Automation",
+      label: "Enterprise AI & Software",
+      headline: "We build production-ready systems from discovery through launch",
       intro:
-        "We serve companies that need operational systems: sales teams need Customer Management, support needs Analytics Platform, leadership needs dashboards, and startups need SaaS. AXORA focuses on analytics systems, SaaS platforms, Customer Management, business automation, websites and apps, dashboard systems, enterprise software, and digital services.",
+        "AXORA takes on client engagements for AI chat and agent systems, custom websites and SaaS, CRM and operations back offices, LINE Official Account integration, third-party APIs, cloud deployment, and AI-driven automation. We design around how your team actually works — maintainable, extensible software, not template sites.",
       mission:
         "Every growing company deserves software that matches how they operate — not the other way around.",
       whoWeServe: {

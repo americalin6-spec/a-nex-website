@@ -20,21 +20,29 @@ export function KpiCards() {
 
   const kpis = isZh
     ? [
-        { label: "本月潛在客戶", value: "1,284", change: "+18%" },
-        { label: "轉換率", value: "24.6%", change: "+3.2%" },
-        { label: "進行中交易", value: "86", change: "12 筆新增" },
-        { label: "自動化任務", value: "3,420", change: "本週執行" },
+        { label: "潛客管理", value: "Preview", change: "Lead Management" },
+        { label: "銷售儀表板", value: "Preview", change: "Sales Dashboard" },
+        { label: "流程自動化", value: "Preview", change: "Workflow Automation" },
+        { label: "數據分析", value: "Preview", change: "Analytics" },
       ]
     : [
-        { label: "Monthly Leads", value: "1,284", change: "+18%" },
-        { label: "Conversion", value: "24.6%", change: "+3.2%" },
-        { label: "Active Deals", value: "86", change: "12 new" },
-        { label: "Automations", value: "3,420", change: "this week" },
+        { label: "Lead Management", value: "Preview", change: "Module demo" },
+        { label: "Sales Dashboard", value: "Preview", change: "Module demo" },
+        { label: "Workflow Automation", value: "Preview", change: "Module demo" },
+        { label: "Analytics", value: "Preview", change: "Module demo" },
       ];
 
   return (
     <div className={panel}>
       <div className={`${panelInner} grid grid-cols-2 gap-3`}>
+        <div className="col-span-2 flex items-baseline justify-between gap-2 border-b border-border/60 pb-3">
+          <span className="text-label font-mono uppercase tracking-wider text-accent-cyan">
+            {isZh ? "系統展示" : "Dashboard Preview"}
+          </span>
+          <span className="text-caption text-muted">
+            {isZh ? "System Demonstration" : "Sample UI"}
+          </span>
+        </div>
         {kpis.map((k, i) => (
           <div
             key={k.label}
@@ -64,16 +72,16 @@ export function CrmTablePreview() {
 
   const rows = isZh
     ? [
-        ["陳先生", "進行中", "議價", "今日 14:00"],
-        ["林小姐", "新客戶", "初次接觸", "明日 10:00"],
-        ["王科技", "成交", "已簽約", "—"],
-        ["張設計", "待回覆", "提案", "逾期 1 天"],
+        ["示意 · 客戶 A", "範例", "範例", "—"],
+        ["示意 · 客戶 B", "範例", "範例", "—"],
+        ["示意 · 客戶 C", "範例", "範例", "—"],
+        ["示意 · 客戶 D", "範例", "範例", "—"],
       ]
     : [
-        ["Mr. Chen", "Active", "Negotiation", "Today 2pm"],
-        ["Ms. Lin", "New", "Discovery", "Tomorrow 10am"],
-        ["Wang Tech", "Won", "Closed", "—"],
-        ["Zhang Design", "Pending", "Proposal", "1d overdue"],
+        ["Sample · Customer A", "Demo", "Demo", "—"],
+        ["Sample · Customer B", "Demo", "Demo", "—"],
+        ["Sample · Customer C", "Demo", "Demo", "—"],
+        ["Sample · Customer D", "Demo", "Demo", "—"],
       ];
 
   const statusColor = (status: string) => {
@@ -89,10 +97,10 @@ export function CrmTablePreview() {
       <div className={panelInner}>
         <div className="mb-3 flex items-center justify-between">
           <span className="text-label font-mono uppercase tracking-wider text-accent-cyan">
-            {isZh ? "客戶管理" : "Customer mgmt"}
+            {isZh ? "CRM 展示" : "CRM Preview"}
           </span>
           <span className="text-caption text-muted">
-            {isZh ? "128 位客戶" : "128 customers"}
+            {isZh ? "示意資料 · Sample" : "Sample data"}
           </span>
         </div>
         <div className="overflow-hidden rounded-md border border-border/80">
