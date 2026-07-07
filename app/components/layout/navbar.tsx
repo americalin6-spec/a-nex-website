@@ -13,7 +13,6 @@ const navItems = [
   { href: "/about", key: "about" as const },
   { href: "/services", key: "platform" as const },
   { href: "/line-ai", key: "lineAi" as const },
-  { href: "/work", key: "solutions" as const },
   { href: "/projects", key: "projects" as const },
   { href: "/contact", key: "contact" as const },
 ];

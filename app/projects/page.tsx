@@ -1,8 +1,14 @@
 "use client";
 
+import Link from "next/link";
+import { caseStudies } from "../data/case-studies";
 import { projects } from "../data/projects";
 import { useLanguage } from "../context/language-context";
 import { ProjectCard } from "../components/projects/project-card";
+import {
+  CaseStudySection,
+  CaseStudyPreviewCard,
+} from "../components/case-studies/case-study-section";
 import { Reveal } from "../components/ui/reveal";
 
 export default function ProjectsPage() {
@@ -31,6 +37,27 @@ export default function ProjectsPage() {
           <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
             {projects.map((project, index) => (
               <ProjectCard key={project.id} project={project} index={index} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-[1400px] px-6 pb-16 lg:px-12 lg:pb-20">
+        {caseStudies.map((study, i) => (
+          <CaseStudySection key={study.id} study={study} index={i} />
+        ))}
+      </section>
+
+      <section className="section-elevated py-16 lg:py-20">
+        <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
+          <p className="text-label font-mono uppercase tracking-[0.3em] text-accent-blue">
+            {t.solutions.gridLabel}
+          </p>
+          <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {caseStudies.map((study, i) => (
+              <Link key={study.id} href={`#${study.id}`}>
+                <CaseStudyPreviewCard study={study} index={i} />
+              </Link>
             ))}
           </div>
         </div>
