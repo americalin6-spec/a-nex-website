@@ -10,6 +10,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/contact",
     "/services",
     "/work",
+    "/projects",
     "/line-ai",
     "/downloads",
     "/services/ai-crm",

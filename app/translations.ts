@@ -10,6 +10,7 @@ export const translations = {
     nav: {
       platform: "服務項目",
       solutions: "案例",
+      projects: "案例實績",
       services: "服務項目",
       lineAi: "智能分析平台",
       downloads: "免費下載",
@@ -382,6 +383,13 @@ export const translations = {
         "涵蓋 LINE 客戶管理、房地產銷售、租賃營運自動化、成交追蹤、管理儀表板與官網後台 — 可依產業參考類似做法。",
       gridLabel: "案例一覽",
     },
+    projects: {
+      label: "案例實績",
+      title: "AXORA Project Portfolio",
+      subtitle:
+        "精選 AI 平台、CRM、教育、預約、電商與製造儀表板等專案架構展示。每張卡片為代表性交付類型，細節頁面將於後續上線。",
+      viewProject: "查看專案",
+    },
     services: {
       label: "服務項目",
       title: "我們為企業提供的開發服務",
@@ -576,6 +584,7 @@ export const translations = {
     nav: {
       platform: "Overview",
       solutions: "Work",
+      projects: "Projects",
       services: "Services",
       lineAi: "Analytics Platform",
       downloads: "Free Download",
@@ -948,6 +957,13 @@ export const translations = {
       subtitle:
         "LINE Customer Management, real estate sales, rental ops automation, Deal tracking, executive dashboards, and corporate site + admin — browse by industry.",
       gridLabel: "All Cases",
+    },
+    projects: {
+      label: "Projects",
+      title: "AXORA Project Portfolio",
+      subtitle:
+        "Selected builds across AI platforms, CRM, education, booking, e-commerce, and manufacturing dashboards. Cards represent delivery types — detail pages coming soon.",
+      viewProject: "View Project",
     },
     services: {
       label: "Services",
