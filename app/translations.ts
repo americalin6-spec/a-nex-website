@@ -193,7 +193,7 @@ export const translations = {
     },
     home: {
       hero: {
-        label: "企業軟體開發 · 智能分析 · 自動化流程",
+        label: "客製化網站 · AI 智能分析 · 自動化流程",
         headline: "AI客戶管理系統、CRM系統與SaaS平台開發",
         subtitle:
           "AXORA 提供 AI 客戶管理系統、CRM 系統、SaaS 平台開發、AI 自動化系統、LINE 官方帳號串接、客製化網站開發與 APP 開發服務，協助企業提升效率與成交率。",

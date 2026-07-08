@@ -62,7 +62,7 @@ export function HomePage() {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="text-label font-mono uppercase tracking-[0.3em] text-accent-blue"
             >
-              {t.home.hero.label}
+              客製化網站 · AI 智能分析 · 自動化流程
             </motion.p>
 
             <motion.h1
