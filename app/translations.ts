@@ -389,6 +389,16 @@ export const translations = {
       subtitle:
         "展示 AXORA 在 AI、CRM、SaaS、企業系統、網站開發與數位轉型的代表性專案與解決方案。",
       viewProject: "查看專案",
+      detail: {
+        overview: "專案概述",
+        clientRequirements: "客戶需求",
+        solution: "解決方案",
+        coreFeatures: "核心功能",
+        technologyStack: "技術架構",
+        projectGallery: "專案展示",
+        projectResult: "專案成果",
+        backToProjects: "返回案例實績",
+      },
     },
     services: {
       label: "服務項目",
@@ -1018,6 +1028,16 @@ export const translations = {
       subtitle:
         "Selected software, AI, CRM, SaaS and enterprise digital transformation projects developed by AXORA.",
       viewProject: "View Project",
+      detail: {
+        overview: "Project Overview",
+        clientRequirements: "Client Requirements",
+        solution: "Solution",
+        coreFeatures: "Core Features",
+        technologyStack: "Technology Stack",
+        projectGallery: "Project Gallery",
+        projectResult: "Project Result",
+        backToProjects: "Back to Projects",
+      },
     },
     services: {
       label: "Services",

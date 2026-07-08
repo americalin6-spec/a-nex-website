@@ -509,3 +509,7 @@ export const projects: Project[] = [
     ],
   },
 ];
+
+export function getProjectById(id: string) {
+  return projects.find((project) => project.id === id);
+}
