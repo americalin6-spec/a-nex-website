@@ -385,7 +385,7 @@ export const translations = {
     },
     projects: {
       label: "案例實績",
-      title: "AXORA Project Portfolio",
+      title: "精選案例",
       subtitle:
         "展示 AXORA 在 AI、CRM、SaaS、企業系統、網站開發與數位轉型的代表性專案與解決方案。",
       viewProject: "查看專案",
@@ -1024,7 +1024,7 @@ export const translations = {
     },
     projects: {
       label: "Projects",
-      title: "AXORA Project Portfolio",
+      title: "Featured Projects",
       subtitle:
         "Selected software, AI, CRM, SaaS and enterprise digital transformation projects developed by AXORA.",
       viewProject: "View Project",

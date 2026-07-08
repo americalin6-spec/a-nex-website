@@ -28,6 +28,7 @@ type ProjectCoverImageProps = {
   className?: string;
   sizes?: string;
   priority?: boolean;
+  showFallback?: boolean;
 };
 
 export function ProjectCoverImage({
@@ -36,24 +37,28 @@ export function ProjectCoverImage({
   className = "relative aspect-[16/10] overflow-hidden bg-charcoal",
   sizes = "(max-width: 768px) 100vw, 1400px",
   priority = false,
+  showFallback = true,
 }: ProjectCoverImageProps) {
   const [imageReady, setImageReady] = useState(false);
+  const imageVisible = showFallback ? imageReady : true;
 
   return (
     <div className={className}>
-      <ProjectShowcaseFallback
-        className={
-          imageReady ? "opacity-0 transition-opacity duration-500" : "opacity-100"
-        }
-      />
+      {showFallback ? (
+        <ProjectShowcaseFallback
+          className={
+            imageReady ? "opacity-0 transition-opacity duration-500" : "opacity-100"
+          }
+        />
+      ) : null}
       <Image
         src={src}
         alt={alt}
         fill
         priority={priority}
-        className={`object-cover transition-opacity duration-500 ${
-          imageReady ? "opacity-100" : "opacity-0"
-        }`}
+        className={`object-cover ${
+          showFallback ? "transition-opacity duration-500" : ""
+        } ${imageVisible ? "opacity-100" : "opacity-0"}`}
         sizes={sizes}
         onLoad={() => setImageReady(true)}
         onError={() => setImageReady(false)}

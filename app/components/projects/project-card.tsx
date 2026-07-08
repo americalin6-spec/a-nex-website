@@ -22,6 +22,7 @@ export function ProjectCard({
         <div className="gradient-border-inner flex h-full flex-col overflow-hidden rounded-[inherit]">
           <ProjectCoverImage
             src={project.coverImage}
+            showFallback={false}
             className="relative aspect-[16/10] overflow-hidden border-b border-border/60 bg-charcoal"
             sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
           />

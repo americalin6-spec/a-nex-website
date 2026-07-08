@@ -19,7 +19,7 @@ export default function ProjectsPage() {
       <section className="section-glow mesh-accent relative border-b border-border py-16 lg:py-20">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
           <Reveal>
-            <p className="text-label font-mono uppercase tracking-[0.3em] text-accent-blue">
+            <p className="text-label text-[1.09375rem] font-mono uppercase tracking-[0.3em] text-accent-blue">
               {t.projects.label}
             </p>
             <h1 className="text-display page-title mt-4">
