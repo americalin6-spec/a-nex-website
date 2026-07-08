@@ -293,7 +293,7 @@ export const translations = {
         steps: [
           {
             title: "需求訪談",
-            desc: "了解業務流程、痛點、現有工具與預算時程。",
+            desc: "了解目前業務流程、使用工具、需求目標與預算時程。",
           },
           {
             title: "方案與報價",

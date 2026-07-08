@@ -7,7 +7,10 @@ import { useLanguage } from "../../context/language-context";
 import { CaseStudyPreviewCard } from "../case-studies/case-study-section";
 import { SectionHeader } from "../ui/section-header";
 import {
-  HeroVisualCluster,
+  HeroPortfolioShowcase,
+  HeroShowcaseBackground,
+} from "./hero-portfolio-showcase";
+import {
   PlatformServiceVisualCards,
 } from "../visuals/product-visual-library";
 import { SaasMetricsStrip } from "../visuals/saas-metrics-strip";
@@ -48,12 +51,11 @@ export function HomePage() {
   return (
     <>
       {/* Hero */}
-      <section className="section-glow relative overflow-hidden border-b border-border">
-        <div className="absolute inset-0 hero-glow" />
-        <div className="mesh-accent absolute inset-0" />
+      <section className="relative min-h-[95vh] overflow-hidden border-b border-border lg:min-h-screen">
+        <HeroShowcaseBackground />
 
-        <div className="relative mx-auto grid max-w-[1400px] items-center gap-12 px-6 py-24 lg:grid-cols-2 lg:gap-16 lg:px-12 lg:py-28">
-          <div>
+        <div className="relative mx-auto flex min-h-[95vh] max-w-[1400px] items-center px-6 py-20 lg:min-h-screen lg:grid lg:grid-cols-[2fr_3fr] lg:gap-12 lg:px-12 lg:py-16">
+          <div className="flex flex-col justify-center lg:max-w-xl lg:pr-4 xl:pr-8">
             <motion.p
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
@@ -67,7 +69,7 @@ export function HomePage() {
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-display mt-6 text-4xl sm:text-5xl lg:text-6xl"
+              className="text-display mt-5 text-4xl sm:text-5xl lg:mt-6 lg:text-6xl"
             >
               <span className="gradient-text">{t.home.hero.headline}</span>
             </motion.h1>
@@ -76,7 +78,7 @@ export function HomePage() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.35 }}
-              className="mt-6 max-w-xl text-body text-muted-light"
+              className="mt-5 max-w-xl text-body leading-relaxed text-muted-light lg:mt-6"
             >
               {t.home.hero.subtitle}
             </motion.p>
@@ -85,7 +87,7 @@ export function HomePage() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="mt-6 max-w-xl space-y-2 text-body-sm text-muted-light"
+              className="mt-5 max-w-xl space-y-2.5 text-body-sm text-muted-light lg:mt-6"
             >
               {t.home.hero.bullets.map((item) => (
                 <li key={item} className="flex gap-2">
@@ -99,7 +101,7 @@ export function HomePage() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.45 }}
-              className="mt-8 flex flex-wrap gap-3"
+              className="mt-7 flex flex-wrap gap-3 lg:mt-8"
             >
               <Link
                 href="/services"
@@ -119,7 +121,7 @@ export function HomePage() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.6 }}
-              className="mt-10 flex flex-wrap gap-2"
+              className="mt-8 flex flex-wrap gap-2 lg:mt-10"
             >
               {techStack.map((tech) => (
                 <span
@@ -132,7 +134,9 @@ export function HomePage() {
             </motion.div>
           </div>
 
-          <HeroVisualCluster />
+          <div className="mt-12 flex items-center justify-center lg:mt-0">
+            <HeroPortfolioShowcase />
+          </div>
         </div>
       </section>
 
