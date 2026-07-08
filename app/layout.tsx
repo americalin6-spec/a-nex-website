@@ -56,13 +56,9 @@ export const metadata: Metadata = {
     google: "ui1yOGHIuDFLC3qDkvHtIxwpw-BydSWQ1_0OB4c4MAw",
   },
   icons: {
-    icon: [
-      {
-        url: "/axora-logo-transparent.png",
-        type: "image/png",
-      },
-    ],
-    apple: "/axora-logo-transparent.png",
+    icon: "/favicon.png",
+    shortcut: "/favicon.ico",
+    apple: "/favicon.png",
   },
 };
 
