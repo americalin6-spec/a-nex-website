@@ -56,21 +56,25 @@ export function Navbar() {
           : "bg-transparent"
       }`}
     >
-      <nav className="mx-auto grid h-16 max-w-[1400px] grid-cols-[1fr_auto] items-center gap-x-3 px-6 md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] lg:gap-x-4 lg:px-12">
-        <div className="flex shrink-0 items-center justify-self-start">
+      <nav className="mx-auto flex h-16 max-w-[1400px] items-center gap-2 overflow-visible px-4 sm:gap-3 sm:px-6 md:grid md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] md:gap-x-3 lg:gap-x-4 lg:px-12">
+        <div className="flex shrink-0 items-center md:justify-self-start">
           <Link
             href="/"
-            className="relative z-[1] flex shrink-0 items-center transition-opacity duration-300 hover:opacity-70"
+            className="flex shrink-0 items-center transition-opacity duration-300 hover:opacity-70"
           >
             <Image
               src="/axora-logo-transparent.png"
               alt="AXORA"
-              width={50}
+              width={140}
               height={50}
-              className="block h-[50px] w-[50px] shrink-0 object-contain"
+              className="block h-[38px] w-auto shrink-0 object-contain md:h-[50px]"
               priority
             />
           </Link>
+        </div>
+
+        <div className="shrink-0 md:hidden">
+          <LanguageSwitcher />
         </div>
 
         <ul className="hidden items-center gap-x-9 lg:gap-x-10 md:flex md:justify-self-center">
@@ -90,12 +94,17 @@ export function Navbar() {
           ))}
         </ul>
 
-        <div className="flex min-w-0 items-center justify-end justify-self-end gap-3 sm:gap-4 md:col-start-3">
-          <LanguageSwitcher />
-          <LineAddButton variant="nav" className="hidden sm:inline-flex" />
+        <div className="ml-auto flex shrink-0 items-center justify-end gap-1.5 sm:gap-2 md:col-start-3 md:ml-0 md:gap-3 lg:gap-4">
+          <div className="hidden shrink-0 md:block">
+            <LanguageSwitcher />
+          </div>
+          <LineAddButton
+            variant="nav"
+            className="inline-flex shrink-0 max-md:!px-2 max-md:!py-1.5 max-md:text-xs"
+          />
           <Link
             href="/contact"
-            className="btn-primary hidden rounded-lg px-4 py-2.5 text-sm font-mono font-semibold uppercase leading-none tracking-[0.12em] md:inline-block"
+            className="btn-primary inline-flex shrink-0 rounded-lg px-2 py-1.5 text-xs font-mono font-semibold uppercase leading-none tracking-[0.1em] sm:px-3 sm:py-2 md:px-4 md:py-2.5 md:text-sm md:tracking-[0.12em]"
           >
             {t.nav.contact}
           </Link>
