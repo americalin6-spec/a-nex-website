@@ -9,11 +9,9 @@ import { CaseStudyVisualThumb } from "../visuals/product-visual-library";
 export function CaseStudySection({
   study,
   index,
-  disableScrollAnimation = false,
 }: {
   study: CaseStudy;
   index: number;
-  disableScrollAnimation?: boolean;
 }) {
   const { t, locale } = useLanguage();
   const category = useLocalized(study.category);
@@ -26,12 +24,21 @@ export function CaseStudySection({
 
   const labels = t.caseStudies;
 
-  const className = `grid gap-10 border-t border-border py-16 lg:grid-cols-2 lg:gap-14 lg:py-24 ${
-    index % 2 === 1 ? "lg:[&>div:first-child]:order-2" : ""
-  }`;
-
-  const content = (
-    <>
+  return (
+    <motion.article
+      id={study.id}
+      initial={{ opacity: 0, y: 32 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{
+        duration: 0.7,
+        delay: index * 0.04,
+        ease: [0.16, 1, 0.3, 1],
+      }}
+      className={`grid gap-10 border-t border-border py-16 lg:grid-cols-2 lg:gap-14 lg:py-24 ${
+        index % 2 === 1 ? "lg:[&>div:first-child]:order-2" : ""
+      }`}
+    >
       <div className="lg:sticky lg:top-28 lg:self-start">
         <VisualRenderer type={study.visual} />
       </div>
@@ -91,31 +98,6 @@ export function CaseStudySection({
           ))}
         </ul>
       </div>
-    </>
-  );
-
-  if (disableScrollAnimation) {
-    return (
-      <article id={study.id} className={className}>
-        {content}
-      </article>
-    );
-  }
-
-  return (
-    <motion.article
-      id={study.id}
-      initial={{ opacity: 0, y: 32 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{
-        duration: 0.7,
-        delay: index * 0.04,
-        ease: [0.16, 1, 0.3, 1],
-      }}
-      className={className}
-    >
-      {content}
     </motion.article>
   );
 }

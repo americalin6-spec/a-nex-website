@@ -9,17 +9,15 @@ import { Reveal } from "../ui/reveal";
 export function ProjectCard({
   project,
   index,
-  disableScrollAnimation = false,
 }: {
   project: Project;
   index: number;
-  disableScrollAnimation?: boolean;
 }) {
   const { t } = useLanguage();
   const overview = useLocalized(project.overview);
 
   return (
-    <Reveal delay={index * 0.04} disableScrollAnimation={disableScrollAnimation}>
+    <Reveal delay={index * 0.04}>
       <article className="gradient-border group flex h-full flex-col transition-all duration-300 hover:-translate-y-0.5">
         <div className="gradient-border-inner flex h-full flex-col overflow-hidden rounded-[inherit]">
           <ProjectCoverImage

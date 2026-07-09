@@ -1,8 +1,6 @@
 "use client";
 
-import { isIosSafari } from "@/lib/ios-safari";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import { useLanguage } from "../context/language-context";
 import { SectionHeader } from "../components/ui/section-header";
 import { KpiCards, CrmTablePreview } from "../components/visuals/visual-mockups";
@@ -10,17 +8,12 @@ import { Reveal } from "../components/ui/reveal";
 
 export default function AboutPage() {
   const { t } = useLanguage();
-  const [iosSafariGpuSafe, setIosSafariGpuSafe] = useState(false);
-
-  useEffect(() => {
-    setIosSafariGpuSafe(isIosSafari());
-  }, []);
 
   return (
     <div className="pt-20">
       <section className="section-glow mesh-accent relative border-b border-border py-16 lg:py-20">
         <div className="mx-auto grid max-w-[1400px] items-center gap-12 px-6 lg:grid-cols-2 lg:px-12">
-          <Reveal disableScrollAnimation={iosSafariGpuSafe}>
+          <Reveal>
             <p className="text-label font-mono uppercase tracking-[0.3em] text-accent-blue">
               {t.about.label}
             </p>
@@ -36,7 +29,7 @@ export default function AboutPage() {
               {t.common.contactUs}
             </Link>
           </Reveal>
-          <Reveal delay={0.15} disableScrollAnimation={iosSafariGpuSafe}>
+          <Reveal delay={0.15}>
             <div className="grid gap-4">
               <KpiCards />
               <CrmTablePreview />
@@ -48,7 +41,6 @@ export default function AboutPage() {
       <section className="section-elevated py-16 lg:py-20">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
           <SectionHeader
-            disableScrollAnimation={iosSafariGpuSafe}
             label={t.about.whoWeServe.label}
             title={t.about.whoWeServe.label}
             align="center"
@@ -67,7 +59,6 @@ export default function AboutPage() {
       <section className="py-16 lg:py-20">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
           <SectionHeader
-            disableScrollAnimation={iosSafariGpuSafe}
             label={t.about.topicsLabel}
             title={t.about.topicsLabel}
             align="center"
@@ -87,15 +78,11 @@ export default function AboutPage() {
 
       <section className="py-16 lg:py-20">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
-          <SectionHeader
-            disableScrollAnimation={iosSafariGpuSafe}
-            label={t.about.timelineLabel}
-            title={t.about.timelineLabel}
-          />
+          <SectionHeader label={t.about.timelineLabel} title={t.about.timelineLabel} />
           <ul className="mt-10 list-none space-y-4">
             {t.about.timeline.map((item, i) => (
               <li key={item.year}>
-                <Reveal delay={i * 0.06} disableScrollAnimation={iosSafariGpuSafe}>
+                <Reveal delay={i * 0.06}>
                   <div className="glass-card grid gap-3 rounded-xl p-6 lg:grid-cols-[120px_1fr] lg:gap-8">
                     <span className="font-mono text-lg text-accent-blue">
                       {item.year}
