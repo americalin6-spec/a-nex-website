@@ -1,6 +1,8 @@
 "use client";
 
+import { isIosSafari } from "@/lib/ios-safari";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { SectionHeader } from "../components/ui/section-header";
 import { Reveal } from "../components/ui/reveal";
 import { SaasMetricsStrip } from "../components/visuals/saas-metrics-strip";
@@ -13,12 +15,17 @@ const trialHref = "https://app.axora.tw";
 
 export default function DownloadsPage() {
   const { t } = useLanguage();
+  const [iosSafariGpuSafe, setIosSafariGpuSafe] = useState(false);
+
+  useEffect(() => {
+    setIosSafariGpuSafe(isIosSafari());
+  }, []);
 
   return (
     <div className="pt-20">
       <section className="section-glow mesh-accent relative border-b border-border py-16 lg:py-20">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
-          <Reveal>
+          <Reveal disableScrollAnimation={iosSafariGpuSafe}>
             <p className="text-label font-mono uppercase tracking-[0.3em] text-accent-cyan">
               {t.downloads.hero.label}
             </p>
@@ -59,13 +66,18 @@ export default function DownloadsPage() {
       <section className="section-elevated py-16 lg:py-20">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
           <SectionHeader
+            disableScrollAnimation={iosSafariGpuSafe}
             label={t.downloads.features.label}
             title={t.downloads.features.title}
             align="center"
           />
           <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {t.downloads.features.items.map((item, i) => (
-              <Reveal key={item.title} delay={i * 0.04}>
+              <Reveal
+                key={item.title}
+                delay={i * 0.04}
+                disableScrollAnimation={iosSafariGpuSafe}
+              >
                 <div className="glass-card h-full rounded-xl p-6">
                   <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-accent-blue/15 font-mono text-sm text-accent-blue">
                     {String(i + 1).padStart(2, "0")}
@@ -90,6 +102,7 @@ export default function DownloadsPage() {
       <section className="section-violet border-b border-border py-16 lg:py-20">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
           <SectionHeader
+            disableScrollAnimation={iosSafariGpuSafe}
             label={t.downloads.pricing.label}
             title={t.downloads.pricing.title}
             align="center"
@@ -99,7 +112,11 @@ export default function DownloadsPage() {
           </p>
           <div className="mt-12 grid gap-5 lg:grid-cols-3">
             {t.downloads.pricing.plans.map((plan, i) => (
-              <Reveal key={plan.name} delay={i * 0.06}>
+              <Reveal
+                key={plan.name}
+                delay={i * 0.06}
+                disableScrollAnimation={iosSafariGpuSafe}
+              >
                 <div
                   className={`glass-card flex h-full flex-col rounded-xl p-8 ${
                     plan.name === "Pro"
@@ -139,12 +156,13 @@ export default function DownloadsPage() {
       <section className="py-16 lg:py-20">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
           <SectionHeader
+            disableScrollAnimation={iosSafariGpuSafe}
             label={t.downloads.visuals.label}
             title={t.downloads.visuals.title}
             description={t.downloads.visuals.subtitle}
             align="center"
           />
-          <Reveal className="mt-12">
+          <Reveal className="mt-12" disableScrollAnimation={iosSafariGpuSafe}>
             <SaaSProductBento />
           </Reveal>
           <div className="mt-10">

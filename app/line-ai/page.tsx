@@ -1,6 +1,8 @@
 "use client";
 
+import { isIosSafari } from "@/lib/ios-safari";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import {
   LineAiReplyPreview,
   LineChatPreview,
@@ -16,6 +18,12 @@ import { Reveal } from "../components/ui/reveal";
 
 export default function LineAiPage() {
   const { t, locale } = useLanguage();
+  const [iosSafariGpuSafe, setIosSafariGpuSafe] = useState(false);
+
+  useEffect(() => {
+    setIosSafariGpuSafe(isIosSafari());
+  }, []);
+
   const isZh = locale === "zh";
   const hero = isZh
     ? {
@@ -39,7 +47,7 @@ export default function LineAiPage() {
     <div className="pt-20">
       <section className="section-glow mesh-accent relative border-b border-border py-16 lg:py-20">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
-          <Reveal>
+          <Reveal disableScrollAnimation={iosSafariGpuSafe}>
             <p className="text-label font-mono uppercase tracking-[0.3em] text-[#9ef0b5]">
               {hero.label}
             </p>
@@ -80,37 +88,38 @@ export default function LineAiPage() {
           <LineWorkflowDiagram />
 
           <div className="grid gap-6 lg:grid-cols-2">
-            <Reveal>
+            <Reveal disableScrollAnimation={iosSafariGpuSafe}>
               <LineChatPreview />
             </Reveal>
-            <Reveal delay={0.08}>
+            <Reveal delay={0.08} disableScrollAnimation={iosSafariGpuSafe}>
               <LineAiReplyPreview />
             </Reveal>
           </div>
 
           <div className="grid gap-6 lg:grid-cols-2">
-            <Reveal>
+            <Reveal disableScrollAnimation={iosSafariGpuSafe}>
               <LineCrmLeadCard />
             </Reveal>
-            <Reveal delay={0.08}>
+            <Reveal delay={0.08} disableScrollAnimation={iosSafariGpuSafe}>
               <LineQrSection compact />
             </Reveal>
           </div>
 
           <div className="grid gap-8 lg:grid-cols-2">
-            <Reveal>
+            <Reveal disableScrollAnimation={iosSafariGpuSafe}>
               <SectionHeader
+                disableScrollAnimation={iosSafariGpuSafe}
                 label={t.lineAi.form.label}
                 title={t.lineAi.form.label}
                 description={t.lineAi.form.hint}
               />
             </Reveal>
-            <Reveal delay={0.1}>
+            <Reveal delay={0.1} disableScrollAnimation={iosSafariGpuSafe}>
               <LineIdForm />
             </Reveal>
           </div>
 
-          <Reveal>
+          <Reveal disableScrollAnimation={iosSafariGpuSafe}>
             <div className="ui-panel rounded-xl p-8">
               <p className="text-label font-mono uppercase tracking-wider text-accent-blue">
                 {t.lineAi.tech.label}
