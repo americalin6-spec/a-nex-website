@@ -15,15 +15,16 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
     setIosSafari(isIosSafari());
   }, []);
 
-  const isServicesIosSafari = pathname === "/services" && iosSafari;
+  const isIosSafariGpuSafePath =
+    iosSafari && (pathname === "/services" || pathname === "/about");
   const disableHomeGpuLayers = pathname === "/" && iosSafari;
-  const disableAmbientOrbs = disableHomeGpuLayers || isServicesIosSafari;
+  const disableAmbientOrbs = disableHomeGpuLayers || isIosSafariGpuSafePath;
   const showGrainOverlay =
-    !disableHomeGpuLayers && !isServicesIosSafari;
+    !disableHomeGpuLayers && !isIosSafariGpuSafePath;
 
   useEffect(() => {
     const className = "ios-safari-services-gpu-safe";
-    if (isServicesIosSafari) {
+    if (isIosSafariGpuSafePath) {
       document.documentElement.classList.add(className);
       document.documentElement.style.scrollBehavior = "auto";
     } else {
@@ -34,7 +35,7 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
       document.documentElement.classList.remove(className);
       document.documentElement.style.scrollBehavior = "";
     };
-  }, [isServicesIosSafari]);
+  }, [isIosSafariGpuSafePath]);
 
   return (
     <>
