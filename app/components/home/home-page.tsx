@@ -7,10 +7,6 @@ import { useLanguage } from "../../context/language-context";
 import { CaseStudyPreviewCard } from "../case-studies/case-study-section";
 import { SectionHeader } from "../ui/section-header";
 import {
-  HeroPortfolioShowcase,
-  HeroShowcaseBackground,
-} from "./hero-portfolio-showcase";
-import {
   PlatformServiceVisualCards,
 } from "../visuals/product-visual-library";
 import { SaasMetricsStrip } from "../visuals/saas-metrics-strip";
@@ -55,7 +51,7 @@ export function HomePage() {
     <>
       {/* Hero */}
       <section className="relative min-h-[95vh] overflow-hidden border-b border-border lg:min-h-screen">
-        <HeroShowcaseBackground />
+        {null /* TEMP: HeroShowcaseBackground disabled for iPhone Safari test */}
 
         <div className="relative mx-auto flex min-h-[95vh] max-w-[1400px] items-center px-6 py-20 lg:min-h-screen lg:grid lg:grid-cols-[2fr_3fr] lg:gap-12 lg:px-12 lg:py-16">
           <div className="flex flex-col justify-center lg:max-w-xl lg:pr-4 xl:pr-8">
@@ -138,7 +134,7 @@ export function HomePage() {
           </div>
 
           <div className="mt-12 flex items-center justify-center lg:mt-0">
-            <HeroPortfolioShowcase />
+            {null /* TEMP: HeroPortfolioShowcase disabled for iPhone Safari test */}
           </div>
         </div>
       </section>
