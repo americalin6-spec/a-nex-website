@@ -28,11 +28,13 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
 
   // TEMP: homepage iPhone Safari crash test — disable GPU layers only, keep background
   const disableHomeGpuLayers = pathname === "/" && iosSafari;
+  // TEMP: /services grain-overlay isolation test
+  const showGrainOverlay = pathname !== "/services" && !disableHomeGpuLayers;
 
   return (
     <>
       <AmbientBackground disableGpuLayers={disableHomeGpuLayers} />
-      {!disableHomeGpuLayers ? (
+      {showGrainOverlay ? (
         <div className="grain-overlay" aria-hidden />
       ) : null}
       <Navbar />

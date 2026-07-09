@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { useLanguage } from "../context/language-context";
 import { SectionHeader } from "../components/ui/section-header";
 import { VisualRenderer } from "../components/visuals/visual-mockups";
@@ -10,7 +9,6 @@ import {
 } from "../components/visuals/saas-product-showcase";
 // import { PlatformServiceVisualCards } from "../components/visuals/product-visual-library"; // TEMP: iPhone Safari /services crash isolation test
 import type { CaseStudyVisual } from "../data/case-studies";
-import { Reveal } from "../components/ui/reveal";
 
 const serviceVisuals: CaseStudyVisual[] = [
   "ai-flow",
@@ -32,7 +30,7 @@ export default function ServicesPage() {
     <div className="pt-20">
       <section className="section-glow mesh-accent relative border-b border-border py-16 lg:py-20">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
-          <Reveal>
+          <div>
             <p className="text-label font-mono uppercase tracking-[0.3em] text-accent-blue">
               {t.services.label}
             </p>
@@ -42,7 +40,7 @@ export default function ServicesPage() {
             <p className="text-editorial mt-6 max-w-xl text-muted-light">
               {t.services.subtitle}
             </p>
-          </Reveal>
+          </div>
           {/* TEMP: iPhone Safari /services crash isolation test
           <Reveal delay={0.08} className="mt-12">
             <PlatformServiceVisualCards />
@@ -54,6 +52,7 @@ export default function ServicesPage() {
       <section className="section-violet border-b border-border py-14 lg:py-16">
         <div className="mx-auto max-w-[1400px] space-y-10 px-6 lg:px-12">
           <SectionHeader
+            disableScrollAnimation
             label={t.home.productSurface.label}
             title={t.home.productSurface.title}
             description={t.home.productSurface.subtitle}
@@ -64,24 +63,21 @@ export default function ServicesPage() {
           </Reveal>
           */}
           <SectionHeader
+            disableScrollAnimation
             label={t.home.adminConsole.label}
             title={t.home.adminConsole.title}
             description={t.home.adminConsole.subtitle}
           />
-          <Reveal delay={0.08}>
+          <div>
             <SaaSIntegrationsConsole />
-          </Reveal>
+          </div>
         </div>
       </section>
 
       <section>
         {t.services.items.map((service, index) => (
-          <motion.article
+          <article
             key={service.num}
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.6 }}
             className={`border-b border-border ${
               index % 2 === 0 ? "section-elevated" : ""
             }`}
@@ -113,13 +109,13 @@ export default function ServicesPage() {
                   ))}
                 </ul>
               </div>
-              <Reveal delay={0.1}>
+              <div>
                 <VisualRenderer
                   type={serviceVisuals[index] ?? "dashboard"}
                 />
-              </Reveal>
+              </div>
             </div>
-          </motion.article>
+          </article>
         ))}
       </section>
     </div>
