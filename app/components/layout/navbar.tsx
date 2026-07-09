@@ -50,24 +50,24 @@ export function Navbar() {
       initial={{ opacity: 0, y: -12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
+      className={`fixed inset-x-0 top-0 z-[60] transition-all duration-500 ${
         scrolled || menuOpen
           ? "border-b border-border bg-charcoal/70 shadow-[0_8px_32px_rgba(0,0,0,0.35)] backdrop-blur-xl"
           : "bg-transparent"
       }`}
     >
       <nav className="mx-auto grid h-16 max-w-[1400px] grid-cols-[1fr_auto] items-center gap-x-3 px-6 md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] lg:gap-x-4 lg:px-12">
-        <div className="flex min-w-0 items-center justify-self-start">
+        <div className="flex shrink-0 items-center justify-self-start">
           <Link
             href="/"
-            className="flex items-center transition-opacity duration-300 hover:opacity-70"
+            className="relative z-[1] flex shrink-0 items-center transition-opacity duration-300 hover:opacity-70"
           >
             <Image
               src="/axora-logo-transparent.png"
               alt="AXORA"
               width={50}
               height={50}
-              className="h-[50px] w-auto"
+              className="block h-[50px] w-[50px] shrink-0 object-contain"
               priority
             />
           </Link>
