@@ -34,7 +34,6 @@ function PhoneBezel({ children }: { children: ReactNode }) {
 
 /** Layered app + browser frames behind main hero dashboard (lg+) */
 export function HeroVisualCluster() {
-  return null;
   return (
     <div className="relative lg:min-h-[480px]">
       <div className="pointer-events-none absolute inset-0 hidden lg:block">
@@ -93,7 +92,6 @@ export function HeroVisualCluster() {
 type CardKey = "website" | "app" | "crm" | "dashboard" | "automation";
 
 export function PlatformServiceVisualCards() {
-  return null;
   const { locale } = useLanguage();
   const zh = locale === "zh";
 
@@ -209,7 +207,6 @@ export function PlatformServiceVisualCards() {
 }
 
 export function LineWorkAiDownloadMockups() {
-  return null;
   const { locale } = useLanguage();
   const zh = locale === "zh";
 
@@ -336,7 +333,6 @@ export function LineWorkAiDownloadMockups() {
 }
 
 export function LineAiDashboardPreview() {
-  return null;
   const { locale } = useLanguage();
   const zh = locale === "zh";
 
@@ -400,7 +396,6 @@ export function LineAiDashboardPreview() {
 }
 
 export function CaseStudyVisualThumb({ type }: { type: CaseStudyVisual }) {
-  return null;
   return (
     <div className="relative h-36 overflow-hidden rounded-lg border border-border/60 bg-background/40">
       <div className="absolute inset-0 p-2">
