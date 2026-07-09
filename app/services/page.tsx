@@ -6,9 +6,9 @@ import { SectionHeader } from "../components/ui/section-header";
 import { VisualRenderer } from "../components/visuals/visual-mockups";
 import {
   SaaSIntegrationsConsole,
-  SaaSProductBento,
+  // SaaSProductBento, // TEMP: iPhone Safari /services crash isolation test
 } from "../components/visuals/saas-product-showcase";
-import { PlatformServiceVisualCards } from "../components/visuals/product-visual-library";
+// import { PlatformServiceVisualCards } from "../components/visuals/product-visual-library"; // TEMP: iPhone Safari /services crash isolation test
 import type { CaseStudyVisual } from "../data/case-studies";
 import { Reveal } from "../components/ui/reveal";
 
@@ -43,9 +43,11 @@ export default function ServicesPage() {
               {t.services.subtitle}
             </p>
           </Reveal>
+          {/* TEMP: iPhone Safari /services crash isolation test
           <Reveal delay={0.08} className="mt-12">
             <PlatformServiceVisualCards />
           </Reveal>
+          */}
         </div>
       </section>
 
@@ -56,9 +58,11 @@ export default function ServicesPage() {
             title={t.home.productSurface.title}
             description={t.home.productSurface.subtitle}
           />
+          {/* TEMP: iPhone Safari /services crash isolation test
           <Reveal>
             <SaaSProductBento />
           </Reveal>
+          */}
           <SectionHeader
             label={t.home.adminConsole.label}
             title={t.home.adminConsole.title}
