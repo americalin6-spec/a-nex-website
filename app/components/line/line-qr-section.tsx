@@ -5,13 +5,19 @@ import { useLanguage } from "../../context/language-context";
 import { LineAddButton } from "./line-add-button";
 import { Reveal } from "../ui/reveal";
 
-export function LineQrSection({ compact = false }: { compact?: boolean }) {
+export function LineQrSection({
+  compact = false,
+  disableScrollAnimation = false,
+}: {
+  compact?: boolean;
+  disableScrollAnimation?: boolean;
+}) {
   const { t } = useLanguage();
   const addUrl = getLineAddFriendUrl();
   const qrUrl = getLineQrImageUrl();
 
   return (
-    <Reveal>
+    <Reveal disableScrollAnimation={disableScrollAnimation}>
       <div
         className={`glass-card rounded-xl ${compact ? "p-6" : "p-8 lg:p-10"}`}
       >

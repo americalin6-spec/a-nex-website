@@ -1,5 +1,7 @@
 "use client";
 
+import { isIosSafari } from "@/lib/ios-safari";
+import { useEffect, useState } from "react";
 import { ContactEmailActions, ContactLineActions } from "../components/contact/contact-info-actions";
 import { ContactForm } from "../components/contact/contact-form";
 import { LineQrSection } from "../components/line/line-qr-section";
@@ -8,11 +10,16 @@ import { useLanguage } from "../context/language-context";
 
 export default function ContactPage() {
   const { t } = useLanguage();
+  const [iosSafariGpuSafe, setIosSafariGpuSafe] = useState(false);
+
+  useEffect(() => {
+    setIosSafariGpuSafe(isIosSafari());
+  }, []);
 
   return (
     <div className="pt-20">
       <section className="section-glow mesh-accent relative mx-auto max-w-[1400px] px-6 py-16 lg:grid lg:grid-cols-2 lg:gap-16 lg:px-12 lg:py-20">
-        <Reveal>
+        <Reveal disableScrollAnimation={iosSafariGpuSafe}>
           <p className="text-label font-mono uppercase tracking-[0.3em] text-accent-blue">
             {t.contact.label}
           </p>
@@ -54,14 +61,14 @@ export default function ContactPage() {
           </ul>
         </Reveal>
 
-        <Reveal delay={0.15}>
+        <Reveal delay={0.15} disableScrollAnimation={iosSafariGpuSafe}>
           <ContactForm />
         </Reveal>
       </section>
 
       <section className="section-elevated border-t border-border py-16 lg:py-20">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
-          <LineQrSection />
+          <LineQrSection disableScrollAnimation={iosSafariGpuSafe} />
         </div>
       </section>
     </div>
