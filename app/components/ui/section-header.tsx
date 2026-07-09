@@ -8,6 +8,7 @@ type SectionHeaderProps = {
   description?: string;
   action?: React.ReactNode;
   align?: "left" | "center";
+  disableScrollAnimation?: boolean;
 };
 
 export function SectionHeader({
@@ -16,11 +17,13 @@ export function SectionHeader({
   description,
   action,
   align = "left",
+  disableScrollAnimation = false,
 }: SectionHeaderProps) {
   const centered = align === "center";
 
   return (
     <Reveal
+      disableScrollAnimation={disableScrollAnimation}
       className={`flex flex-col gap-6 ${
         centered
           ? "items-center text-center"

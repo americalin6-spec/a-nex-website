@@ -30,6 +30,9 @@ const techStack = [
   "TypeScript",
 ];
 
+// TEMP: disable whileInView scroll animations for iPhone Safari crash test
+const DISABLE_HOME_SCROLL_ANIM = true;
+
 export function HomePage() {
   const { t, locale } = useLanguage();
   const isZh = locale === "zh";
@@ -143,7 +146,7 @@ export function HomePage() {
       {/* Platform metrics */}
       <section className="section-elevated border-b border-border py-14 lg:py-16">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
-          <SaasMetricsStrip />
+          <SaasMetricsStrip disableScrollAnimation={DISABLE_HOME_SCROLL_ANIM} />
         </div>
       </section>
 
@@ -151,7 +154,7 @@ export function HomePage() {
       <section className="border-b border-border bg-surface/20">
         <div className="mx-auto grid max-w-[1400px] grid-cols-2 gap-px bg-border md:grid-cols-4">
           {stats.map((s, i) => (
-            <Reveal key={s.l} delay={i * 0.05}>
+            <Reveal disableScrollAnimation={DISABLE_HOME_SCROLL_ANIM} key={s.l} delay={i * 0.05}>
               <div className="bg-background-secondary/80 px-6 py-8 text-center backdrop-blur-sm lg:py-10">
                 <p className="stat-value-gradient text-3xl font-semibold tracking-tight lg:text-4xl">
                   {s.v}
@@ -166,12 +169,12 @@ export function HomePage() {
       {/* SaaS product surface — bento UI */}
       <section className="section-violet border-b border-border py-16 lg:py-20">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
-          <SectionHeader
+          <SectionHeader disableScrollAnimation={DISABLE_HOME_SCROLL_ANIM}
             label={t.home.productSurface.label}
             title={t.home.productSurface.title}
             description={t.home.productSurface.subtitle}
           />
-          <Reveal className="mt-12">
+          <Reveal disableScrollAnimation={DISABLE_HOME_SCROLL_ANIM} className="mt-12">
             <SaaSProductBento />
           </Reveal>
         </div>
@@ -180,7 +183,7 @@ export function HomePage() {
       {/* Integrations & gateway console */}
       <section className="py-16 lg:py-20">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
-          <SectionHeader
+          <SectionHeader disableScrollAnimation={DISABLE_HOME_SCROLL_ANIM}
             label={t.home.adminConsole.label}
             title={t.home.adminConsole.title}
             description={t.home.adminConsole.subtitle}
@@ -194,13 +197,13 @@ export function HomePage() {
       {/* What We Build — bento */}
       <section className="py-16 lg:py-20">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
-          <SectionHeader
+          <SectionHeader disableScrollAnimation={DISABLE_HOME_SCROLL_ANIM}
             label={t.home.whatWeBuild.label}
             title={t.home.whatWeBuild.title}
           />
           <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {t.home.whatWeBuild.items.map((item, i) => (
-              <Reveal key={item.title} delay={i * 0.04}>
+              <Reveal disableScrollAnimation={DISABLE_HOME_SCROLL_ANIM} key={item.title} delay={i * 0.04}>
                 <div className="glass-card group rounded-xl p-6 transition-transform duration-300 hover:-translate-y-0.5">
                   <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-accent-blue/15 font-mono text-sm text-accent-blue">
                     {String(i + 1).padStart(2, "0")}
@@ -222,14 +225,14 @@ export function HomePage() {
       {/* Digital Services */}
       <section className="section-elevated py-16 lg:py-20">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
-          <SectionHeader
+          <SectionHeader disableScrollAnimation={DISABLE_HOME_SCROLL_ANIM}
             label={t.home.digitalServices.label}
             title={t.home.digitalServices.title}
             description={t.home.digitalServices.description}
           />
           <div className="mt-12 grid gap-5 lg:grid-cols-2">
             {t.home.digitalServices.cards.map((card, i) => (
-              <Reveal key={card.title} delay={i * 0.06}>
+              <Reveal disableScrollAnimation={DISABLE_HOME_SCROLL_ANIM} key={card.title} delay={i * 0.06}>
                 <div className="glass-card flex flex-col rounded-xl p-8 lg:flex-row lg:gap-8 lg:p-10">
                   <div className="flex-1">
                     <h3 className="text-xl font-medium text-foreground">
@@ -264,14 +267,14 @@ export function HomePage() {
       {/* How we work */}
       <section className="py-16 lg:py-20">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
-          <SectionHeader
+          <SectionHeader disableScrollAnimation={DISABLE_HOME_SCROLL_ANIM}
             label={t.home.howWeWork.label}
             title={t.home.howWeWork.title}
             align="center"
           />
           <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {t.home.howWeWork.steps.map((step, i) => (
-              <Reveal key={step.title} delay={i * 0.05}>
+              <Reveal disableScrollAnimation={DISABLE_HOME_SCROLL_ANIM} key={step.title} delay={i * 0.05}>
                 <div className="gradient-border h-full">
                   <div className="gradient-border-inner h-full p-6">
                     <span className="font-mono text-base text-accent-blue">
@@ -294,7 +297,7 @@ export function HomePage() {
       {/* Product UI */}
       <section className="py-16 lg:py-20">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
-          <SectionHeader
+          <SectionHeader disableScrollAnimation={DISABLE_HOME_SCROLL_ANIM}
             label={t.home.productPreview.label}
             title={t.home.productPreview.title}
             description={t.home.productPreview.subtitle}
@@ -309,7 +312,7 @@ export function HomePage() {
       {/* Case Studies */}
       <section className="section-elevated py-16 lg:py-20">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
-          <SectionHeader
+          <SectionHeader disableScrollAnimation={DISABLE_HOME_SCROLL_ANIM}
             label={t.home.caseStudies.label}
             title={t.home.caseStudies.title}
             description={t.home.caseStudies.subtitle}
@@ -325,7 +328,11 @@ export function HomePage() {
           <div className="mt-12 grid gap-5 lg:grid-cols-3">
             {featuredCaseStudies.map((study, i) => (
               <Link key={study.id} href={`/work#${study.id}`}>
-                <CaseStudyPreviewCard study={study} index={i} />
+                <CaseStudyPreviewCard
+                  study={study}
+                  index={i}
+                  disableScrollAnimation={DISABLE_HOME_SCROLL_ANIM}
+                />
               </Link>
             ))}
           </div>
@@ -335,14 +342,14 @@ export function HomePage() {
       {/* Platform bento */}
       <section id="platform" className="py-16 lg:py-20">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
-          <SectionHeader
+          <SectionHeader disableScrollAnimation={DISABLE_HOME_SCROLL_ANIM}
             label={t.home.platform.label}
             title={t.home.platform.title}
             description={t.home.platform.description}
           />
           <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {t.home.platform.features.map((feature, i) => (
-              <Reveal key={feature} delay={i * 0.03}>
+              <Reveal disableScrollAnimation={DISABLE_HOME_SCROLL_ANIM} key={feature} delay={i * 0.03}>
                 <div className="glass-card flex items-center gap-3 rounded-xl px-5 py-4">
                   <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-accent-blue/30 to-accent-purple/30 text-sm text-accent-blue">
                     ✓
@@ -353,7 +360,7 @@ export function HomePage() {
             ))}
           </div>
           <PlatformServiceVisualCards />
-          <Reveal className="mt-10">
+          <Reveal disableScrollAnimation={DISABLE_HOME_SCROLL_ANIM} className="mt-10">
             <Link
               href="/work"
               className="link-underline text-label font-mono uppercase tracking-[0.2em] text-accent-blue"
@@ -367,7 +374,7 @@ export function HomePage() {
       {/* Services */}
       <section className="section-elevated py-16 lg:py-20">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
-          <SectionHeader
+          <SectionHeader disableScrollAnimation={DISABLE_HOME_SCROLL_ANIM}
             label={t.home.services.label}
             title={t.home.services.title}
             action={
@@ -381,7 +388,7 @@ export function HomePage() {
           />
           <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {t.home.services.items.map((item, i) => (
-              <Reveal key={item} delay={(i % 6) * 0.03}>
+              <Reveal disableScrollAnimation={DISABLE_HOME_SCROLL_ANIM} key={item} delay={(i % 6) * 0.03}>
                 <div className="ui-panel flex items-center gap-3 rounded-lg px-5 py-4">
                   <span className="h-1.5 w-1.5 rounded-full bg-accent-blue" />
                   <span className="text-body-sm text-foreground">{item}</span>
@@ -395,7 +402,7 @@ export function HomePage() {
       {/* CTA */}
       <section className="py-16 lg:py-20">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
-          <Reveal>
+          <Reveal disableScrollAnimation={DISABLE_HOME_SCROLL_ANIM}>
             <div className="glass-card relative overflow-hidden rounded-2xl px-8 py-16 text-center lg:px-16">
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-accent-blue/10 via-transparent to-accent-purple/10" />
               <h2 className="section-title relative">{t.home.cta.title}</h2>

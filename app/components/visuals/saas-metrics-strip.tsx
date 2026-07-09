@@ -24,7 +24,11 @@ const BAR_GLOWS = [
   "0 0 12px rgba(139,92,246,0.45)",
 ];
 
-export function SaasMetricsStrip() {
+export function SaasMetricsStrip({
+  disableScrollAnimation = false,
+}: {
+  disableScrollAnimation?: boolean;
+}) {
   const { locale } = useLanguage();
   const isZh = locale === "zh";
 
@@ -45,7 +49,7 @@ export function SaasMetricsStrip() {
   return (
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
       {metrics.map((m, i) => (
-        <Reveal key={m.label} delay={i * 0.05}>
+        <Reveal key={m.label} delay={i * 0.05} disableScrollAnimation={disableScrollAnimation}>
           <div className={`dash-card ${ACCENTS[i % ACCENTS.length]} h-full`}>
             <p className="text-caption text-muted">{m.label}</p>
             <p className="stat-value-gradient mt-2 text-2xl font-semibold tracking-tight">

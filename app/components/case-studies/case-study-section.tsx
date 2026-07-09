@@ -105,9 +105,11 @@ export function CaseStudySection({
 export function CaseStudyPreviewCard({
   study,
   index,
+  disableScrollAnimation = false,
 }: {
   study: CaseStudy;
   index: number;
+  disableScrollAnimation?: boolean;
 }) {
   const category = useLocalized(study.category);
   const title = useLocalized(study.title);
@@ -115,9 +117,9 @@ export function CaseStudyPreviewCard({
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
+      initial={disableScrollAnimation ? false : { opacity: 0, y: 20 }}
+      whileInView={disableScrollAnimation ? undefined : { opacity: 1, y: 0 }}
+      viewport={disableScrollAnimation ? undefined : { once: true }}
       transition={{ duration: 0.6, delay: index * 0.06 }}
       className="gradient-border group h-full transition-all duration-300 hover:-translate-y-0.5"
     >

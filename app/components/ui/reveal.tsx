@@ -16,9 +16,19 @@ type RevealProps = {
   children: ReactNode;
   className?: string;
   delay?: number;
+  disableScrollAnimation?: boolean;
 };
 
-export function Reveal({ children, className = "", delay = 0 }: RevealProps) {
+export function Reveal({
+  children,
+  className = "",
+  delay = 0,
+  disableScrollAnimation = false,
+}: RevealProps) {
+  if (disableScrollAnimation) {
+    return <div className={className}>{children}</div>;
+  }
+
   return (
     <motion.div
       className={className}
