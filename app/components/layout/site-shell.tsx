@@ -18,8 +18,7 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
   const isServicesIosSafari = pathname === "/services" && iosSafari;
   const disableHomeGpuLayers = pathname === "/" && iosSafari;
   const disableAmbientOrbs = disableHomeGpuLayers || isServicesIosSafari;
-  const showGrainOverlay =
-    !disableHomeGpuLayers && !isServicesIosSafari;
+  const showGrainOverlay = !iosSafari;
 
   useEffect(() => {
     const className = "ios-safari-services-gpu-safe";
