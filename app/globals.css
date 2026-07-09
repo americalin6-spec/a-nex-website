@@ -542,7 +542,7 @@ select {
   );
 }
 
-/* iPhone Safari GPU-safe mode for /services, /about (class toggled in site-shell.tsx) */
+/* iPhone Safari GPU-safe mode for /services, /about, /projects (class toggled in site-shell.tsx) */
 html.ios-safari-services-gpu-safe .glass-card,
 html.ios-safari-services-gpu-safe .gradient-border-inner,
 html.ios-safari-services-gpu-safe .glass-panel,

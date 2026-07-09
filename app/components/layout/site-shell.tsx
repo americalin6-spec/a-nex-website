@@ -16,7 +16,10 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
   }, []);
 
   const isIosSafariGpuSafePath =
-    iosSafari && (pathname === "/services" || pathname === "/about");
+    iosSafari &&
+    (pathname === "/services" ||
+      pathname === "/about" ||
+      pathname === "/projects");
   const disableHomeGpuLayers = pathname === "/" && iosSafari;
   const disableAmbientOrbs = disableHomeGpuLayers || isIosSafariGpuSafePath;
   const showGrainOverlay =
