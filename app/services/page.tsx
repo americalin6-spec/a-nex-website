@@ -1,14 +1,18 @@
 "use client";
 
+import { motion } from "framer-motion";
+import { isIosSafari } from "@/lib/ios-safari";
+import { useEffect, useState } from "react";
 import { useLanguage } from "../context/language-context";
 import { SectionHeader } from "../components/ui/section-header";
 import { VisualRenderer } from "../components/visuals/visual-mockups";
 import {
   SaaSIntegrationsConsole,
-  // SaaSProductBento, // TEMP: iPhone Safari /services crash isolation test
+  SaaSProductBento,
 } from "../components/visuals/saas-product-showcase";
-// import { PlatformServiceVisualCards } from "../components/visuals/product-visual-library"; // TEMP: iPhone Safari /services crash isolation test
+import { PlatformServiceVisualCards } from "../components/visuals/product-visual-library";
 import type { CaseStudyVisual } from "../data/case-studies";
+import { Reveal } from "../components/ui/reveal";
 
 const serviceVisuals: CaseStudyVisual[] = [
   "ai-flow",
@@ -25,12 +29,17 @@ const serviceVisuals: CaseStudyVisual[] = [
 
 export default function ServicesPage() {
   const { t } = useLanguage();
+  const [iosSafariGpuSafe, setIosSafariGpuSafe] = useState(false);
+
+  useEffect(() => {
+    setIosSafariGpuSafe(isIosSafari());
+  }, []);
 
   return (
     <div className="pt-20">
       <section className="section-glow mesh-accent relative border-b border-border py-16 lg:py-20">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
-          <div>
+          <Reveal disableScrollAnimation={iosSafariGpuSafe}>
             <p className="text-label font-mono uppercase tracking-[0.3em] text-accent-blue">
               {t.services.label}
             </p>
@@ -40,48 +49,46 @@ export default function ServicesPage() {
             <p className="text-editorial mt-6 max-w-xl text-muted-light">
               {t.services.subtitle}
             </p>
-          </div>
-          {/* TEMP: iPhone Safari /services crash isolation test
-          <Reveal delay={0.08} className="mt-12">
+          </Reveal>
+          <Reveal
+            disableScrollAnimation={iosSafariGpuSafe}
+            delay={0.08}
+            className="mt-12"
+          >
             <PlatformServiceVisualCards />
           </Reveal>
-          */}
         </div>
       </section>
 
       <section className="section-violet border-b border-border py-14 lg:py-16">
         <div className="mx-auto max-w-[1400px] space-y-10 px-6 lg:px-12">
           <SectionHeader
-            disableScrollAnimation
+            disableScrollAnimation={iosSafariGpuSafe}
             label={t.home.productSurface.label}
             title={t.home.productSurface.title}
             description={t.home.productSurface.subtitle}
           />
-          {/* TEMP: iPhone Safari /services crash isolation test
-          <Reveal>
+          <Reveal disableScrollAnimation={iosSafariGpuSafe}>
             <SaaSProductBento />
           </Reveal>
-          */}
           <SectionHeader
-            disableScrollAnimation
+            disableScrollAnimation={iosSafariGpuSafe}
             label={t.home.adminConsole.label}
             title={t.home.adminConsole.title}
             description={t.home.adminConsole.subtitle}
           />
-          <div>
+          <Reveal disableScrollAnimation={iosSafariGpuSafe} delay={0.08}>
             <SaaSIntegrationsConsole />
-          </div>
+          </Reveal>
         </div>
       </section>
 
       <section>
-        {t.services.items.map((service, index) => (
-          <article
-            key={service.num}
-            className={`border-b border-border ${
-              index % 2 === 0 ? "section-elevated" : ""
-            }`}
-          >
+        {t.services.items.map((service, index) => {
+          const rowClassName = `border-b border-border ${
+            index % 2 === 0 ? "section-elevated" : ""
+          }`;
+          const rowContent = (
             <div className="mx-auto grid max-w-[1400px] gap-10 px-6 py-14 lg:grid-cols-[100px_1fr_1.1fr] lg:gap-12 lg:px-12 lg:py-18">
               <p className="font-mono text-4xl font-light text-accent-blue/50 lg:text-5xl">
                 {service.num}
@@ -109,14 +116,35 @@ export default function ServicesPage() {
                   ))}
                 </ul>
               </div>
-              <div>
+              <Reveal disableScrollAnimation={iosSafariGpuSafe} delay={0.1}>
                 <VisualRenderer
                   type={serviceVisuals[index] ?? "dashboard"}
                 />
-              </div>
+              </Reveal>
             </div>
-          </article>
-        ))}
+          );
+
+          if (iosSafariGpuSafe) {
+            return (
+              <article key={service.num} className={rowClassName}>
+                {rowContent}
+              </article>
+            );
+          }
+
+          return (
+            <motion.article
+              key={service.num}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.6 }}
+              className={rowClassName}
+            >
+              {rowContent}
+            </motion.article>
+          );
+        })}
       </section>
     </div>
   );

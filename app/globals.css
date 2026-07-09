@@ -541,3 +541,55 @@ select {
     rgba(12, 18, 34, 0.75) 100%
   );
 }
+
+/* iPhone Safari /services GPU-safe mode (class toggled in site-shell.tsx) */
+html.ios-safari-services-gpu-safe .glass-card,
+html.ios-safari-services-gpu-safe .gradient-border-inner,
+html.ios-safari-services-gpu-safe .glass-panel,
+html.ios-safari-services-gpu-safe .btn-glass,
+html.ios-safari-services-gpu-safe footer,
+html.ios-safari-services-gpu-safe .backdrop-blur-sm,
+html.ios-safari-services-gpu-safe .backdrop-blur-md,
+html.ios-safari-services-gpu-safe .backdrop-blur-xl {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+html.ios-safari-services-gpu-safe .ambient-orb {
+  display: none !important;
+}
+
+html.ios-safari-services-gpu-safe .ambient-grid {
+  mask-image: none !important;
+  -webkit-mask-image: none !important;
+}
+
+html.ios-safari-services-gpu-safe .grain-overlay {
+  display: none !important;
+}
+
+html.ios-safari-services-gpu-safe .section-glow::before {
+  display: none !important;
+}
+
+html.ios-safari-services-gpu-safe .glow-bar {
+  box-shadow: none !important;
+}
+
+html.ios-safari-services-gpu-safe .gradient-border {
+  box-shadow: none !important;
+}
+
+html.ios-safari-services-gpu-safe .glass-card {
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.04) inset,
+    0 24px 60px -28px rgba(0, 0, 0, 0.55) !important;
+}
+
+html.ios-safari-services-gpu-safe .animate-pulse {
+  animation: none !important;
+}
+
+html.ios-safari-services-gpu-safe {
+  scroll-behavior: auto !important;
+}

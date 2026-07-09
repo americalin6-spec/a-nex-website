@@ -1,22 +1,11 @@
 "use client";
 
+import { isIosSafari } from "@/lib/ios-safari";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AmbientBackground } from "../ui/ambient-background";
 import { Footer } from "./footer";
 import { Navbar } from "./navbar";
-
-function isIosSafari() {
-  if (typeof navigator === "undefined") return false;
-  const ua = navigator.userAgent;
-  const isIOS =
-    /iPad|iPhone|iPod/.test(ua) ||
-    (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
-  const isWebKit = /WebKit/i.test(ua);
-  const isChrome = /CriOS/i.test(ua);
-  const isFirefox = /FxiOS/i.test(ua);
-  return isIOS && isWebKit && !isChrome && !isFirefox;
-}
 
 export function SiteShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -26,14 +15,30 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
     setIosSafari(isIosSafari());
   }, []);
 
-  // TEMP: homepage iPhone Safari crash test — disable GPU layers only, keep background
+  const isServicesIosSafari = pathname === "/services" && iosSafari;
   const disableHomeGpuLayers = pathname === "/" && iosSafari;
-  // TEMP: /services grain-overlay isolation test
-  const showGrainOverlay = pathname !== "/services" && !disableHomeGpuLayers;
+  const disableAmbientOrbs = disableHomeGpuLayers || isServicesIosSafari;
+  const showGrainOverlay =
+    !disableHomeGpuLayers && !isServicesIosSafari;
+
+  useEffect(() => {
+    const className = "ios-safari-services-gpu-safe";
+    if (isServicesIosSafari) {
+      document.documentElement.classList.add(className);
+      document.documentElement.style.scrollBehavior = "auto";
+    } else {
+      document.documentElement.classList.remove(className);
+      document.documentElement.style.scrollBehavior = "";
+    }
+    return () => {
+      document.documentElement.classList.remove(className);
+      document.documentElement.style.scrollBehavior = "";
+    };
+  }, [isServicesIosSafari]);
 
   return (
     <>
-      <AmbientBackground disableGpuLayers={disableHomeGpuLayers} />
+      <AmbientBackground disableGpuLayers={disableAmbientOrbs} />
       {showGrainOverlay ? (
         <div className="grain-overlay" aria-hidden />
       ) : null}
