@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { Geist } from "next/font/google";
-import { DEFAULT_OG_IMAGE, SITE_NAME, SITE_URL } from "@/lib/site";
 import { Providers } from "./components/providers";
 import { SiteShell } from "./components/layout/site-shell";
 import "./globals.css";
@@ -15,30 +14,47 @@ const geistSans = Geist({
 });
 
 const title =
-  "AXORA｜AI客戶管理系統、CRM系統、SaaS平台開發、網站與APP開發";
+  "AXORA｜AI 客戶管理系統｜CRM 系統｜SaaS 平台開發";
 const description =
-  "AXORA 提供 AI 客戶管理系統、CRM 系統、SaaS 平台開發、AI 自動化流程、LINE 官方帳號串接、網站設計與 APP 開發服務，協助企業提升效率與成交率。";
+  "AXORA 提供 AI 客戶管理系統、CRM 系統、LINE 官方帳號串接、SaaS 平台、客製化網站與 APP 開發服務。";
+const siteUrl = "https://www.axora.tw";
+const ogImage = "https://www.axora.tw/icon.png";
+
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "AXORA",
+  alternateName: "AXORA 智能平台",
+  url: siteUrl,
+};
+
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "AXORA",
+  url: siteUrl,
+  logo: ogImage,
+};
 
 export const metadata: Metadata = {
-  metadataBase: new URL(SITE_URL),
+  metadataBase: new URL(siteUrl),
   title,
   description,
+  applicationName: "AXORA",
   alternates: {
     canonical: "/",
   },
   openGraph: {
     type: "website",
     locale: "zh_TW",
-    url: "/",
-    siteName: SITE_NAME,
+    url: siteUrl,
+    siteName: "AXORA",
     title,
     description,
     images: [
       {
-        url: DEFAULT_OG_IMAGE,
-        width: 1200,
-        height: 630,
-        alt: SITE_NAME,
+        url: ogImage,
+        alt: "AXORA",
       },
     ],
   },
@@ -46,7 +62,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title,
     description,
-    images: [DEFAULT_OG_IMAGE],
+    images: [ogImage],
   },
   robots: {
     index: true,
@@ -56,7 +72,7 @@ export const metadata: Metadata = {
     google: "ui1yOGHIuDFLC3qDkvHtIxwpw-BydSWQ1_0OB4c4MAw",
   },
   icons: {
-    icon: "/icon.png",
+    icon: "/favicon.ico",
     shortcut: "/favicon.ico",
     apple: "/icon.png",
   },
@@ -72,6 +88,20 @@ export default function RootLayout({
       lang="zh-Hant"
       className={`${geistSans.variable} scroll-smooth antialiased`}
     >
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(websiteJsonLd),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationJsonLd),
+          }}
+        />
+      </head>
       <body className="min-h-screen bg-background font-sans text-foreground">
         <Providers>
           <SiteShell>{children}</SiteShell>
