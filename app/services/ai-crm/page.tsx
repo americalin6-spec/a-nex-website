@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { pageMetadata } from "@/lib/seo/page-metadata";
 import {
   JsonLd,
@@ -7,10 +6,11 @@ import {
 } from "@/lib/seo/json-ld";
 import { SectionHeader } from "../../components/ui/section-header";
 import { Reveal } from "../../components/ui/reveal";
+import { ServicePageExtras } from "../../components/seo/service-page-extras";
 
 const title = "AI客戶管理系統｜AXORA";
 const description =
-  "AI客戶管理系統，整合CRM客戶管理、成交分析、自動追蹤提醒與LINE官方帳號串接，協助企業提升成交率。";
+  "AXORA AI 客戶管理系統：整合 LINE 對話、潛客資料、成交階段與自動跟進提醒，協助業務少漏單、提升成交效率。";
 const path = "/services/ai-crm" as const;
 
 export const metadata = pageMetadata({
@@ -20,14 +20,14 @@ export const metadata = pageMetadata({
 });
 
 const features = [
-  "客戶資料管理",
-  "AI客戶分析",
-  "成交機率預測",
-  "自動跟進提醒",
-  "LINE訊息整合",
+  "LINE 對話同步至客戶檔案",
+  "OpenAI 對話摘要與意圖標籤",
+  "銷售階段／成交管道可視化",
+  "跟進提醒與任務分派",
+  "潛客匯入與標籤篩選",
 ];
 
-const audiences = ["房仲", "保險業", "顧問公司", "中小企業"];
+const audiences = ["房仲業務團隊", "保險業務團隊", "顧問／教練業", "B2B 銷售團隊"];
 
 export default function AiCrmPage() {
   return (
@@ -57,7 +57,7 @@ export default function AiCrmPage() {
                 <span className="gradient-text">AI客戶管理系統</span>
               </h1>
               <p className="mt-6 max-w-2xl text-body text-muted-light">
-                提升成交率、減少客戶流失、強化業務追蹤
+                把 LINE 對話、潛客與成交階段收進同一後台，讓該跟的名單不再沉底。
               </p>
             </Reveal>
           </div>
@@ -94,19 +94,7 @@ export default function AiCrmPage() {
           </div>
         </section>
 
-        <section className="section-violet py-16 lg:py-20">
-          <div className="mx-auto max-w-[1400px] px-6 text-center lg:px-12">
-            <Reveal>
-              <h2 className="section-title">聯絡我們</h2>
-              <Link
-                href="/contact"
-                className="btn-primary mt-8 inline-flex rounded-lg px-7 py-3 text-label font-mono uppercase tracking-[0.15em]"
-              >
-                前往聯絡頁
-              </Link>
-            </Reveal>
-          </div>
-        </section>
+        <ServicePageExtras serviceSlug="ai-crm" />
       </div>
     </>
   );

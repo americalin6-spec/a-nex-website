@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { pageMetadata } from "@/lib/seo/page-metadata";
 import {
   JsonLd,
@@ -7,10 +6,11 @@ import {
 } from "@/lib/seo/json-ld";
 import { SectionHeader } from "../../components/ui/section-header";
 import { Reveal } from "../../components/ui/reveal";
+import { ServicePageExtras } from "../../components/seo/service-page-extras";
 
 const title = "SaaS平台開發｜雲端系統與訂閱制平台開發｜AXORA";
 const description =
-  "AXORA 提供 SaaS 平台開發服務，協助企業打造雲端系統、會員平台、訂閱制服務與客製化管理系統。";
+  "AXORA SaaS 開發：從核心工作流程、帳號權限到可上線 MVP，協助企業打造雲端產品，再依使用回饋擴充訂閱與後台。";
 const path = "/services/saas-development" as const;
 
 export const metadata = pageMetadata({
@@ -20,14 +20,14 @@ export const metadata = pageMetadata({
 });
 
 const features = [
-  "SaaS平台開發",
-  "會員系統",
-  "訂閱制管理",
-  "雲端資料管理",
-  "客製化後台系統",
+  "核心工作流程 MVP",
+  "帳號／角色權限",
+  "營運後台與資料模型",
+  "訂閱與帳單流程（可分期）",
+  "部署、監控與文件交付",
 ];
 
-const audiences = ["房仲", "保險業", "顧問公司", "中小企業"];
+const audiences = ["新創產品團隊", "要產品化內部流程的企業", "既有服務轉訂閱制", "需要客製雲端後台的公司"];
 
 export default function SaasDevelopmentPage() {
   return (
@@ -57,7 +57,7 @@ export default function SaasDevelopmentPage() {
                 <span className="gradient-text">SaaS平台開發</span>
               </h1>
               <p className="mt-6 max-w-2xl text-body text-muted-light">
-                打造專屬雲端平台與訂閱制系統，加速企業數位轉型
+                先做出能上線的核心流程，再擴充會員、訂閱與營運後台。
               </p>
             </Reveal>
           </div>
@@ -94,19 +94,7 @@ export default function SaasDevelopmentPage() {
           </div>
         </section>
 
-        <section className="section-violet py-16 lg:py-20">
-          <div className="mx-auto max-w-[1400px] px-6 text-center lg:px-12">
-            <Reveal>
-              <h2 className="section-title">聯絡我們</h2>
-              <Link
-                href="/contact"
-                className="btn-primary mt-8 inline-flex rounded-lg px-7 py-3 text-label font-mono uppercase tracking-[0.15em]"
-              >
-                前往聯絡頁
-              </Link>
-            </Reveal>
-          </div>
-        </section>
+        <ServicePageExtras serviceSlug="saas-development" />
       </div>
     </>
   );

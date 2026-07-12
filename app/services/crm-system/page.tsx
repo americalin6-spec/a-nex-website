@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { pageMetadata } from "@/lib/seo/page-metadata";
 import {
   JsonLd,
@@ -7,10 +6,11 @@ import {
 } from "@/lib/seo/json-ld";
 import { SectionHeader } from "../../components/ui/section-header";
 import { Reveal } from "../../components/ui/reveal";
+import { ServicePageExtras } from "../../components/seo/service-page-extras";
 
 const title = "CRM客戶管理系統｜客戶管理與業務追蹤平台｜AXORA";
 const description =
-  "AXORA 提供 CRM 客戶管理系統，協助企業管理客戶資料、追蹤商機、提升成交率與業務效率。";
+  "AXORA CRM：依你們真實成交流程設定階段、負責人與提醒，讓商機可追、交接可接，不再只靠試算表。";
 const path = "/services/crm-system" as const;
 
 export const metadata = pageMetadata({
@@ -20,14 +20,14 @@ export const metadata = pageMetadata({
 });
 
 const features = [
-  "客戶資料管理",
-  "商機追蹤",
-  "銷售流程管理",
-  "跟進提醒",
-  "成交分析報表",
+  "依公司流程客製銷售階段",
+  "商機負責人與狀態追蹤",
+  "跟進提醒與逾時警示",
+  "名單匯入與欄位整理",
+  "成交與漏斗基礎報表",
 ];
 
-const audiences = ["房仲", "保險業", "顧問公司", "中小企業"];
+const audiences = ["多人協作的業務部", "開始標準化流程的中小企業", "需要權限分層的團隊", "準備汰換試算表的公司"];
 
 export default function CrmSystemPage() {
   return (
@@ -57,7 +57,7 @@ export default function CrmSystemPage() {
                 <span className="gradient-text">CRM客戶管理系統</span>
               </h1>
               <p className="mt-6 max-w-2xl text-body text-muted-light">
-                集中管理客戶資料、追蹤商機與提升成交效率
+                把成交流程寫進系統：誰負責、卡在哪、下一步是什麼，一次看清。
               </p>
             </Reveal>
           </div>
@@ -94,19 +94,7 @@ export default function CrmSystemPage() {
           </div>
         </section>
 
-        <section className="section-violet py-16 lg:py-20">
-          <div className="mx-auto max-w-[1400px] px-6 text-center lg:px-12">
-            <Reveal>
-              <h2 className="section-title">聯絡我們</h2>
-              <Link
-                href="/contact"
-                className="btn-primary mt-8 inline-flex rounded-lg px-7 py-3 text-label font-mono uppercase tracking-[0.15em]"
-              >
-                前往聯絡頁
-              </Link>
-            </Reveal>
-          </div>
-        </section>
+        <ServicePageExtras serviceSlug="crm-system" />
       </div>
     </>
   );

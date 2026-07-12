@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { pageMetadata } from "@/lib/seo/page-metadata";
 import {
   JsonLd,
@@ -7,10 +6,11 @@ import {
 } from "@/lib/seo/json-ld";
 import { SectionHeader } from "../../components/ui/section-header";
 import { Reveal } from "../../components/ui/reveal";
+import { ServicePageExtras } from "../../components/seo/service-page-extras";
 
 const title = "AI自動化系統｜企業流程自動化解決方案｜AXORA";
 const description =
-  "AXORA 提供 AI 自動化系統開發服務，協助企業導入 AI 客服、自動化流程、系統整合與工作流程優化。";
+  "AXORA AI／流程自動化：優先自動化高重複、規則清楚的作業，並設計人工備援，讓效率提升但不犧牲可控性。";
 const path = "/services/ai-automation" as const;
 
 export const metadata = pageMetadata({
@@ -20,14 +20,14 @@ export const metadata = pageMetadata({
 });
 
 const features = [
-  "AI客服自動化",
-  "流程自動化",
-  "AI工作流程",
-  "自動通知與追蹤",
-  "系統整合自動化",
+  "表單分流與標準回覆",
+  "到期／跟催自動提醒",
+  "系統間資料同步",
+  "錯誤通知與重試機制",
+  "人工備援接手路徑",
 ];
 
-const audiences = ["房仲", "保險業", "顧問公司", "中小企業"];
+const audiences = ["營運與客服忙碌的團隊", "跨工具手動搬資料的公司", "需要降低人工作業成本的部門", "已有系統但流程未串起來的企業"];
 
 export default function AiAutomationPage() {
   return (
@@ -57,7 +57,7 @@ export default function AiAutomationPage() {
                 <span className="gradient-text">AI自動化系統</span>
               </h1>
               <p className="mt-6 max-w-2xl text-body text-muted-light">
-                透過 AI 與自動化流程，提升效率並降低人工作業成本
+                先自動化最耗人力、最容易漏的步驟，並保留人工接手的安全網。
               </p>
             </Reveal>
           </div>
@@ -94,19 +94,7 @@ export default function AiAutomationPage() {
           </div>
         </section>
 
-        <section className="section-violet py-16 lg:py-20">
-          <div className="mx-auto max-w-[1400px] px-6 text-center lg:px-12">
-            <Reveal>
-              <h2 className="section-title">聯絡我們</h2>
-              <Link
-                href="/contact"
-                className="btn-primary mt-8 inline-flex rounded-lg px-7 py-3 text-label font-mono uppercase tracking-[0.15em]"
-              >
-                前往聯絡頁
-              </Link>
-            </Reveal>
-          </div>
-        </section>
+        <ServicePageExtras serviceSlug="ai-automation" />
       </div>
     </>
   );

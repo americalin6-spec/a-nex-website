@@ -104,3 +104,105 @@ export function breadcrumbJsonLd(items: BreadcrumbItem[]) {
     })),
   };
 }
+
+export function articleJsonLd({
+  title,
+  description,
+  path,
+  image,
+  publishedAt,
+  updatedAt,
+  author,
+}: {
+  title: string;
+  description: string;
+  path: `/${string}`;
+  image: string;
+  publishedAt: string;
+  updatedAt: string;
+  author: string;
+}) {
+  const imageUrl = image.startsWith("http") ? image : `${SITE_URL}${image}`;
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: title,
+    description,
+    image: [imageUrl],
+    datePublished: publishedAt,
+    dateModified: updatedAt,
+    author: {
+      "@type": "Organization",
+      name: author,
+      url: SITE_URL,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: SITE_NAME,
+      logo: {
+        "@type": "ImageObject",
+        url: `${SITE_URL}/icon.png`,
+      },
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `${SITE_URL}${path}`,
+    },
+    inLanguage: "zh-Hant",
+  };
+}
+
+export function creativeWorkJsonLd({
+  name,
+  description,
+  path,
+  image,
+  keywords,
+}: {
+  name: string;
+  description: string;
+  path: `/${string}`;
+  image: string;
+  keywords?: string[];
+}) {
+  const imageUrl = image.startsWith("http") ? image : `${SITE_URL}${image}`;
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    name,
+    description,
+    url: `${SITE_URL}${path}`,
+    image: imageUrl,
+    creator: {
+      "@type": "Organization",
+      name: SITE_NAME,
+      url: SITE_URL,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: SITE_NAME,
+      url: SITE_URL,
+    },
+    inLanguage: "zh-Hant",
+    ...(keywords && keywords.length > 0 ? { keywords: keywords.join(", ") } : {}),
+  };
+}
+
+export function faqPageJsonLd(
+  faqs: { question: string; answer: string }[],
+) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer,
+      },
+    })),
+  };
+}

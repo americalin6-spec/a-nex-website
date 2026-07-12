@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { pageMetadata } from "@/lib/seo/page-metadata";
 import {
   JsonLd,
@@ -7,10 +6,11 @@ import {
 } from "@/lib/seo/json-ld";
 import { SectionHeader } from "../../components/ui/section-header";
 import { Reveal } from "../../components/ui/reveal";
+import { ServicePageExtras } from "../../components/seo/service-page-extras";
 
 const title = "AI客服系統｜智能客服解決方案｜AXORA";
 const description =
-  "AXORA 提供 AI 客服系統與智能客服解決方案，支援 LINE、網站與客戶管理整合，協助企業提升服務效率與成交率。";
+  "AXORA AI 客服：先處理高重複問題，並在需要時轉人工；可整合 LINE 與網站進線，讓服務與成交機會同時被接住。";
 const path = "/services/ai-customer-service" as const;
 
 export const metadata = pageMetadata({
@@ -20,14 +20,14 @@ export const metadata = pageMetadata({
 });
 
 const features = [
-  "AI 自動回覆",
-  "常見問題處理",
-  "客戶資料整合",
-  "LINE 官方帳號整合",
-  "CRM 客戶管理整合",
+  "高重複問題自動回覆",
+  "知識範圍與敏感問題控管",
+  "低信心自動轉人工",
+  "LINE／網站進線彙整",
+  "對話紀錄可供後續優化",
 ];
 
-const audiences = ["房仲", "保險業", "顧問公司", "中小企業"];
+const audiences = ["電商客服", "預約制服務業", "教育／課程諮詢", "需要延長服務時段的品牌"];
 
 export default function AiCustomerServicePage() {
   return (
@@ -57,7 +57,7 @@ export default function AiCustomerServicePage() {
                 <span className="gradient-text">AI客服系統</span>
               </h1>
               <p className="mt-6 max-w-2xl text-body text-muted-light">
-                24小時自動回覆客戶，提高服務效率與成交機會
+                先自動化常見問題，例外再轉人工——服務不斷線，品質可控。
               </p>
             </Reveal>
           </div>
@@ -94,19 +94,7 @@ export default function AiCustomerServicePage() {
           </div>
         </section>
 
-        <section className="section-violet py-16 lg:py-20">
-          <div className="mx-auto max-w-[1400px] px-6 text-center lg:px-12">
-            <Reveal>
-              <h2 className="section-title">聯絡我們</h2>
-              <Link
-                href="/contact"
-                className="btn-primary mt-8 inline-flex rounded-lg px-7 py-3 text-label font-mono uppercase tracking-[0.15em]"
-              >
-                前往聯絡頁
-              </Link>
-            </Reveal>
-          </div>
-        </section>
+        <ServicePageExtras serviceSlug="ai-customer-service" />
       </div>
     </>
   );

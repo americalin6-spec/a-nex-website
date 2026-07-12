@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { pageMetadata } from "@/lib/seo/page-metadata";
 import {
   JsonLd,
@@ -7,10 +6,11 @@ import {
 } from "@/lib/seo/json-ld";
 import { SectionHeader } from "../../components/ui/section-header";
 import { Reveal } from "../../components/ui/reveal";
+import { ServicePageExtras } from "../../components/seo/service-page-extras";
 
 const title = "APP開發｜iOS與Android應用程式開發｜AXORA";
 const description =
-  "AXORA 提供 APP 開發服務，支援 iOS、Android、會員系統整合、API 串接與客製化應用程式開發。";
+  "AXORA APP 開發：依時程與裝置需求規劃 iOS／Android 方案，串接會員、CRM 或既有 API，交付可上架的行動產品。";
 const path = "/services/app-development" as const;
 
 export const metadata = pageMetadata({
@@ -20,14 +20,14 @@ export const metadata = pageMetadata({
 });
 
 const features = [
-  "iOS APP開發",
-  "Android APP開發",
-  "會員系統整合",
-  "API串接開發",
-  "客製化APP功能",
+  "iOS／Android 產品規劃與開發",
+  "會員登入與個人資料",
+  "API 串接既有後台",
+  "推播與關鍵流程設計",
+  "測試與上架協助（可列入範圍）",
 ];
 
-const audiences = ["房仲", "保險業", "顧問公司", "中小企業"];
+const audiences = ["需要行動端承接服務的品牌", "已有後台要補 APP 的團隊", "預約／會員制商業模式", "雙平台要同步上線的專案"];
 
 export default function AppDevelopmentPage() {
   return (
@@ -57,7 +57,7 @@ export default function AppDevelopmentPage() {
                 <span className="gradient-text">APP開發</span>
               </h1>
               <p className="mt-6 max-w-2xl text-body text-muted-light">
-                打造 iOS 與 Android 應用程式，提供完整行動解決方案
+                用清楚的產品範圍與 API 整合，做出能上架、能維護的 iOS／Android APP。
               </p>
             </Reveal>
           </div>
@@ -94,19 +94,7 @@ export default function AppDevelopmentPage() {
           </div>
         </section>
 
-        <section className="section-violet py-16 lg:py-20">
-          <div className="mx-auto max-w-[1400px] px-6 text-center lg:px-12">
-            <Reveal>
-              <h2 className="section-title">聯絡我們</h2>
-              <Link
-                href="/contact"
-                className="btn-primary mt-8 inline-flex rounded-lg px-7 py-3 text-label font-mono uppercase tracking-[0.15em]"
-              >
-                前往聯絡頁
-              </Link>
-            </Reveal>
-          </div>
-        </section>
+        <ServicePageExtras serviceSlug="app-development" />
       </div>
     </>
   );

@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { pageMetadata } from "@/lib/seo/page-metadata";
 import {
   JsonLd,
@@ -7,10 +6,11 @@ import {
 } from "@/lib/seo/json-ld";
 import { SectionHeader } from "../../components/ui/section-header";
 import { Reveal } from "../../components/ui/reveal";
+import { ServicePageExtras } from "../../components/seo/service-page-extras";
 
 const title = "LINE官方帳號整合｜LINE CRM與自動回覆方案｜AXORA";
 const description =
-  "AXORA 提供 LINE 官方帳號整合服務，支援自動回覆、客戶管理與 CRM 串接，提升客服效率與客戶互動品質。";
+  "AXORA LINE 官方帳號整合：歡迎訊息、選單、關鍵字回覆、Webhook，以及潛客／CRM 同步，把聊天變成可追蹤名單。";
 const path = "/services/line-oa" as const;
 
 export const metadata = pageMetadata({
@@ -20,14 +20,14 @@ export const metadata = pageMetadata({
 });
 
 const features = [
-  "LINE 官方帳號串接",
-  "自動回覆",
-  "客戶資料同步",
-  "LINE CRM 整合",
-  "對話紀錄管理",
+  "Official Account／Messaging API 串接",
+  "歡迎訊息與圖文選單",
+  "關鍵字自動回覆",
+  "進線潛客建檔",
+  "對話同步至 CRM／後台",
 ];
 
-const audiences = ["房仲", "保險業", "顧問公司", "中小企業"];
+const audiences = ["以 LINE 為主溝通的品牌", "房仲／保險／顧問", "需要分流客服與業務的團隊", "要減少個人 LINE 接案的公司"];
 
 export default function LineOaPage() {
   return (
@@ -57,7 +57,7 @@ export default function LineOaPage() {
                 <span className="gradient-text">LINE官方帳號整合</span>
               </h1>
               <p className="mt-6 max-w-2xl text-body text-muted-light">
-                整合 LINE 官方帳號、自動回覆與客戶管理功能
+                把官方帳號從「會回訊息」升級成「進線可追蹤、可交接」。
               </p>
             </Reveal>
           </div>
@@ -94,19 +94,7 @@ export default function LineOaPage() {
           </div>
         </section>
 
-        <section className="section-violet py-16 lg:py-20">
-          <div className="mx-auto max-w-[1400px] px-6 text-center lg:px-12">
-            <Reveal>
-              <h2 className="section-title">聯絡我們</h2>
-              <Link
-                href="/contact"
-                className="btn-primary mt-8 inline-flex rounded-lg px-7 py-3 text-label font-mono uppercase tracking-[0.15em]"
-              >
-                前往聯絡頁
-              </Link>
-            </Reveal>
-          </div>
-        </section>
+        <ServicePageExtras serviceSlug="line-oa" />
       </div>
     </>
   );

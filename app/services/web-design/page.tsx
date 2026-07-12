@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { pageMetadata } from "@/lib/seo/page-metadata";
 import {
   JsonLd,
@@ -7,10 +6,11 @@ import {
 } from "@/lib/seo/json-ld";
 import { SectionHeader } from "../../components/ui/section-header";
 import { Reveal } from "../../components/ui/reveal";
+import { ServicePageExtras } from "../../components/seo/service-page-extras";
 
 const title = "網站設計｜企業官網與客製化網站開發｜AXORA";
 const description =
-  "AXORA 提供網站設計與客製化網站開發服務，打造企業官網、形象網站、SEO 架構與後台管理系統。";
+  "AXORA 網站設計與開發：企業官網、形象站與客製頁面，含響應式版面、基礎 SEO，以及表單／LINE 轉換入口。";
 const path = "/services/web-design" as const;
 
 export const metadata = pageMetadata({
@@ -20,14 +20,14 @@ export const metadata = pageMetadata({
 });
 
 const features = [
-  "企業形象網站",
-  "響應式網站設計",
-  "SEO網站架構",
-  "客製化網頁開發",
-  "後台管理系統",
+  "企業官網資訊架構",
+  "響應式頁面設計與開發",
+  "基礎 SEO（標題、sitemap、OG）",
+  "諮詢表單／LINE 入口",
+  "內容後台（依需求建置）",
 ];
 
-const audiences = ["房仲", "保險業", "顧問公司", "中小企業"];
+const audiences = ["需要專業形象官網的品牌", "服務型／工作室產業", "要承接諮詢名單的公司", "準備重做舊站的中小企業"];
 
 export default function WebDesignPage() {
   return (
@@ -57,7 +57,7 @@ export default function WebDesignPage() {
                 <span className="gradient-text">網站設計</span>
               </h1>
               <p className="mt-6 max-w-2xl text-body text-muted-light">
-                企業官網、形象網站與客製化網頁設計服務
+                官網不只好看，還要讓潛在客戶找得到服務、留得下名單。
               </p>
             </Reveal>
           </div>
@@ -94,19 +94,7 @@ export default function WebDesignPage() {
           </div>
         </section>
 
-        <section className="section-violet py-16 lg:py-20">
-          <div className="mx-auto max-w-[1400px] px-6 text-center lg:px-12">
-            <Reveal>
-              <h2 className="section-title">聯絡我們</h2>
-              <Link
-                href="/contact"
-                className="btn-primary mt-8 inline-flex rounded-lg px-7 py-3 text-label font-mono uppercase tracking-[0.15em]"
-              >
-                前往聯絡頁
-              </Link>
-            </Reveal>
-          </div>
-        </section>
+        <ServicePageExtras serviceSlug="web-design" />
       </div>
     </>
   );
