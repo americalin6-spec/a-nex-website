@@ -20,10 +20,10 @@ export function KpiCards() {
 
   const kpis = isZh
     ? [
-        { label: "潛客管理", value: "Preview", change: "Lead Management" },
-        { label: "銷售儀表板", value: "Preview", change: "Sales Dashboard" },
-        { label: "流程自動化", value: "Preview", change: "Workflow Automation" },
-        { label: "數據分析", value: "Preview", change: "Analytics" },
+        { label: "潛客管理", value: "預覽", change: "潛在客戶管理" },
+        { label: "銷售儀表板", value: "預覽", change: "銷售儀表板" },
+        { label: "流程自動化", value: "預覽", change: "流程自動化" },
+        { label: "數據分析", value: "預覽", change: "數據分析" },
       ]
     : [
         { label: "Lead Management", value: "Preview", change: "Module demo" },
@@ -40,7 +40,7 @@ export function KpiCards() {
             {isZh ? "系統展示" : "Dashboard Preview"}
           </span>
           <span className="text-caption text-muted">
-            {isZh ? "System Demonstration" : "Sample UI"}
+            {isZh ? "預覽" : "Sample UI"}
           </span>
         </div>
         {kpis.map((k, i) => (
@@ -97,10 +97,10 @@ export function CrmTablePreview() {
       <div className={panelInner}>
         <div className="mb-3 flex items-center justify-between">
           <span className="text-label font-mono uppercase tracking-wider text-accent-cyan">
-            {isZh ? "CRM 展示" : "CRM Preview"}
+            {isZh ? "客戶管理展示" : "CRM Preview"}
           </span>
           <span className="text-caption text-muted">
-            {isZh ? "示意資料 · Sample" : "Sample data"}
+            {isZh ? "示意資料" : "Sample data"}
           </span>
         </div>
         <div className="overflow-hidden rounded-md border border-border/80">
@@ -287,7 +287,7 @@ export function SystemArchitecture() {
 
   const layers = isZh
     ? [
-        { name: "前端", items: ["Next.js", "Admin UI"], accent: "text-accent-cyan" },
+        { name: "前端", items: ["Next.js", "管理後台"], accent: "text-accent-cyan" },
         { name: "API", items: ["REST / GraphQL"], accent: "text-accent-blue" },
         { name: "服務", items: ["Auth", "CMS", "客戶管理"], accent: "text-accent-purple" },
         { name: "資料", items: ["PostgreSQL", "Redis"], accent: "text-accent-violet" },
