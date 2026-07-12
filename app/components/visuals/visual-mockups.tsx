@@ -20,10 +20,10 @@ export function KpiCards() {
 
   const kpis = isZh
     ? [
-        { label: "潛客管理", value: "預覽", change: "潛在客戶管理" },
-        { label: "銷售儀表板", value: "預覽", change: "銷售儀表板" },
-        { label: "流程自動化", value: "預覽", change: "流程自動化" },
-        { label: "數據分析", value: "預覽", change: "數據分析" },
+        { label: "潛客管理", value: "客戶資料", change: "潛在客戶管理" },
+        { label: "銷售儀表板", value: "業績統計", change: "銷售儀表板" },
+        { label: "流程自動化", value: "自動流程", change: "流程自動化" },
+        { label: "數據分析", value: "報表分析", change: "數據分析" },
       ]
     : [
         { label: "Lead Management", value: "Preview", change: "Module demo" },
@@ -40,7 +40,7 @@ export function KpiCards() {
             {isZh ? "系統展示" : "Dashboard Preview"}
           </span>
           <span className="text-caption text-muted">
-            {isZh ? "預覽" : "Sample UI"}
+            {isZh ? "功能示意" : "Sample UI"}
           </span>
         </div>
         {kpis.map((k, i) => (
