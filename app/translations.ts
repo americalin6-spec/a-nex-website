@@ -437,8 +437,8 @@ export const translations = {
             "響應式網頁設計（RWD）",
             "多語系網站",
             "SEO 搜尋引擎優化",
-            "Google Analytics（網站分析）",
-            "Google Search Console（搜尋主控台）",
+            "Google Analytics 網站分析",
+            "Google Search Console 搜尋主控台",
           ],
         },
         {
@@ -493,7 +493,7 @@ export const translations = {
           idealFor: "已有系統需對接金流、排程、AI 或外部資料源的開發團隊",
           deliverables: [
             "OpenAI API 串接",
-            "Google 日曆串接",
+            "Google Calendar 串接",
             "Google Meet 串接",
             "Stripe 金流串接",
             "Supabase 雲端資料庫",
