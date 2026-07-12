@@ -8,6 +8,11 @@ const nextConfig: NextConfig = {
         destination: "/line-ai",
         permanent: true,
       },
+      {
+        source: "/work",
+        destination: "/projects",
+        permanent: true,
+      },
     ];
   },
 };

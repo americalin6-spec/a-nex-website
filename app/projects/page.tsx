@@ -3,6 +3,7 @@
 import { isIosSafari } from "@/lib/ios-safari";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { JsonLd, breadcrumbJsonLd } from "@/lib/seo/json-ld";
 import { caseStudies } from "../data/case-studies";
 import { projects } from "../data/projects";
 import { useLanguage } from "../context/language-context";
@@ -22,7 +23,14 @@ export default function ProjectsPage() {
   }, []);
 
   return (
-    <div className="pt-20">
+    <>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "首頁", path: "/" },
+          { name: "案例實績", path: "/projects" },
+        ])}
+      />
+      <div className="pt-20">
       <section className="section-glow mesh-accent relative border-b border-border py-16 lg:py-20">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
           <Reveal disableScrollAnimation={iosSafariGpuSafe}>
@@ -81,5 +89,6 @@ export default function ProjectsPage() {
         </div>
       </section>
     </div>
+    </>
   );
 }

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/seo/page-metadata";
+import { JsonLd, breadcrumbJsonLd } from "@/lib/seo/json-ld";
 
 export const metadata: Metadata = pageMetadata({
   title: "聯絡 AXORA｜CRM、LINE 串接與 SaaS 開發諮詢",
@@ -13,5 +14,15 @@ export default function ContactLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return children;
+  return (
+    <>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "首頁", path: "/" },
+          { name: "聯絡我們", path: "/contact" },
+        ])}
+      />
+      {children}
+    </>
+  );
 }

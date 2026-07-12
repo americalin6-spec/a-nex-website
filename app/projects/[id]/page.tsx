@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/seo/page-metadata";
+import { JsonLd, breadcrumbJsonLd } from "@/lib/seo/json-ld";
 import { getProjectDetail } from "../../data/project-details";
 import { getProjectById, projects } from "../../data/projects";
 import { ProjectDetailView } from "../../components/projects/project-detail-view";
@@ -40,5 +41,16 @@ export default async function ProjectDetailPage({ params }: PageProps) {
     notFound();
   }
 
-  return <ProjectDetailView project={project} detail={detail} />;
+  return (
+    <>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "首頁", path: "/" },
+          { name: "案例實績", path: "/projects" },
+          { name: project.name, path: `/projects/${project.id}` },
+        ])}
+      />
+      <ProjectDetailView project={project} detail={detail} />
+    </>
+  );
 }

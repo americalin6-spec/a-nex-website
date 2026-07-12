@@ -166,7 +166,7 @@ function MacBookCrossfade() {
         >
           <Image
             src={MACBOOK_SLIDES[index]}
-            alt=""
+            alt="AXORA 專案作品展示"
             fill
             priority={index === 0}
             className="object-contain object-top"
@@ -193,7 +193,7 @@ function PhoneScrollingScreen() {
       >
         <Image
           src={SHOWCASE_IMAGES.phone}
-          alt=""
+          alt="AXORA AI 平台手機介面預覽"
           fill
           className="object-cover object-top"
           sizes="120px"
@@ -324,12 +324,12 @@ export function HeroPortfolioShowcase() {
       <div className="pointer-events-none absolute inset-0 hidden lg:block">
         <GlassAccentCard
           src={SHOWCASE_IMAGES.accentA}
-          alt=""
+          alt="AXORA 專案作品預覽"
           className="absolute -left-[4%] top-[8%] z-0 w-[28%] -rotate-[8deg] opacity-80"
         />
         <GlassAccentCard
           src={SHOWCASE_IMAGES.accentB}
-          alt=""
+          alt="AXORA 品牌網站作品預覽"
           className="absolute -right-[2%] top-[4%] z-0 w-[26%] rotate-[6deg] opacity-75"
         />
       </div>
@@ -364,7 +364,7 @@ export function HeroPortfolioShowcase() {
             <TabletFrame isActive={hovered === "tablet"}>
               <Image
                 src={SHOWCASE_IMAGES.tablet}
-                alt=""
+                alt="AXORA 教育網站作品預覽"
                 fill
                 className="object-cover object-top"
                 sizes="(max-width: 768px) 30vw, 20vw"

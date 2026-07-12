@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { projects } from "@/app/data/projects";
 import { SITE_URL } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -20,12 +21,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/services/ai-automation",
     "/services/app-development",
     "/services/web-design",
+    ...projects.map((project) => `/projects/${project.id}`),
   ] as const;
 
   return paths.map((path) => ({
     url: `${SITE_URL}${path === "/" ? "/" : path}`,
     lastModified,
     changeFrequency: path === "/" ? "weekly" : "monthly",
-    priority: path === "/" ? 1 : path.startsWith("/services/") ? 0.8 : 0.7,
+    priority:
+      path === "/"
+        ? 1
+        : path.startsWith("/services/")
+          ? 0.8
+          : path.startsWith("/projects/")
+            ? 0.7
+            : 0.7,
   }));
 }

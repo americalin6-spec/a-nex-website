@@ -79,6 +79,7 @@ export function ProjectGalleryImage({
   return (
     <ProjectCoverImage
       src={src}
+      alt={`${projectId} 專案展示圖 ${index}`}
       className="relative aspect-[4/3] overflow-hidden rounded-lg border border-border/60 bg-charcoal"
       sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
     />

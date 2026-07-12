@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/seo/page-metadata";
+import { JsonLd, breadcrumbJsonLd } from "@/lib/seo/json-ld";
 
 export const metadata: Metadata = pageMetadata({
   title: "智能分析與成交管理平台 免費試用｜AXORA",
@@ -13,5 +14,15 @@ export default function DownloadsLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return children;
+  return (
+    <>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "首頁", path: "/" },
+          { name: "免費試用", path: "/downloads" },
+        ])}
+      />
+      {children}
+    </>
+  );
 }

@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { isIosSafari } from "@/lib/ios-safari";
 import { useEffect, useState } from "react";
+import { JsonLd, breadcrumbJsonLd } from "@/lib/seo/json-ld";
 import { useLanguage } from "../context/language-context";
 import { SectionHeader } from "../components/ui/section-header";
 import { VisualRenderer } from "../components/visuals/visual-mockups";
@@ -36,7 +37,14 @@ export default function ServicesPage() {
   }, []);
 
   return (
-    <div className="pt-20">
+    <>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "首頁", path: "/" },
+          { name: "服務項目", path: "/services" },
+        ])}
+      />
+      <div className="pt-20">
       <section className="section-glow mesh-accent relative border-b border-border py-16 lg:py-20">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
           <Reveal disableScrollAnimation={iosSafariGpuSafe}>
@@ -147,5 +155,6 @@ export default function ServicesPage() {
         })}
       </section>
     </div>
+    </>
   );
 }

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/seo/page-metadata";
+import { JsonLd, breadcrumbJsonLd } from "@/lib/seo/json-ld";
 
 export const metadata: Metadata = pageMetadata({
   title: "關於 AXORA｜企業智能分析軟體、客戶管理與自動化開發",
@@ -13,5 +14,15 @@ export default function AboutLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return children;
+  return (
+    <>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "首頁", path: "/" },
+          { name: "關於 AXORA", path: "/about" },
+        ])}
+      />
+      {children}
+    </>
+  );
 }
