@@ -1,19 +1,15 @@
 "use client";
 
-import { isIosSafari } from "@/lib/ios-safari";
+import { useIsIosSafari } from "@/lib/ios-safari";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { AmbientBackground } from "../ui/ambient-background";
 import { Footer } from "./footer";
 import { Navbar } from "./navbar";
 
 export function SiteShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const [iosSafari, setIosSafari] = useState(false);
-
-  useEffect(() => {
-    setIosSafari(isIosSafari());
-  }, []);
+  const iosSafari = useIsIosSafari();
 
   const isIosSafariGpuSafePath =
     iosSafari &&

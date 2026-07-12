@@ -1,8 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { isIosSafari } from "@/lib/ios-safari";
-import { useEffect, useState } from "react";
+import { useIsIosSafari } from "@/lib/ios-safari";
 import { JsonLd, breadcrumbJsonLd } from "@/lib/seo/json-ld";
 import { useLanguage } from "../context/language-context";
 import { SectionHeader } from "../components/ui/section-header";
@@ -30,11 +29,7 @@ const serviceVisuals: CaseStudyVisual[] = [
 
 export default function ServicesPage() {
   const { t } = useLanguage();
-  const [iosSafariGpuSafe, setIosSafariGpuSafe] = useState(false);
-
-  useEffect(() => {
-    setIosSafariGpuSafe(isIosSafari());
-  }, []);
+  const iosSafariGpuSafe = useIsIosSafari();
 
   return (
     <>

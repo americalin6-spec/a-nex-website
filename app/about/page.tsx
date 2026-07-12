@@ -1,8 +1,7 @@
 "use client";
 
-import { isIosSafari } from "@/lib/ios-safari";
+import { useIsIosSafari } from "@/lib/ios-safari";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import { useLanguage } from "../context/language-context";
 import { SectionHeader } from "../components/ui/section-header";
 import { KpiCards, CrmTablePreview } from "../components/visuals/visual-mockups";
@@ -10,11 +9,7 @@ import { Reveal } from "../components/ui/reveal";
 
 export default function AboutPage() {
   const { t } = useLanguage();
-  const [iosSafariGpuSafe, setIosSafariGpuSafe] = useState(false);
-
-  useEffect(() => {
-    setIosSafariGpuSafe(isIosSafari());
-  }, []);
+  const iosSafariGpuSafe = useIsIosSafari();
 
   return (
     <div className="pt-20">

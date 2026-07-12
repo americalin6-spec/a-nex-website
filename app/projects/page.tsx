@@ -1,8 +1,7 @@
 "use client";
 
-import { isIosSafari } from "@/lib/ios-safari";
+import { useIsIosSafari } from "@/lib/ios-safari";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import { JsonLd, breadcrumbJsonLd } from "@/lib/seo/json-ld";
 import { caseStudies } from "../data/case-studies";
 import { projects } from "../data/projects";
@@ -16,11 +15,7 @@ import { Reveal } from "../components/ui/reveal";
 
 export default function ProjectsPage() {
   const { t } = useLanguage();
-  const [iosSafariGpuSafe, setIosSafariGpuSafe] = useState(false);
-
-  useEffect(() => {
-    setIosSafariGpuSafe(isIosSafari());
-  }, []);
+  const iosSafariGpuSafe = useIsIosSafari();
 
   return (
     <>

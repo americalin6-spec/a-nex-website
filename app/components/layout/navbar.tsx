@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useIsClient } from "@/lib/ios-safari";
 import { useLanguage } from "../../context/language-context";
 import { LineAddButton } from "../line/line-add-button";
 import { LanguageSwitcher } from "./language-switcher";
@@ -20,13 +21,15 @@ const navItems = [
 export function Navbar() {
   const pathname = usePathname();
   const { t } = useLanguage();
-  const [mounted, setMounted] = useState(false);
+  const mounted = useIsClient();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [menuPathname, setMenuPathname] = useState(pathname);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  if (pathname !== menuPathname) {
+    setMenuPathname(pathname);
+    setMenuOpen(false);
+  }
 
   useEffect(() => {
     if (!mounted) return;
@@ -35,10 +38,6 @@ export function Navbar() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, [mounted]);
-
-  useEffect(() => {
-    setMenuOpen(false);
-  }, [pathname]);
 
   function isActive(href: string) {
     if (href.startsWith("/#")) return false;

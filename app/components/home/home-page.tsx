@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useIsIosSafari } from "@/lib/ios-safari";
 import { featuredCaseStudies } from "../../data/case-studies";
 import { useLanguage } from "../../context/language-context";
 import { CaseStudyPreviewCard } from "../case-studies/case-study-section";
@@ -34,25 +34,9 @@ const techStack = [
 // TEMP: disable whileInView scroll animations for iPhone Safari crash test
 const DISABLE_HOME_SCROLL_ANIM = true;
 
-function isIosSafari() {
-  if (typeof navigator === "undefined") return false;
-  const ua = navigator.userAgent;
-  const isIOS =
-    /iPad|iPhone|iPod/.test(ua) ||
-    (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
-  const isWebKit = /WebKit/i.test(ua);
-  const isChrome = /CriOS/i.test(ua);
-  const isFirefox = /FxiOS/i.test(ua);
-  return isIOS && isWebKit && !isChrome && !isFirefox;
-}
-
 export function HomePage() {
   const { t, locale } = useLanguage();
-  const [iosSafari, setIosSafari] = useState(false);
-
-  useEffect(() => {
-    setIosSafari(isIosSafari());
-  }, []);
+  const iosSafari = useIsIosSafari();
   const isZh = locale === "zh";
 
   const stats = isZh

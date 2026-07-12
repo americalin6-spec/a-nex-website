@@ -105,7 +105,7 @@ export function PlatformServiceVisualCards() {
 
   return (
     <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-      {cards.map(({ key, title }, i) => (
+      {cards.map(({ key, title }) => (
         <div key={key} className="gradient-border rounded-xl">
           <div className="gradient-border-inner p-3">
             <p className="text-xs font-mono uppercase tracking-wider text-accent-cyan">

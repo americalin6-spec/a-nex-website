@@ -1,20 +1,15 @@
 "use client";
 
-import { isIosSafari } from "@/lib/ios-safari";
-import { useEffect, useState } from "react";
+import { useIsIosSafari } from "@/lib/ios-safari";
+import { useLanguage } from "../context/language-context";
 import { ContactEmailActions, ContactLineActions } from "../components/contact/contact-info-actions";
 import { ContactForm } from "../components/contact/contact-form";
 import { LineQrSection } from "../components/line/line-qr-section";
 import { Reveal } from "../components/ui/reveal";
-import { useLanguage } from "../context/language-context";
 
 export default function ContactPage() {
   const { t } = useLanguage();
-  const [iosSafariGpuSafe, setIosSafariGpuSafe] = useState(false);
-
-  useEffect(() => {
-    setIosSafariGpuSafe(isIosSafari());
-  }, []);
+  const iosSafariGpuSafe = useIsIosSafari();
 
   return (
     <div className="pt-20">
