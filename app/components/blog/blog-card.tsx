@@ -1,6 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
-import type { BlogPost } from "../../data/blog-posts";
+import {
+  getReadingTimeMinutes,
+  type BlogPost,
+} from "../../data/blog-posts";
 
 function formatDate(date: string) {
   return new Intl.DateTimeFormat("zh-TW", {
@@ -11,6 +14,8 @@ function formatDate(date: string) {
 }
 
 export function BlogCard({ post }: { post: BlogPost }) {
+  const readingTime = getReadingTimeMinutes(post);
+
   return (
     <article className="gradient-border group flex h-full flex-col transition-all duration-300 hover:-translate-y-0.5">
       <Link
@@ -40,7 +45,7 @@ export function BlogCard({ post }: { post: BlogPost }) {
           <div className="mt-6 flex flex-wrap items-center gap-3 font-mono text-xs uppercase tracking-wider text-muted">
             <time dateTime={post.publishedAt}>{formatDate(post.publishedAt)}</time>
             <span aria-hidden>·</span>
-            <span>{post.readingTime} 分鐘閱讀</span>
+            <span>{readingTime} 分鐘閱讀</span>
           </div>
           <span className="mt-6 inline-flex w-fit rounded-lg border border-border px-4 py-2 text-label font-mono uppercase tracking-[0.15em] text-muted-light transition group-hover:border-accent-blue group-hover:text-accent-blue">
             閱讀更多

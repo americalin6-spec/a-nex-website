@@ -2,9 +2,10 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import {
   BLOG_CATEGORIES,
+  getReadingTimeMinutes,
   type BlogCategory,
   type BlogPost,
 } from "../../data/blog-posts";
@@ -23,6 +24,8 @@ function formatDate(date: string) {
 }
 
 function FeaturedArticle({ post }: { post: BlogPost }) {
+  const readingTime = getReadingTimeMinutes(post);
+
   return (
     <article className="gradient-border group transition-all duration-300 hover:-translate-y-0.5">
       <Link
@@ -55,7 +58,7 @@ function FeaturedArticle({ post }: { post: BlogPost }) {
               {formatDate(post.publishedAt)}
             </time>
             <span aria-hidden>·</span>
-            <span>{post.readingTime} 分鐘閱讀</span>
+            <span>{readingTime} 分鐘閱讀</span>
           </div>
           <span className="btn-primary mt-8 inline-flex w-fit rounded-lg px-6 py-3 text-label font-mono uppercase tracking-[0.15em]">
             閱讀更多
@@ -77,6 +80,22 @@ export function BlogIndex({ posts }: BlogIndexProps) {
   const featuredPost = filteredPosts[0] ?? null;
   const latestPosts = filteredPosts.slice(1, 4);
   const allPosts = filteredPosts;
+
+  const popularPosts = useMemo(
+    () =>
+      [...posts]
+        .sort((a, b) => {
+          if (b.popularScore !== a.popularScore) {
+            return b.popularScore - a.popularScore;
+          }
+          return (
+            new Date(b.publishedAt).getTime() -
+            new Date(a.publishedAt).getTime()
+          );
+        })
+        .slice(0, 3),
+    [posts],
+  );
 
   return (
     <div className="pt-20">
@@ -146,6 +165,22 @@ export function BlogIndex({ posts }: BlogIndexProps) {
             </p>
             <div className="mt-8">
               <FeaturedArticle post={featuredPost} />
+            </div>
+          </div>
+        </section>
+      ) : null}
+
+      {category === "全部" && popularPosts.length > 0 ? (
+        <section className="border-b border-border py-12 lg:py-14">
+          <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
+            <h2 className="section-title">熱門文章</h2>
+            <p className="mt-3 max-w-2xl text-body text-muted-light">
+              Popular Posts — 依內容熱度排序的推薦閱讀。
+            </p>
+            <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+              {popularPosts.map((post) => (
+                <BlogCard key={`popular-${post.id}`} post={post} />
+              ))}
             </div>
           </div>
         </section>

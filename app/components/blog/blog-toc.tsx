@@ -13,7 +13,10 @@ export function BlogTableOfContents({ sections }: { sections: BlogSection[] }) {
       </p>
       <ol className="mt-4 space-y-3">
         {sections.map((section, index) => (
-          <li key={section.id}>
+          <li
+            key={section.id}
+            className={section.level === 3 ? "pl-4" : undefined}
+          >
             <a
               href={`#${section.id}`}
               className="text-sm text-muted-light transition hover:text-accent-blue"

@@ -116,23 +116,29 @@ const projectToArticles: Record<string, string[]> = {
 };
 
 const blogCategoryToServices: Record<BlogCategory, ServiceSlug[]> = {
-  AI: ["ai-crm", "ai-automation", "ai-customer-service"],
-  CRM: ["crm-system", "ai-crm", "line-oa"],
+  "AI CRM": ["ai-crm", "crm-system", "line-oa"],
   "LINE OA": ["line-oa", "ai-crm", "ai-customer-service"],
-  網站開發: ["web-design", "saas-development", "app-development"],
-  APP: ["app-development", "saas-development", "web-design"],
+  "Website Development": ["web-design", "saas-development", "app-development"],
   SEO: ["web-design", "saas-development", "crm-system"],
+  "AI Agent": ["ai-automation", "ai-crm", "ai-customer-service"],
   SaaS: ["saas-development", "ai-automation", "web-design"],
+  CRM: ["crm-system", "ai-crm", "line-oa"],
+  "Case Study": ["web-design", "ai-crm", "saas-development"],
+  FAQ: ["web-design", "ai-crm", "line-oa"],
+  News: ["web-design", "saas-development", "ai-crm"],
 };
 
 const blogCategoryToProjects: Record<BlogCategory, string[]> = {
-  AI: ["ai-crm", "onlymate", "ashley-english"],
-  CRM: ["ai-crm", "ashley-english", "huaren-tong"],
+  "AI CRM": ["ai-crm", "onlymate", "ashley-english"],
   "LINE OA": ["ai-crm", "huaren-tong", "zhongzhi-studio"],
-  網站開發: ["ashley-english", "zhongzhi-studio", "huaren-tong"],
-  APP: ["onlymate", "huaren-tong", "ai-crm"],
+  "Website Development": ["ashley-english", "zhongzhi-studio", "huaren-tong"],
   SEO: ["ashley-english", "zhongzhi-studio", "huaren-tong"],
+  "AI Agent": ["ai-crm", "onlymate", "ashley-english"],
   SaaS: ["onlymate", "huaren-tong", "ai-crm"],
+  CRM: ["ai-crm", "ashley-english", "huaren-tong"],
+  "Case Study": ["ashley-english", "ai-crm", "huaren-tong"],
+  FAQ: ["ashley-english", "zhongzhi-studio", "huaren-tong"],
+  News: ["ashley-english", "ai-crm", "onlymate"],
 };
 
 function resolveProjects(ids: string[], limit = 3): Project[] {

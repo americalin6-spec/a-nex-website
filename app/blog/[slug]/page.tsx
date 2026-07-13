@@ -7,10 +7,13 @@ import {
   JsonLd,
   articleJsonLd,
   breadcrumbJsonLd,
+  faqPageJsonLd,
 } from "@/lib/seo/json-ld";
 import {
   blogPosts,
   getBlogPostBySlug,
+  getPostAuthor,
+  getReadingTimeMinutes,
   getRelatedBlogPosts,
 } from "../../data/blog-posts";
 import {
@@ -50,16 +53,18 @@ export async function generateMetadata({
     });
   }
 
+  const author = getPostAuthor(post);
+
   return articleMetadata({
-    title: `${post.title}｜AXORA Blog`,
-    description: post.description,
-    path: `/blog/${post.slug}`,
-    image: post.coverImage,
+    title: post.seo.seoTitle,
+    description: post.seo.metaDescription,
+    path: post.seo.canonical,
+    image: post.seo.ogImage,
     publishedAt: post.publishedAt,
     updatedAt: post.updatedAt,
-    authors: [post.author],
-    tags: post.tags,
-    keywords: post.keywords,
+    authors: [author.name],
+    tags: [...post.tags],
+    keywords: post.seo.keywords,
   });
 }
 
@@ -79,7 +84,9 @@ export default async function BlogPostPage({ params }: PageProps) {
     notFound();
   }
 
-  const path = `/blog/${post.slug}` as const;
+  const author = getPostAuthor(post);
+  const readingTime = getReadingTimeMinutes(post);
+  const path = post.seo.canonical;
   const { previous, next } = getAdjacentBlogPosts(post.slug);
   const relatedServices = getRelatedServicesForBlog(post.category);
   const relatedProjects = getRelatedProjectsForBlog(post.category);
@@ -89,14 +96,14 @@ export default async function BlogPostPage({ params }: PageProps) {
     <>
       <JsonLd
         data={articleJsonLd({
-          title: post.title,
-          description: post.description,
+          title: post.seo.seoTitle,
+          description: post.seo.metaDescription,
           path,
-          image: post.coverImage,
+          image: post.seo.ogImage,
           publishedAt: post.publishedAt,
           updatedAt: post.updatedAt,
-          author: post.author,
-          keywords: post.keywords,
+          author: author.name,
+          keywords: post.seo.keywords,
         })}
       />
       <JsonLd
@@ -106,6 +113,7 @@ export default async function BlogPostPage({ params }: PageProps) {
           { name: post.title, path },
         ])}
       />
+      {post.faq.length > 0 ? <JsonLd data={faqPageJsonLd(post.faq)} /> : null}
 
       <article className="pt-20">
         <header className="section-glow mesh-accent relative border-b border-border py-16 lg:py-20">
@@ -116,15 +124,30 @@ export default async function BlogPostPage({ params }: PageProps) {
             <h1 className="text-display page-title mt-4">
               <span className="gradient-text">{post.title}</span>
             </h1>
-            <p className="mt-6 text-body text-muted-light">{post.description}</p>
+            <p className="mt-6 text-body text-muted-light">{post.intro}</p>
             <div className="mt-8 flex flex-wrap items-center gap-3 font-mono text-xs uppercase tracking-wider text-muted">
-              <span>{post.author}</span>
+              <span>{author.name}</span>
               <span aria-hidden>·</span>
               <time dateTime={post.publishedAt}>
                 {formatDate(post.publishedAt)}
               </time>
               <span aria-hidden>·</span>
-              <span>{post.readingTime} 分鐘閱讀</span>
+              <span>{readingTime} 分鐘閱讀</span>
+            </div>
+            <div className="mt-8 flex items-start gap-4 rounded-xl border border-border bg-charcoal/40 p-4">
+              <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-full border border-border">
+                <Image
+                  src={author.avatar}
+                  alt={author.name}
+                  fill
+                  className="object-cover"
+                  sizes="48px"
+                />
+              </div>
+              <div>
+                <p className="text-sm font-medium text-foreground">{author.name}</p>
+                <p className="mt-1 text-sm text-muted-light">{author.bio}</p>
+              </div>
             </div>
           </div>
         </header>
@@ -153,10 +176,20 @@ export default async function BlogPostPage({ params }: PageProps) {
             <div>
               <div className="space-y-12">
                 {post.content.map((section) => (
-                  <section key={section.id} id={section.id} className="scroll-mt-28">
-                    <h2 className="text-2xl font-medium text-foreground lg:text-3xl">
-                      {section.heading}
-                    </h2>
+                  <section
+                    key={section.id}
+                    id={section.id}
+                    className="scroll-mt-28"
+                  >
+                    {section.level === 2 ? (
+                      <h2 className="text-2xl font-medium text-foreground lg:text-3xl">
+                        {section.heading}
+                      </h2>
+                    ) : (
+                      <h3 className="text-xl font-medium text-foreground lg:text-2xl">
+                        {section.heading}
+                      </h3>
+                    )}
                     <div className="mt-5 space-y-5 text-body text-muted-light">
                       {section.paragraphs.map((paragraph) => (
                         <p key={paragraph.slice(0, 32)}>{paragraph}</p>
@@ -165,6 +198,29 @@ export default async function BlogPostPage({ params }: PageProps) {
                   </section>
                 ))}
               </div>
+
+              {post.faq.length > 0 ? (
+                <section className="mt-14 border-t border-border pt-10">
+                  <h2 className="text-2xl font-medium text-foreground lg:text-3xl">
+                    FAQ
+                  </h2>
+                  <div className="mt-6 space-y-4">
+                    {post.faq.map((item) => (
+                      <div
+                        key={item.question}
+                        className="rounded-xl border border-border bg-charcoal/40 p-5"
+                      >
+                        <h3 className="text-lg font-medium text-foreground">
+                          {item.question}
+                        </h3>
+                        <p className="mt-3 text-body text-muted-light">
+                          {item.answer}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              ) : null}
 
               <ul className="mt-10 flex flex-wrap gap-2">
                 {post.tags.map((tag) => (
@@ -223,8 +279,8 @@ export default async function BlogPostPage({ params }: PageProps) {
       <RelatedServicesSection services={relatedServices} />
       <RelatedProjectsSection projects={relatedProjects} />
       <ContactCtaSection
-        title="聯絡 AXORA"
-        description="若這篇文章對你有幫助，歡迎告訴我們你的產業與需求，AXORA 協助規劃可行方案。"
+        title={post.cta.title}
+        description={post.cta.description}
       />
     </>
   );
