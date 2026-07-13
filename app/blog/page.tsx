@@ -1,10 +1,7 @@
 import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/seo/page-metadata";
 import { JsonLd, breadcrumbJsonLd } from "@/lib/seo/json-ld";
-import {
-  getFeaturedBlogPosts,
-  getLatestBlogPosts,
-} from "../data/blog-posts";
+import { getLatestBlogPosts } from "../data/blog-posts";
 import { BlogIndex } from "../components/blog/blog-index";
 
 export const metadata: Metadata = pageMetadata({
@@ -16,7 +13,6 @@ export const metadata: Metadata = pageMetadata({
 
 export default function BlogPage() {
   const latestPosts = getLatestBlogPosts();
-  const featuredPosts = getFeaturedBlogPosts();
 
   return (
     <>
@@ -26,7 +22,7 @@ export default function BlogPage() {
           { name: "Blog", path: "/blog" },
         ])}
       />
-      <BlogIndex latestPosts={latestPosts} featuredPosts={featuredPosts} />
+      <BlogIndex posts={latestPosts} />
     </>
   );
 }

@@ -42,6 +42,9 @@ export function BlogCard({ post }: { post: BlogPost }) {
             <span aria-hidden>·</span>
             <span>{post.readingTime} 分鐘閱讀</span>
           </div>
+          <span className="mt-6 inline-flex w-fit rounded-lg border border-border px-4 py-2 text-label font-mono uppercase tracking-[0.15em] text-muted-light transition group-hover:border-accent-blue group-hover:text-accent-blue">
+            閱讀更多
+          </span>
         </div>
       </Link>
     </article>

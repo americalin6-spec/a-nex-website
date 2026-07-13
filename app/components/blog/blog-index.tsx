@@ -1,6 +1,8 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
 import {
   BLOG_CATEGORIES,
   type BlogCategory,
@@ -9,48 +11,91 @@ import {
 import { BlogCard } from "./blog-card";
 
 type BlogIndexProps = {
-  latestPosts: BlogPost[];
-  featuredPosts: BlogPost[];
+  posts: BlogPost[];
 };
 
-export function BlogIndex({ latestPosts, featuredPosts }: BlogIndexProps) {
-  const [query, setQuery] = useState("");
+function formatDate(date: string) {
+  return new Intl.DateTimeFormat("zh-TW", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  }).format(new Date(date));
+}
+
+function FeaturedArticle({ post }: { post: BlogPost }) {
+  return (
+    <article className="gradient-border group transition-all duration-300 hover:-translate-y-0.5">
+      <Link
+        href={`/blog/${post.slug}`}
+        className="gradient-border-inner grid overflow-hidden rounded-[inherit] lg:grid-cols-[1.15fr_1fr]"
+      >
+        <div className="relative aspect-[16/10] overflow-hidden border-b border-border/60 bg-charcoal lg:aspect-auto lg:min-h-[360px] lg:border-b-0 lg:border-r">
+          <Image
+            src={post.coverImage}
+            alt={post.title}
+            fill
+            priority
+            className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+            sizes="(max-width: 1024px) 100vw, 55vw"
+          />
+        </div>
+
+        <div className="flex flex-col justify-center p-6 lg:p-10 xl:p-12">
+          <p className="text-label font-mono uppercase tracking-wider text-accent-cyan">
+            {post.category}
+          </p>
+          <h2 className="mt-3 text-2xl font-medium text-foreground lg:text-4xl">
+            {post.title}
+          </h2>
+          <p className="mt-4 text-body text-muted-light lg:text-lg">
+            {post.description}
+          </p>
+          <div className="mt-6 flex flex-wrap items-center gap-3 font-mono text-xs uppercase tracking-wider text-muted">
+            <time dateTime={post.publishedAt}>
+              {formatDate(post.publishedAt)}
+            </time>
+            <span aria-hidden>·</span>
+            <span>{post.readingTime} 分鐘閱讀</span>
+          </div>
+          <span className="btn-primary mt-8 inline-flex w-fit rounded-lg px-6 py-3 text-label font-mono uppercase tracking-[0.15em]">
+            閱讀更多
+          </span>
+        </div>
+      </Link>
+    </article>
+  );
+}
+
+export function BlogIndex({ posts }: BlogIndexProps) {
   const [category, setCategory] = useState<BlogCategory | "全部">("全部");
 
-  const filteredPosts = useMemo(() => {
-    const normalized = query.trim().toLowerCase();
+  const filteredPosts =
+    category === "全部"
+      ? posts
+      : posts.filter((post) => post.category === category);
 
-    return latestPosts.filter((post) => {
-      const matchCategory =
-        category === "全部" ? true : post.category === category;
-      const matchQuery =
-        normalized.length === 0 ||
-        post.title.toLowerCase().includes(normalized) ||
-        post.description.toLowerCase().includes(normalized) ||
-        post.tags.some((tag) => tag.toLowerCase().includes(normalized));
-
-      return matchCategory && matchQuery;
-    });
-  }, [category, latestPosts, query]);
+  const featuredPost = filteredPosts[0] ?? null;
+  const latestPosts = filteredPosts.slice(1, 4);
+  const allPosts = filteredPosts;
 
   return (
     <div className="pt-20">
-      <section className="section-glow mesh-accent relative border-b border-border py-16 lg:py-20">
+      <section className="section-glow mesh-accent relative border-b border-border py-8 lg:py-10">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
           <p className="text-label font-mono uppercase tracking-[0.3em] text-accent-blue">
             AXORA Blog
           </p>
-          <h1 className="text-display page-title mt-4">
+          <h1 className="mt-3 text-3xl font-medium tracking-tight text-foreground lg:text-5xl">
             <span className="gradient-text">知識與實務洞察</span>
           </h1>
-          <p className="mt-6 max-w-2xl text-body text-muted-light">
+          <p className="mt-3 max-w-2xl text-body text-muted-light">
             關於 AI 客戶管理、CRM、LINE 官方帳號、SaaS、網站與 APP
             開發的實務文章，協助企業做出更好的數位決策。
           </p>
         </div>
       </section>
 
-      <section className="border-b border-border py-10">
+      <section className="border-b border-border py-8">
         <div className="mx-auto flex max-w-[1400px] flex-col gap-6 px-6 lg:px-12">
           <label className="block max-w-xl">
             <span className="text-label font-mono uppercase tracking-[0.2em] text-muted">
@@ -58,9 +103,9 @@ export function BlogIndex({ latestPosts, featuredPosts }: BlogIndexProps) {
             </span>
             <input
               type="search"
-              value={query}
-              onChange={(event) => setQuery(event.target.value)}
+              readOnly
               placeholder="輸入關鍵字，例如 CRM、LINE、SEO…"
+              aria-label="搜尋文章（即將開放）"
               className="mt-3 w-full rounded-xl border border-border bg-charcoal/60 px-4 py-3 text-body text-foreground outline-none transition focus:border-accent-blue"
             />
           </label>
@@ -92,15 +137,29 @@ export function BlogIndex({ latestPosts, featuredPosts }: BlogIndexProps) {
         </div>
       </section>
 
-      {featuredPosts.length > 0 && category === "全部" && query.trim() === "" ? (
-        <section className="section-elevated border-b border-border py-16 lg:py-20">
+      {featuredPost ? (
+        <section className="section-elevated border-b border-border py-12 lg:py-14">
           <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
             <h2 className="section-title">精選文章</h2>
-            <p className="mt-4 max-w-2xl text-body text-muted-light">
-              先讀這幾篇，快速掌握 AXORA 最常協助企業解決的主題。
+            <p className="mt-3 max-w-2xl text-body text-muted-light">
+              Featured Article — 本週優先閱讀的重點文章。
             </p>
-            <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-              {featuredPosts.map((post) => (
+            <div className="mt-8">
+              <FeaturedArticle post={featuredPost} />
+            </div>
+          </div>
+        </section>
+      ) : null}
+
+      {latestPosts.length > 0 ? (
+        <section className="border-b border-border py-12 lg:py-14">
+          <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
+            <h2 className="section-title">最新文章</h2>
+            <p className="mt-3 max-w-2xl text-body text-muted-light">
+              緊接精選之後，近期更新的文章。
+            </p>
+            <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+              {latestPosts.map((post) => (
                 <BlogCard key={post.id} post={post} />
               ))}
             </div>
@@ -108,23 +167,23 @@ export function BlogIndex({ latestPosts, featuredPosts }: BlogIndexProps) {
         </section>
       ) : null}
 
-      <section className="py-16 lg:py-20">
+      <section className="py-12 lg:py-14">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
-          <h2 className="section-title">最新文章</h2>
-          <p className="mt-4 max-w-2xl text-body text-muted-light">
-            {category === "全部" && query.trim() === ""
+          <h2 className="section-title">全部文章</h2>
+          <p className="mt-3 max-w-2xl text-body text-muted-light">
+            {category === "全部"
               ? "依發布時間排序的全部文章。"
-              : `找到 ${filteredPosts.length} 篇文章。`}
+              : `找到 ${allPosts.length} 篇文章。`}
           </p>
-          {filteredPosts.length > 0 ? (
-            <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-              {filteredPosts.map((post) => (
-                <BlogCard key={post.id} post={post} />
+          {allPosts.length > 0 ? (
+            <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+              {allPosts.map((post) => (
+                <BlogCard key={`all-${post.id}`} post={post} />
               ))}
             </div>
           ) : (
-            <p className="mt-10 text-body text-muted-light">
-              沒有符合條件的文章，請調整搜尋或分類。
+            <p className="mt-8 text-body text-muted-light">
+              此分類尚無文章，請選擇其他分類。
             </p>
           )}
         </div>

@@ -113,6 +113,7 @@ export function articleJsonLd({
   publishedAt,
   updatedAt,
   author,
+  keywords,
 }: {
   title: string;
   description: string;
@@ -121,12 +122,13 @@ export function articleJsonLd({
   publishedAt: string;
   updatedAt: string;
   author: string;
+  keywords?: string[];
 }) {
   const imageUrl = image.startsWith("http") ? image : `${SITE_URL}${image}`;
 
   return {
     "@context": "https://schema.org",
-    "@type": "Article",
+    "@type": "BlogPosting",
     headline: title,
     description,
     image: [imageUrl],
@@ -150,6 +152,9 @@ export function articleJsonLd({
       "@id": `${SITE_URL}${path}`,
     },
     inLanguage: "zh-Hant",
+    ...(keywords && keywords.length > 0
+      ? { keywords: keywords.join(", ") }
+      : {}),
   };
 }
 

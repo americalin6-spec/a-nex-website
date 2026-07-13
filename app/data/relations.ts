@@ -97,29 +97,21 @@ const projectToServices: Record<string, ServiceSlug[]> = {
 
 const projectToArticles: Record<string, string[]> = {
   "ashley-english": [
-    "corporate-website-seo-structure",
-    "custom-web-development-process",
-    "saas-mvp-checklist",
+    "website-development",
+    "seo-guide",
+    "line-oa-guide",
   ],
-  onlymate: [
-    "ai-automation-for-operations",
-    "ai-crm-improve-conversion",
-    "saas-pricing-and-retention",
-  ],
-  "ai-crm": [
-    "ai-crm-improve-conversion",
-    "line-oa-crm-integration",
-    "crm-pipeline-for-sme",
-  ],
+  onlymate: ["ai-agent", "ai-crm-guide", "website-development"],
+  "ai-crm": ["ai-crm-guide", "line-oa-guide", "ai-agent"],
   "huaren-tong": [
-    "line-oa-auto-reply-best-practices",
-    "custom-web-development-process",
-    "saas-mvp-checklist",
+    "line-oa-guide",
+    "website-development",
+    "seo-guide",
   ],
   "zhongzhi-studio": [
-    "custom-web-development-process",
-    "corporate-website-seo-structure",
-    "line-oa-auto-reply-best-practices",
+    "website-development",
+    "seo-guide",
+    "line-oa-guide",
   ],
 };
 

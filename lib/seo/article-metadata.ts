@@ -10,6 +10,7 @@ type ArticleMetadataInput = {
   updatedAt: string;
   authors?: string[];
   tags?: string[];
+  keywords?: string[];
 };
 
 export function articleMetadata({
@@ -21,11 +22,16 @@ export function articleMetadata({
   updatedAt,
   authors = [SITE_NAME],
   tags = [],
+  keywords = [],
 }: ArticleMetadataInput): Metadata {
+  const keywordList =
+    keywords.length > 0 ? keywords : tags.length > 0 ? tags : undefined;
+
   return {
     title,
     description,
     authors: authors.map((name) => ({ name })),
+    ...(keywordList ? { keywords: keywordList } : {}),
     alternates: {
       canonical: path,
     },
