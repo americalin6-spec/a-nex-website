@@ -63,9 +63,15 @@ export const metadata: Metadata = {
     google: "ui1yOGHIuDFLC3qDkvHtIxwpw-BydSWQ1_0OB4c4MAw",
   },
   icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon.ico",
-    apple: "/icon.png",
+    icon: [
+      {
+        url: "/axora-favicon-v2.png",
+        type: "image/png",
+        sizes: "192x192",
+      },
+    ],
+    shortcut: "/axora-favicon-v2.png",
+    apple: "/axora-favicon-v2.png",
   },
 };
 
