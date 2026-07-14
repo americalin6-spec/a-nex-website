@@ -16,6 +16,8 @@ export function getContactEmail(): string {
   return CONTACT_EMAIL;
 }
 
-export function getLineQrImageUrl(): string | undefined {
-  return process.env.NEXT_PUBLIC_LINE_QR_IMAGE_URL;
+export function getLineQrImageUrl(): string {
+  return (
+    process.env.NEXT_PUBLIC_LINE_QR_IMAGE_URL || "/line-add-qr.png"
+  );
 }

@@ -30,21 +30,22 @@ export function LineQrSection({
         <p className="mt-3 text-body text-muted-light">{t.line.qr.description}</p>
 
         <div className="mt-8 flex flex-col items-start gap-8 sm:flex-row sm:items-center">
-          <div className="ui-panel-inner flex h-44 w-44 shrink-0 items-center justify-center rounded-xl border border-dashed border-[#06C755]/40 bg-[#06C755]/5 p-3">
-            {qrUrl ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={qrUrl}
-                alt="LINE QR Code"
-                className="h-full w-full object-contain"
-              />
-            ) : (
-              <QrPlaceholder
-                title={t.line.qr.placeholderTitle}
-                hint={t.line.qr.placeholderHint}
-              />
-            )}
-          </div>
+          <a
+            href={addUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={t.line.addLine}
+            className="ui-panel-inner flex h-44 w-44 shrink-0 items-center justify-center rounded-xl border border-dashed border-[#06C755]/40 bg-white p-3 transition-opacity hover:opacity-90"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={qrUrl}
+              alt="LINE QR Code"
+              width={176}
+              height={176}
+              className="h-full w-full object-contain"
+            />
+          </a>
           <div className="space-y-4">
             <p className="text-caption text-muted">{t.line.qr.scanHint}</p>
             <LineAddButton variant="primary" />
@@ -63,13 +64,3 @@ export function LineQrSection({
   );
 }
 
-function QrPlaceholder({ title, hint }: { title: string; hint: string }) {
-  return (
-    <div className="flex h-full w-full flex-col items-center justify-center gap-2 px-3 text-center">
-      <p className="font-mono text-sm uppercase tracking-[0.18em] text-[#9ef0b5]">
-        {title}
-      </p>
-      <p className="text-caption leading-relaxed text-muted-light">{hint}</p>
-    </div>
-  );
-}
