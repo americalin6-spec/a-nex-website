@@ -6,6 +6,7 @@ import { useLanguage } from "../../context/language-context";
 import { SectionHeader } from "../ui/section-header";
 import { HeroShowcaseBackground } from "./hero-portfolio-showcase";
 import { HeroPhone3D } from "./hero-phone-3d";
+import { AiOrderDemo } from "../demo/ai-order-demo";
 import { Reveal } from "../ui/reveal";
 import { LineAddButton } from "../line/line-add-button";
 import { LineQrSection } from "../line/line-qr-section";
@@ -25,7 +26,7 @@ const content = {
         "訂單、客人資料、營業額，打開手機就看得到",
         "先聊不用錢，依你的需求免費報價",
       ],
-      secondary: "看看我們能做什麼",
+      secondary: "親手試試 AI 接單 →",
     },
     pains: {
       label: "老闆常見的麻煩",
@@ -153,7 +154,7 @@ const content = {
         "See orders, customers and sales right from your phone",
         "Free consultation and a clear quote before we start",
       ],
-      secondary: "See what we build",
+      secondary: "Try AI ordering →",
     },
     pains: {
       label: "Sound familiar?",
@@ -297,7 +298,7 @@ export function HomePage() {
             >
               <LineAddButton variant="primary" className="px-7 py-3" />
               <a
-                href="#services"
+                href="#try-ai-order"
                 className="btn-glass rounded-lg px-7 py-3 text-label font-mono uppercase tracking-[0.15em]"
               >
                 {c.hero.secondary}
@@ -310,6 +311,9 @@ export function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Try-it: AI order demo */}
+      <AiOrderDemo />
 
       {/* Pain points → solutions */}
       <section className="section-elevated border-b border-border py-16 lg:py-20">
