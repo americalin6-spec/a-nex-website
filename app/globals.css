@@ -433,3 +433,16 @@ html.ios-safari-services-gpu-safe .animate-pulse {
 html.ios-safari-services-gpu-safe {
   scroll-behavior: auto !important;
 }
+
+/* ========== Subtle 3D lift on cards ========== */
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .glass-card {
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+      box-shadow 0.35s, border-color 0.25s;
+  }
+  .glass-card:hover {
+    transform: perspective(900px) translateY(-4px) rotateX(2deg);
+    box-shadow: 0 2px 4px rgba(28, 26, 23, 0.04),
+      0 30px 50px -28px rgba(28, 26, 23, 0.3);
+  }
+}

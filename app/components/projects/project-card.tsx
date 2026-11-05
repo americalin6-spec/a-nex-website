@@ -5,6 +5,7 @@ import type { Project } from "../../data/projects";
 import { useLanguage, useLocalized } from "../../context/language-context";
 import { ProjectCoverImage } from "./project-cover";
 import { Reveal } from "../ui/reveal";
+import { Tilt3D } from "../ui/tilt-3d";
 
 export function ProjectCard({
   project,
@@ -20,7 +21,8 @@ export function ProjectCard({
 
   return (
     <Reveal delay={index * 0.04} disableScrollAnimation={disableScrollAnimation}>
-      <article className="gradient-border group flex h-full flex-col transition-all duration-300 hover:-translate-y-0.5">
+      <Tilt3D max={8} className="h-full">
+      <article className="gradient-border group flex h-full flex-col shadow-[0_24px_50px_-30px_rgba(28,26,23,0.35)] transition-shadow duration-300 hover:shadow-[0_40px_70px_-30px_rgba(28,26,23,0.45)]">
         <div className="gradient-border-inner flex h-full flex-col overflow-hidden rounded-[inherit]">
           <ProjectCoverImage
             src={project.coverImage}
@@ -39,17 +41,6 @@ export function ProjectCard({
             </h2>
             <p className="mt-3 flex-1 text-body text-muted-light">{overview}</p>
 
-            <ul className="mt-5 flex flex-wrap gap-2">
-              {project.techTags.map((tag) => (
-                <li
-                  key={tag}
-                  className="rounded-full border border-border px-3 py-1 font-mono text-xs uppercase tracking-wider text-muted"
-                >
-                  {tag}
-                </li>
-              ))}
-            </ul>
-
             <Link
               href={`/projects/${project.id}`}
               className="link-underline mt-6 inline-flex w-fit text-label font-mono uppercase tracking-[0.2em] text-accent-blue"
@@ -59,6 +50,7 @@ export function ProjectCard({
           </div>
         </div>
       </article>
+      </Tilt3D>
     </Reveal>
   );
 }

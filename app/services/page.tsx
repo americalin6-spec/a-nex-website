@@ -5,23 +5,10 @@ import { useIsIosSafari } from "@/lib/ios-safari";
 import { JsonLd, breadcrumbJsonLd } from "@/lib/seo/json-ld";
 import { useLanguage } from "../context/language-context";
 import { SectionHeader } from "../components/ui/section-header";
-import { VisualRenderer } from "../components/visuals/visual-mockups";
+import { ServiceVisual3D } from "../components/visuals/service-visual-3d";
 import { PlatformServiceVisualCards } from "../components/visuals/product-visual-library";
-import type { CaseStudyVisual } from "../data/case-studies";
 import { Reveal } from "../components/ui/reveal";
 
-const serviceVisuals: CaseStudyVisual[] = [
-  "ai-flow",
-  "dashboard",
-  "crm-table",
-  "dashboard",
-  "crm-table",
-  "kpi",
-  "workflow",
-  "architecture",
-  "ai-flow",
-  "dashboard",
-];
 
 export default function ServicesPage() {
   const { t } = useLanguage();
@@ -93,9 +80,7 @@ export default function ServicesPage() {
                 </ul>
               </div>
               <Reveal disableScrollAnimation={iosSafariGpuSafe} delay={0.1}>
-                <VisualRenderer
-                  type={serviceVisuals[index] ?? "dashboard"}
-                />
+                <ServiceVisual3D index={index} />
               </Reveal>
             </div>
           );
