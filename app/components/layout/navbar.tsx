@@ -12,7 +12,7 @@ import { LanguageSwitcher } from "./language-switcher";
 const navItems = [
   { href: "/about", key: "about" as const },
   { href: "/services", key: "platform" as const },
-  { href: "/line-ai", key: "lineAi" as const },
+  { href: "/services/line-oa", key: "lineAi" as const },
   { href: "/projects", key: "projects" as const },
   { href: "/contact", key: "contact" as const },
 ];
@@ -60,15 +60,12 @@ export function Navbar() {
             href="/"
             className="flex shrink-0 items-center transition-opacity duration-300 hover:opacity-70"
           >
-            <span className="font-serif text-xl font-bold tracking-[0.32em] text-foreground md:text-2xl">
+            <span className="font-serif text-lg font-bold tracking-[0.24em] text-foreground md:text-2xl md:tracking-[0.32em]">
               AXORA
             </span>
           </Link>
         </div>
 
-        <div className="shrink-0 md:hidden">
-          <LanguageSwitcher />
-        </div>
 
         <ul className="hidden items-center gap-x-9 lg:gap-x-10 md:flex md:justify-self-center">
           {navItems.map((item) => (
@@ -97,7 +94,7 @@ export function Navbar() {
           />
           <Link
             href="/contact"
-            className="btn-primary inline-flex shrink-0 rounded-lg px-2 py-1.5 text-xs font-mono font-semibold uppercase leading-none tracking-[0.1em] sm:px-3 sm:py-2 md:px-4 md:py-2.5 md:text-sm md:tracking-[0.12em]"
+            className="btn-primary hidden shrink-0 rounded-lg px-2 py-1.5 text-xs md:inline-flex font-mono font-semibold uppercase leading-none tracking-[0.1em] sm:px-3 sm:py-2 md:px-4 md:py-2.5 md:text-sm md:tracking-[0.12em]"
           >
             {t.nav.contact}
           </Link>
@@ -138,6 +135,9 @@ export function Navbar() {
                   </Link>
                 </li>
               ))}
+              <li className="py-3">
+                <LanguageSwitcher />
+              </li>
               <li className="pt-2">
                 <LineAddButton variant="primary" className="w-full" />
               </li>

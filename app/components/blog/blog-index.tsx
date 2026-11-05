@@ -108,8 +108,8 @@ export function BlogIndex({ posts }: BlogIndexProps) {
             <span className="gradient-text">知識與實務洞察</span>
           </h1>
           <p className="mt-3 max-w-2xl text-body text-muted-light">
-            關於 AI 客戶管理、CRM、LINE 官方帳號、SaaS、網站與 APP
-            開發的實務文章，協助企業做出更好的數位決策。
+            寫給老闆看的白話文章：網站、訂單與預約系統、LINE 官方帳號、
+            AI 小幫手，幫你用最簡單的方式把生意做得更輕鬆。
           </p>
         </div>
       </section>
@@ -161,7 +161,7 @@ export function BlogIndex({ posts }: BlogIndexProps) {
           <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
             <h2 className="section-title">精選文章</h2>
             <p className="mt-3 max-w-2xl text-body text-muted-light">
-              Featured Article — 本週優先閱讀的重點文章。
+              本週推薦閱讀
             </p>
             <div className="mt-8">
               <FeaturedArticle post={featuredPost} />
@@ -175,7 +175,7 @@ export function BlogIndex({ posts }: BlogIndexProps) {
           <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
             <h2 className="section-title">熱門文章</h2>
             <p className="mt-3 max-w-2xl text-body text-muted-light">
-              Popular Posts — 依內容熱度排序的推薦閱讀。
+              最多人看的文章
             </p>
             <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
               {popularPosts.map((post) => (

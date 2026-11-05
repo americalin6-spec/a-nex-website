@@ -181,10 +181,10 @@ export function HeroPhone3D({ locale = "zh" }: { locale?: "zh" | "en" }) {
       {/* ---------- back layer: tablet with booking calendar ---------- */}
       <motion.div
         style={{ x: back.x, y: back.y }}
-        className="absolute left-[2%] top-[14%] hidden sm:block"
+        className="absolute left-[-10%] top-[20%] hidden lg:block"
       >
         <div
-          className="w-[250px] rounded-[22px] bg-gradient-to-br from-[#e9e4dc] to-[#d6cfc4] p-[7px] shadow-[0_30px_60px_-30px_rgba(28,26,23,0.45)]"
+          className="w-[220px] rounded-[22px] bg-gradient-to-br from-[#e9e4dc] to-[#d6cfc4] p-[7px] shadow-[0_30px_60px_-30px_rgba(28,26,23,0.45)]"
           style={{ transform: "rotateY(28deg) rotateX(8deg) rotateZ(-4deg)", opacity: 0.92 }}
         >
           <div className="rounded-[16px] bg-surface p-4">
