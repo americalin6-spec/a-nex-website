@@ -4,6 +4,7 @@ import {
   type SmallBizLandingData,
 } from "../../components/seo/small-biz-landing";
 import { GasOrderDemo } from "../../components/demo/gas-order-demo";
+import { GasExplainer } from "../../components/demo/gas-explainer";
 
 const path = "/services/gas-delivery-system" as const;
 const title = "瓦斯行叫瓦斯系統｜LINE 叫瓦斯、派送管理、客戶自動提醒｜AXORA";
@@ -56,9 +57,29 @@ const data: SmallBizLandingData = {
       answer:
         "系統偵測到「聞到瓦斯味」「漏氣」這類字眼時，會先自動回覆安全提醒（關開關、開窗、不要點火），並把訂單標示為需要優先處理。",
     },
+    {
+      question: "系統怎麼知道哪位客人瓦斯快用完？",
+      answer:
+        "系統會記下每位客人每次叫瓦斯的日期，算出他大概多久用完一桶，快到的前幾天先用 LINE 問客人要不要送。是用紀錄推算的，不用裝感應器；客人說不用就不送。",
+    },
+    {
+      question: "新開的 LINE 官方帳號沒有客人資料，要怎麼開始？",
+      answer:
+        "可以把你原本的客戶簿子或 Excel 交給我們幫忙輸入，再在瓦斯桶貼 QR Code 讓客人加好友。第一個月就不用再抄地址，大約兩三個月後，用量提醒就會越來越準。",
+    },
   ],
 };
 
 export default function GasDeliverySystemPage() {
-  return <SmallBizLanding data={data} demo={<GasOrderDemo />} />;
+  return (
+    <SmallBizLanding
+      data={data}
+      demo={
+        <>
+          <GasOrderDemo />
+          <GasExplainer />
+        </>
+      }
+    />
+  );
 }
