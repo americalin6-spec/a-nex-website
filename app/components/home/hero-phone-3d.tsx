@@ -268,8 +268,8 @@ export function HeroPhone3D({ locale = "zh" }: { locale?: "zh" | "en" }) {
 
         {/* ---------- floating AI chip (behind, top) ---------- */}
         <motion.div
-          className="absolute -right-10 -top-6 flex items-center gap-2 rounded-full border border-border bg-surface/90 px-3 py-1.5 shadow-lg backdrop-blur"
-          style={{ z: -60 }}
+          className="absolute -left-8 -top-10 flex items-center gap-2 rounded-full border border-border bg-surface/90 px-3 py-1.5 shadow-lg backdrop-blur"
+          style={{ z: 50 }}
           animate={reduce ? undefined : { y: [0, 6, 0] }}
           transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
         >

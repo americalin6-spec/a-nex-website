@@ -249,7 +249,7 @@ export function HomePage() {
         <div className="relative mx-auto flex min-h-[90vh] max-w-[1400px] flex-col items-center px-6 py-20 lg:min-h-screen lg:grid lg:grid-cols-[1.1fr_1fr] lg:gap-12 lg:px-12 lg:py-16">
           <div className="flex flex-col justify-center lg:max-w-xl lg:pr-4 xl:pr-8">
             <motion.p
-              initial={{ opacity: 0, y: 16 }}
+              initial={false}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
               className="text-label font-mono uppercase tracking-[0.3em] text-accent-blue"
@@ -258,7 +258,7 @@ export function HomePage() {
             </motion.p>
 
             <motion.h1
-              initial={{ opacity: 0, y: 24 }}
+              initial={false}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
               className="text-display mt-5 text-4xl sm:text-5xl lg:mt-6 lg:text-6xl"
@@ -267,7 +267,7 @@ export function HomePage() {
             </motion.h1>
 
             <motion.p
-              initial={{ opacity: 0, y: 16 }}
+              initial={false}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.35 }}
               className="mt-5 max-w-xl text-body leading-relaxed text-muted-light lg:mt-6"
@@ -276,7 +276,7 @@ export function HomePage() {
             </motion.p>
 
             <motion.ul
-              initial={{ opacity: 0, y: 12 }}
+              initial={false}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
               className="mt-5 max-w-xl space-y-2.5 text-body-sm text-foreground lg:mt-6"
@@ -290,7 +290,7 @@ export function HomePage() {
             </motion.ul>
 
             <motion.div
-              initial={{ opacity: 0, y: 12 }}
+              initial={false}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.45 }}
               className="mt-7 flex flex-wrap gap-3 lg:mt-8"
