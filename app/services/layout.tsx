@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/seo/page-metadata";
 
 export const metadata: Metadata = pageMetadata({
-  title: "服務項目｜CRM、LINE 串接、SaaS 與網站開發｜AXORA",
+  title: "服務項目｜官方網站、訂單系統、預約系統、LINE 官方帳號、App 開發｜AXORA",
   description:
-    "每一項服務皆包含需求分析、設計、開發、測試、部署與文件。可依階段委託或一次交付完整系統。",
+    "AXORA 幫店家和企業做官方網站、訂單與點餐系統、預約系統、會員管理、LINE 官方帳號與手機 App。用 LINE 說需求就好，先聊不用錢。",
   path: "/services",
 });
 

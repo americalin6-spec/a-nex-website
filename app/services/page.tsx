@@ -6,10 +6,6 @@ import { JsonLd, breadcrumbJsonLd } from "@/lib/seo/json-ld";
 import { useLanguage } from "../context/language-context";
 import { SectionHeader } from "../components/ui/section-header";
 import { VisualRenderer } from "../components/visuals/visual-mockups";
-import {
-  SaaSIntegrationsConsole,
-  SaaSProductBento,
-} from "../components/visuals/saas-product-showcase";
 import { PlatformServiceVisualCards } from "../components/visuals/product-visual-library";
 import type { CaseStudyVisual } from "../data/case-studies";
 import { Reveal } from "../components/ui/reveal";
@@ -59,29 +55,6 @@ export default function ServicesPage() {
             className="mt-12"
           >
             <PlatformServiceVisualCards />
-          </Reveal>
-        </div>
-      </section>
-
-      <section className="section-violet border-b border-border py-14 lg:py-16">
-        <div className="mx-auto max-w-[1400px] space-y-10 px-6 lg:px-12">
-          <SectionHeader
-            disableScrollAnimation={iosSafariGpuSafe}
-            label={t.home.productSurface.label}
-            title={t.home.productSurface.title}
-            description={t.home.productSurface.subtitle}
-          />
-          <Reveal disableScrollAnimation={iosSafariGpuSafe}>
-            <SaaSProductBento />
-          </Reveal>
-          <SectionHeader
-            disableScrollAnimation={iosSafariGpuSafe}
-            label={t.home.adminConsole.label}
-            title={t.home.adminConsole.title}
-            description={t.home.adminConsole.subtitle}
-          />
-          <Reveal disableScrollAnimation={iosSafariGpuSafe} delay={0.08}>
-            <SaaSIntegrationsConsole />
           </Reveal>
         </div>
       </section>

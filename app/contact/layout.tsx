@@ -3,9 +3,9 @@ import { pageMetadata } from "@/lib/seo/page-metadata";
 import { JsonLd, breadcrumbJsonLd } from "@/lib/seo/json-ld";
 
 export const metadata: Metadata = pageMetadata({
-  title: "聯絡 AXORA｜CRM、LINE 串接與 SaaS 開發諮詢",
+  title: "聯絡 AXORA｜免費諮詢網站、App、訂單與預約系統",
   description:
-    "描述您的產業、需求與時程。AXORA 提供 CRM、LINE 官方帳號串接、SaaS 與網站開發諮詢，1–2 個工作天內回覆。",
+    "加 LINE 或填表單，告訴我們你的生意和需求，AXORA 免費幫你評估網站、App、訂單、預約與會員系統怎麼做。",
   path: "/contact",
 });
 

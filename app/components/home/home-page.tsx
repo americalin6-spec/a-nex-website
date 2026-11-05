@@ -19,7 +19,7 @@ const content = {
   zh: {
     hero: {
       label: "網站 · App · 訂單系統 · 預約系統",
-      headline: "複雜的事，交給我們",
+      headline: "複雜的事，\n交給我們",
       subtitle:
         "你只要用 LINE 說出想要什麼，我們幫你做成網站、App 或系統。不懂電腦也沒關係，我們講白話，不講術語。",
       bullets: [
@@ -265,7 +265,7 @@ export function HomePage() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="text-display mt-5 text-4xl sm:text-5xl lg:mt-6 lg:text-6xl"
             >
-              <span className="gradient-text">{c.hero.headline}</span>
+              <span className="gradient-text whitespace-pre-line">{c.hero.headline}</span>
             </motion.h1>
 
             <motion.p
