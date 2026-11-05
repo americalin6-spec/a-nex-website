@@ -2,6 +2,7 @@ import { aiAgent } from "./ai-agent";
 import { aiCrmGuide } from "./ai-crm-guide";
 import { getBlogAuthor } from "./authors";
 import { seoBatch2Posts } from "./library/seo-batch-2";
+import { seoBatch3Posts } from "./library/seo-batch-3";
 import { seoLibraryPosts } from "./library/seo-library-posts";
 import { lineOaGuide } from "./line-oa-guide";
 import { seoGuide } from "./seo-guide";
@@ -38,6 +39,7 @@ export const blogPosts: BlogPost[] = [
   aiAgent,
   ...seoLibraryPosts,
   ...seoBatch2Posts,
+  ...seoBatch3Posts,
 ];
 
 
