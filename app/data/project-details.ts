@@ -12,6 +12,38 @@ export type ProjectDetail = {
 };
 
 export const projectDetails: Record<string, ProjectDetail> = {
+  "line-ai-reply": {
+    background: {
+      zh: "很多店家和公司都用 LINE 跟客人聯絡，但老闆和業務不可能 24 小時盯著手機。客人在晚上或假日傳訊息問「有什麼服務？」「多少錢？」，常常要等到隔天才有人回，客人就跑去問別家了。",
+      en: "Many businesses talk to customers on LINE, but nobody can watch the phone 24/7. Questions sent at night or on weekends often wait until the next day — and the customer moves on.",
+    },
+    clientRequirements: {
+      zh: "希望客人傳 LINE 時，能馬上得到有用的回答，而不是罐頭訊息；回答要能看懂客人在問什麼（服務、價格、需求），並引導客人說出需求，方便之後由真人接手。",
+      en: "Customers should get a useful answer immediately — not a canned reply. The bot must understand what is being asked (services, pricing, needs) and guide the customer to share details for a human to follow up.",
+    },
+    solution: {
+      zh: "AXORA 把 LINE 官方帳號串接到自己開發的 AI 回覆系統：客人一傳訊息，系統先理解問題，再用自然的語氣回答，並追問客人的需求；對話內容也能同步到後台，方便之後跟進。",
+      en: "AXORA connected the LINE Official Account to its own AI reply system: incoming messages are understood, answered in a natural tone with a follow-up question about the customer's needs, and synced to a back office for follow-up.",
+    },
+    coreFeatures: [
+      { zh: "客人傳 LINE，AI 幾秒內自動回覆", en: "AI replies to LINE messages within seconds" },
+      { zh: "看得懂客人在問服務、價格或需求", en: "Understands whether the customer asks about services, pricing or needs" },
+      { zh: "回答後主動追問，引導客人說出需求", en: "Asks a follow-up question to capture the customer's needs" },
+      { zh: "24 小時運作，下班和假日也能接待", en: "Runs 24/7, including evenings and weekends" },
+      { zh: "對話可同步到後台，由真人接手跟進", en: "Conversations sync to a back office for human follow-up" },
+    ],
+    results: [
+      { zh: "客人不用再等到隔天才得到回覆", en: "Customers no longer wait until the next day for a reply" },
+      { zh: "常見問題由 AI 先回答，減少重複打字", en: "AI handles common questions, cutting repetitive typing" },
+      { zh: "客人的需求先整理好，真人接手更快", en: "Needs are captured up front, so human follow-up is faster" },
+    ],
+    projectResult: {
+      zh: "系統已完成並實際在 AXORA 的 LINE 官方帳號上運作，回覆過真實客人的服務、價格與做網站等詢問。同樣的做法可以套用到餐廳、美髮、房仲等任何用 LINE 接客的生意。",
+      en: "The system is complete and has run on AXORA's own LINE Official Account, answering real inquiries about services, pricing and websites. The same approach works for restaurants, salons, real estate and any business that serves customers on LINE.",
+    },
+    galleryImages: ["/projects/line-ai-reply.png"],
+  },
+
   "ashley-english": {
     background: {
       zh: "Ashley English 是語言培訓品牌，對外需要同時呈現分級課程、師資專業與諮詢入口。招生顧問每天處理大量潛在學員詢問，卻缺少統一的官網與名單後台，導致課程資訊更新慢、諮詢紀錄分散。",

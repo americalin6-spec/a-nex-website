@@ -78,9 +78,9 @@ export const SERVICE_LINKS: ServiceLink[] = [
 
 const serviceToProjects: Record<ServiceSlug, string[]> = {
   "ai-crm": ["ai-crm", "onlymate", "ashley-english"],
-  "ai-customer-service": ["ai-crm", "onlymate", "huaren-tong"],
+  "ai-customer-service": ["line-ai-reply", "ai-crm", "onlymate"],
   "crm-system": ["ai-crm", "ashley-english", "huaren-tong"],
-  "line-oa": ["ai-crm", "huaren-tong", "zhongzhi-studio"],
+  "line-oa": ["line-ai-reply", "ai-crm", "huaren-tong"],
   "saas-development": ["onlymate", "huaren-tong", "ai-crm"],
   "ai-automation": ["ai-crm", "onlymate", "ashley-english"],
   "app-development": ["onlymate", "huaren-tong", "ai-crm"],
@@ -88,6 +88,7 @@ const serviceToProjects: Record<ServiceSlug, string[]> = {
 };
 
 const projectToServices: Record<string, ServiceSlug[]> = {
+  "line-ai-reply": ["line-oa", "ai-customer-service", "ai-automation"],
   "ashley-english": ["web-design", "crm-system", "saas-development"],
   onlymate: ["ai-crm", "ai-automation", "saas-development"],
   "ai-crm": ["ai-crm", "crm-system", "line-oa"],
@@ -96,6 +97,7 @@ const projectToServices: Record<string, ServiceSlug[]> = {
 };
 
 const projectToArticles: Record<string, string[]> = {
+  "line-ai-reply": ["line-official-account-orders", "line-oa-guide", "line-oa-ai-auto-reply"],
   "ashley-english": [
     "website-development",
     "seo-guide",

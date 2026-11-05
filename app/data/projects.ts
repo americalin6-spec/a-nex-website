@@ -56,6 +56,21 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    id: "line-ai-reply",
+    name: "LINE AI 自動回覆客服",
+    category: "LINE",
+    industry: "AI",
+    status: "Completed",
+    year: "2026",
+    platform: "LINE",
+    coverImage: "/projects/line-ai-reply.png",
+    overview: {
+      zh: "串接 LINE 官方帳號與 AI：客人一傳訊息，系統幾秒內自動回答服務、價格、需求等問題，並引導客人留下需求，下班時間也能接待客人。",
+      en: "LINE Official Account connected to AI: when a customer messages, the system answers questions about services, pricing and needs within seconds and guides them to leave details — even after hours.",
+    },
+    techTags: ["Next.js", "TypeScript", "OpenAI", "LINE API", "Vercel"],
+  },
+  {
     id: "ashley-english",
     name: "Ashley English",
     category: "Education",
