@@ -79,7 +79,7 @@ function findPickup(text: string): string | null {
 
 export function parseOrderWithRules(input: string): ParsedOrder {
   const text = input.replace(/\s+/g, " ").trim();
-  const segments = text.split(/[，,、。；;\n]|還有|然後|再來|另外|跟|和|加上/).filter((s) => s.trim());
+  const segments = text.replace(/[呃嗯欸啊阿哦喔]+/g, "").split(/[，,、。；;\n]|還有|然後|再來|另外|跟|和|加上/).filter((s) => s.trim());
   const raw: { id: string; qty: number; options: string[] }[] = [];
   const unknown: string[] = [];
 
@@ -111,7 +111,16 @@ export function parseOrderWithRules(input: string): ParsedOrder {
       raw.push({ id: h.id, qty, options: findOptions(after, h.kind) });
     });
 
-    // 3) things that look like food but are not on the menu
+    // 3) spoken corrections: "啊不對，三杯" / "改成三杯" → fix the previous item's quantity
+    if (hits.length === 0 && raw.length > 0) {
+      const corr = seg.match(new RegExp(`(?:不對|改成|改為|更正|應該是|改)\\s*(?:是|要)?\\s*${NUM}\\s*(?:杯|個|份|碗|盒|顆|瓶|罐|包)`));
+      if (corr) {
+        raw[raw.length - 1].qty = parseNumber(corr[1]) ?? raw[raw.length - 1].qty;
+        continue;
+      }
+    }
+
+    // 4) things that look like food but are not on the menu
     if (hits.length === 0) {
       const cleaned = seg
         .replace(/我要|我想要|請給我|幫我|麻煩|謝謝|來拿|外帶|內用|取餐/g, "")

@@ -18,6 +18,25 @@ const EXAMPLES = [
   "牛肉麵一碗、滷肉飯兩碗，還有一杯拿鐵熱的",
 ];
 
+type SpeechResultList = { length: number; [i: number]: { isFinal: boolean; 0: { transcript: string } } };
+type SpeechRec = {
+  lang: string;
+  interimResults: boolean;
+  continuous: boolean;
+  onresult: ((e: { resultIndex: number; results: SpeechResultList }) => void) | null;
+  onend: (() => void) | null;
+  onerror: ((e: { error: string }) => void) | null;
+  start: () => void;
+  stop: () => void;
+};
+type SpeechCtor = new () => SpeechRec;
+
+function getSpeechCtor(): SpeechCtor | null {
+  if (typeof window === "undefined") return null;
+  const w = window as unknown as { SpeechRecognition?: SpeechCtor; webkitSpeechRecognition?: SpeechCtor };
+  return w.SpeechRecognition ?? w.webkitSpeechRecognition ?? null;
+}
+
 function nowHHMM() {
   const d = new Date();
   return `${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`;
@@ -34,6 +53,52 @@ export function AiOrderDemo() {
   const chatRef = useRef<HTMLDivElement>(null);
   const idRef = useRef(1);
   const noRef = useRef(101);
+  const [voiceOK, setVoiceOK] = useState(false);
+  const [listening, setListening] = useState(false);
+  const recRef = useRef<SpeechRec | null>(null);
+  const transcriptRef = useRef("");
+
+  useEffect(() => {
+    setVoiceOK(getSpeechCtor() !== null);
+  }, []);
+
+  function toggleVoice() {
+    if (listening) {
+      recRef.current?.stop();
+      return;
+    }
+    const Ctor = getSpeechCtor();
+    if (!Ctor || loading) return;
+    const rec = new Ctor();
+    rec.lang = "zh-TW";
+    rec.interimResults = true;
+    rec.continuous = false;
+    transcriptRef.current = "";
+    rec.onresult = (e) => {
+      let text = "";
+      for (let i = 0; i < e.results.length; i++) text += e.results[i][0].transcript;
+      transcriptRef.current = text;
+      setInput(text);
+    };
+    rec.onerror = (e) => {
+      setListening(false);
+      if (e.error === "not-allowed" || e.error === "service-not-allowed") {
+        setMsgs((m) => [...m, { id: idRef.current++, from: "bot", text: "麥克風沒有被允許使用，請在瀏覽器設定允許麥克風，或直接打字點餐喔～" }]);
+      }
+    };
+    rec.onend = () => {
+      setListening(false);
+      const said = transcriptRef.current.trim();
+      if (said) send(said);
+    };
+    recRef.current = rec;
+    setListening(true);
+    try {
+      rec.start();
+    } catch {
+      setListening(false);
+    }
+  }
 
   useEffect(() => {
     chatRef.current?.scrollTo({ top: chatRef.current.scrollHeight, behavior: "smooth" });
@@ -111,9 +176,9 @@ export function AiOrderDemo() {
       <div className="mx-auto max-w-[1300px] px-6 lg:px-12">
         <div className="max-w-2xl">
           <p className="text-label uppercase text-accent-blue">親手試試看 · AI 智慧接單</p>
-          <h2 className="section-title mt-3">客人隨便打一句話，AI 幫你變成訂單</h2>
+          <h2 className="section-title mt-3">客人用說的、用打的，AI 都幫你變成訂單</h2>
           <p className="mt-4 text-body text-muted-light">
-            這是我們做的 LINE 接單系統展示。在左邊用平常說話的方式點餐，AI 會拆出品項、數量、甜度冰塊和取餐時間，自動算好價錢；按確認後，訂單會即時出現在右邊的老闆後台。
+            這是我們做的 LINE 接單系統展示。在左邊按 🎤 用講的點餐，或直接打字，AI 會拆出品項、數量、甜度冰塊和取餐時間，自動算好價錢；按確認後，訂單會即時出現在右邊的老闆後台。
           </p>
         </div>
 
@@ -275,11 +340,29 @@ export function AiOrderDemo() {
                 }}
                 className="flex gap-2"
               >
+                {voiceOK && (
+                  <button
+                    type="button"
+                    onClick={toggleVoice}
+                    disabled={loading}
+                    aria-label={listening ? "停止錄音" : "用講的點餐"}
+                    className={`relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-white transition ${
+                      listening ? "bg-[#dc2626]" : "bg-[#1f4d3a] hover:brightness-110"
+                    } disabled:opacity-40`}
+                  >
+                    {listening && (
+                      <span className="absolute inset-0 animate-ping rounded-full bg-[#dc2626]/50" />
+                    )}
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden className="relative">
+                      <path d="M12 15a3 3 0 0 0 3-3V6a3 3 0 1 0-6 0v6a3 3 0 0 0 3 3Zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.93V21h2v-2.07A7 7 0 0 0 19 12h-2Z" />
+                    </svg>
+                  </button>
+                )}
                 <input
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   maxLength={200}
-                  placeholder="用平常說話的方式點餐…"
+                  placeholder={listening ? "正在聽你說…" : voiceOK ? "打字，或按麥克風用講的…" : "用平常說話的方式點餐…"}
                   className="min-w-0 flex-1 rounded-full border border-border bg-background px-4 py-2.5 text-[15px] outline-none focus:border-accent-blue"
                 />
                 <button
