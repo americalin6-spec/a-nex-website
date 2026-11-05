@@ -470,7 +470,9 @@ export function GasOrderDemo() {
             </div>
 
             <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
-              <p className="text-caption text-muted">想讓你的瓦斯行也這樣接單？</p>
+              <a href="/services/gas-delivery-system" className="text-caption text-accent-blue underline-offset-4 hover:underline">
+                想讓你的瓦斯行也這樣接單？看瓦斯行系統 →
+              </a>
               <LineAddButton variant="primary" className="px-5 py-2" />
             </div>
           </div>

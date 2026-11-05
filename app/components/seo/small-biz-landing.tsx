@@ -21,7 +21,13 @@ export type SmallBizLandingData = {
   faqs: { question: string; answer: string }[];
 };
 
-export function SmallBizLanding({ data }: { data: SmallBizLandingData }) {
+export function SmallBizLanding({
+  data,
+  demo,
+}: {
+  data: SmallBizLandingData;
+  demo?: React.ReactNode;
+}) {
   return (
     <>
       <JsonLd
@@ -54,6 +60,8 @@ export function SmallBizLanding({ data }: { data: SmallBizLandingData }) {
             </Reveal>
           </div>
         </section>
+
+        {demo}
 
         {/* Pains */}
         <section className="section-elevated py-16 lg:py-20">

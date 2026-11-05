@@ -3,6 +3,7 @@ import {
   SmallBizLanding,
   type SmallBizLandingData,
 } from "../../components/seo/small-biz-landing";
+import { AiOrderDemo } from "../../components/demo/ai-order-demo";
 
 const path = "/services/ordering-system" as const;
 const title = "線上訂單系統｜餐廳點餐、團購、LINE 接單系統開發｜AXORA";
@@ -57,5 +58,5 @@ const data: SmallBizLandingData = {
 };
 
 export default function OrderingSystemPage() {
-  return <SmallBizLanding data={data} />;
+  return <SmallBizLanding data={data} demo={<AiOrderDemo />} />;
 }

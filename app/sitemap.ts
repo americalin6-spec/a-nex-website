@@ -25,6 +25,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/services/web-design",
     "/services/ordering-system",
     "/services/booking-system",
+    "/services/gas-delivery-system",
   ] as const;
 
   const projectPaths = projects.map((project) => `/projects/${project.id}`);
