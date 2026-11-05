@@ -20,10 +20,10 @@ export function LineAddButton({
 
   const variants = {
     primary:
-      "rounded-lg bg-[#06C755] px-5 py-2.5 text-white shadow-[0_8px_24px_rgba(6,199,85,0.35)] hover:brightness-110",
+      "rounded-full bg-[#06C755] px-5 py-2.5 font-semibold text-white shadow-[0_10px_24px_-12px_rgba(6,199,85,0.7)] hover:brightness-105",
     outline:
-      "rounded-lg border border-[#06C755]/50 bg-[#06C755]/10 px-5 py-2.5 text-[#9ef0b5] hover:bg-[#06C755]/20",
-    nav: "rounded-lg bg-[#06C755]/90 px-3 py-2 text-white hover:bg-[#06C755]",
+      "rounded-lg border border-[#06C755]/50 bg-[#06C755]/10 px-5 py-2.5 text-[#05833c] hover:bg-[#06C755]/20",
+    nav: "rounded-full bg-[#06C755] px-3 py-2 font-semibold text-white hover:brightness-105",
   };
 
   return (

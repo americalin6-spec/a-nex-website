@@ -1,7 +1,6 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -51,7 +50,7 @@ export function Navbar() {
       transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
       className={`fixed inset-x-0 top-0 z-[60] transition-all duration-500 ${
         scrolled || menuOpen
-          ? "border-b border-border bg-charcoal/70 shadow-[0_8px_32px_rgba(0,0,0,0.35)] backdrop-blur-xl"
+          ? "border-b border-border bg-background/90 shadow-[0_8px_24px_-16px_rgba(28,26,23,0.25)] backdrop-blur-xl"
           : "bg-transparent"
       }`}
     >
@@ -61,14 +60,9 @@ export function Navbar() {
             href="/"
             className="flex shrink-0 items-center transition-opacity duration-300 hover:opacity-70"
           >
-            <Image
-              src="/axora-logo-transparent.png"
-              alt="AXORA"
-              width={140}
-              height={50}
-              className="block h-[38px] w-auto shrink-0 object-contain md:h-[50px]"
-              priority
-            />
+            <span className="font-serif text-xl font-bold tracking-[0.32em] text-foreground md:text-2xl">
+              AXORA
+            </span>
           </Link>
         </div>
 

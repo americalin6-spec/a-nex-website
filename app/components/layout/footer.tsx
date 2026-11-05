@@ -20,7 +20,7 @@ export function Footer() {
   const { t } = useLanguage();
 
   return (
-    <footer className="relative border-t border-border bg-charcoal/50 backdrop-blur-sm">
+    <footer className="relative border-t border-border bg-background-secondary">
       <div className="mx-auto max-w-[1400px] px-6 py-16 lg:px-12 lg:py-20">
         <div className="grid gap-12 lg:grid-cols-[1.5fr_1fr_1fr]">
           <div>

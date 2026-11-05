@@ -21,9 +21,9 @@ export const translations = {
       addLine: "加入 LINE 洽詢",
       qr: {
         label: "LINE Official Account · @460jxzer",
-        title: "掃描加入官方帳號，立即測試 自動回覆",
+        title: "掃 QR Code，加 LINE 免費諮詢",
         description:
-          "加入 AXORA LINE 官方帳號後傳送訊息，即可體驗自動回覆；對話內容可同步寫入客戶管理潛客紀錄，與我們為客戶建置的系統相同。",
+          "加入 AXORA 的 LINE 官方帳號，直接傳訊息告訴我們你的需求，我們會盡快回覆，免費幫你評估。",
         scanHint: "使用 LINE 掃描 QR Code，或點擊下方按鈕加入好友",
         linkLabel: "開啟 LINE 加入連結",
         placeholderTitle: "LINE QR Code",
@@ -663,9 +663,9 @@ export const translations = {
       addLine: "Chat on LINE",
       qr: {
         label: "LINE Official Account · @460jxzer",
-        title: "Scan to add us — test Auto-replies instantly",
+        title: "Scan to add us on LINE — free consultation",
         description:
-          "Add our LINE Official Account and send a message to try Auto-replies. Conversations can sync to Customer Management — the same stack we build for clients.",
+          "Add AXORA on LINE and tell us what you need. We'll reply as soon as we can with a free assessment.",
         scanHint: "Scan with LINE or tap the button below",
         linkLabel: "Open LINE add-friend link",
         placeholderTitle: "LINE QR Code",

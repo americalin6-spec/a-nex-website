@@ -21,7 +21,7 @@ export function LineQrSection({
       <div
         className={`glass-card rounded-xl ${compact ? "p-6" : "p-8 lg:p-10"}`}
       >
-        <p className="text-label font-mono uppercase tracking-[0.2em] text-[#9ef0b5]">
+        <p className="text-label font-mono uppercase tracking-[0.2em] text-[#05833c]">
           {t.line.qr.label}
         </p>
         <h3 className="section-title mt-3 text-xl lg:text-2xl">

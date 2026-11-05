@@ -428,41 +428,6 @@ export function HeroPortfolioShowcase() {
 
 export function HeroShowcaseBackground() {
   return (
-    <>
-      <div className="absolute inset-0 bg-gradient-to-br from-[#060a14] via-[#0c1222] to-[#0a1020]" />
-      <motion.div
-        className="absolute inset-0"
-        style={{
-          backgroundImage:
-            "radial-gradient(circle at 15% 20%, rgba(77,159,255,0.22) 0%, transparent 42%), radial-gradient(circle at 85% 75%, rgba(167,139,250,0.2) 0%, transparent 40%), radial-gradient(circle at 55% 100%, rgba(34,211,238,0.12) 0%, transparent 48%)",
-        }}
-        animate={{ opacity: [0.5, 0.9, 0.5] }}
-        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-      />
-      <div
-        className="absolute inset-0 opacity-[0.035]"
-        style={{
-          backgroundImage:
-            "linear-gradient(rgba(255,255,255,0.55) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.55) 1px, transparent 1px)",
-          backgroundSize: "56px 56px",
-        }}
-      />
-      <motion.div
-        className="absolute -left-[10%] top-[15%] h-[45%] w-[40%] rounded-full bg-accent-blue/15 blur-[100px] will-change-transform"
-        animate={{ opacity: [0.5, 0.9, 0.5] }}
-        transition={{ duration: 5.2, repeat: Infinity, ease: "easeInOut" }}
-      />
-      <motion.div
-        className="absolute -right-[8%] bottom-[10%] h-[42%] w-[38%] rounded-full bg-accent-purple/12 blur-[90px] will-change-transform"
-        animate={{ opacity: [0.5, 0.85, 0.5] }}
-        transition={{
-          duration: 6.8,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: 1,
-        }}
-      />
-      <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-accent-indigo/[0.06] to-transparent" />
-    </>
+    <div className="absolute inset-0 bg-[radial-gradient(60%_60%_at_72%_30%,rgba(31,77,58,0.08),transparent_70%)]" />
   );
 }

@@ -21,9 +21,9 @@ const geistSans = Geist({
 });
 
 const title =
-  "AXORA｜AI 客戶管理系統｜CRM 系統｜SaaS 平台開發";
+  "AXORA｜網站設計、App 開發、訂單與預約系統｜先聊不用錢";
 const description =
-  "AXORA 提供 AI 客戶管理系統、CRM 系統、LINE 官方帳號串接、SaaS 平台、客製化網站與 APP 開發服務。";
+  "AXORA 幫店家和企業做官方網站、手機 App、線上訂單系統、預約系統與 LINE 自動回覆。不懂電腦也沒關係，用 LINE 說需求就好，免費諮詢報價。";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
