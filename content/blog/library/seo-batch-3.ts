@@ -25,13 +25,13 @@ export const restaurantOnlineOrdering = createArticleFromTemplate({
     "小吃店點餐系統",
   ],
   canonical: "/blog/restaurant-online-ordering-system",
-  ogImage: "/og-image.png",
+  ogImage: "/og-image-v2.png",
   h1: "餐廳線上點餐系統怎麼選？老闆必看 6 個重點",
   intro:
     "尖峰時間電話一直響、LINE 訊息一直跳、手寫單抄錯又漏單，是很多餐廳和飲料店老闆每天的日常。線上點餐系統可以讓客人自己用手機點餐、付款，訂單自動整理好，你只要照清單出餐。但市面上選擇很多，到底該怎麼挑？這篇用白話整理 6 個重點，幫你少走冤枉路。",
   description:
     "用白話整理餐廳、飲料店挑選線上點餐系統必看的 6 個重點：手機點餐、付款、LINE 通知、報表與費用。",
-  coverImage: "/og-image.png",
+  coverImage: "/og-image-v2.png",
   publishedAt: "2026-11-05",
   updatedAt: "2026-11-05",
   popularScore: 95,
@@ -152,13 +152,13 @@ export const salonBookingSystem = createArticleFromTemplate({
     "預約排班系統",
   ],
   canonical: "/blog/salon-booking-system",
-  ogImage: "/og-image.png",
+  ogImage: "/og-image-v2.png",
   h1: "美髮、美甲預約系統推薦：不用再接電話排時間",
   intro:
     "幫客人剪頭髮剪到一半要接電話、做指甲做到一半要回 LINE 排時間，還常常記錯時段讓兩個客人撞在一起。線上預約系統讓客人自己看空檔、自己預約，系統自動提醒，你可以專心服務眼前的客人。這篇整理預約系統能幫你什麼、該有哪些功能，以及導入前要注意的事。",
   description:
     "整理美髮、美甲、美容與工作室導入線上預約系統的好處、必備功能與常見問題。",
-  coverImage: "/og-image.png",
+  coverImage: "/og-image-v2.png",
   publishedAt: "2026-11-05",
   updatedAt: "2026-11-05",
   popularScore: 94,
@@ -247,13 +247,13 @@ export const lineOfficialAccountOrders = createArticleFromTemplate({
     "LINE 團購接單",
   ],
   canonical: "/blog/line-official-account-orders",
-  ogImage: "/og-image.png",
+  ogImage: "/og-image-v2.png",
   h1: "LINE 官方帳號怎麼接單？小店老闆完整教學",
   intro:
     "台灣的客人最習慣用 LINE 聯絡店家，所以很多老闆都用 LINE 接單。但訂單一多，訊息就被洗掉、漏回、抄錯，晚上還要一則一則對帳。其實只要把 LINE 官方帳號設定好，再搭配簡單的訂單系統，就能讓 LINE 變成幫你接單的小幫手。這篇從最基本的設定開始，一步一步教你。",
   description:
     "教小店老闆用 LINE 官方帳號的歡迎訊息、圖文選單、自動回覆與訂單系統，把 LINE 變成不漏單的接單工具。",
-  coverImage: "/og-image.png",
+  coverImage: "/og-image-v2.png",
   publishedAt: "2026-11-05",
   updatedAt: "2026-11-05",
   popularScore: 93,
@@ -355,13 +355,13 @@ export const websiteCostGuide = createArticleFromTemplate({
     "小店架站",
   ],
   canonical: "/blog/website-cost-guide",
-  ogImage: "/og-image.png",
+  ogImage: "/og-image-v2.png",
   h1: "做一個網站要多少錢？小店家架站費用與選擇指南",
   intro:
     "「做一個網站要多少錢？」是老闆最常問的問題。答案從幾千塊到幾十萬都有，差別在於你要的是什麼樣的網站。這篇整理市場上常見的網站類型和價格區間，說明哪些因素會影響費用，以及找人做網站前一定要問清楚的 5 個問題。",
   description:
     "整理一頁式網站、形象官網、購物網站與客製系統的常見價格區間，以及找人做網站前要問清楚的 5 個問題。",
-  coverImage: "/og-image.png",
+  coverImage: "/og-image-v2.png",
   publishedAt: "2026-11-05",
   updatedAt: "2026-11-05",
   popularScore: 96,
