@@ -7,6 +7,7 @@ import { SectionHeader } from "../ui/section-header";
 import { HeroShowcaseBackground } from "./hero-portfolio-showcase";
 import { HeroPhone3D } from "./hero-phone-3d";
 import { AiOrderDemo } from "../demo/ai-order-demo";
+import { GasOrderDemo } from "../demo/gas-order-demo";
 import { Reveal } from "../ui/reveal";
 import { LineAddButton } from "../line/line-add-button";
 import { LineQrSection } from "../line/line-qr-section";
@@ -314,6 +315,7 @@ export function HomePage() {
 
       {/* Try-it: AI order demo */}
       <AiOrderDemo />
+      <GasOrderDemo />
 
       {/* Pain points → solutions */}
       <section className="section-elevated border-b border-border py-16 lg:py-20">
