@@ -4,10 +4,8 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { useLanguage } from "../../context/language-context";
 import { SectionHeader } from "../ui/section-header";
-import {
-  HeroPortfolioShowcase,
-  HeroShowcaseBackground,
-} from "./hero-portfolio-showcase";
+import { HeroShowcaseBackground } from "./hero-portfolio-showcase";
+import { HeroPhone3D } from "./hero-phone-3d";
 import { Reveal } from "../ui/reveal";
 import { LineAddButton } from "../line/line-add-button";
 import { LineQrSection } from "../line/line-qr-section";
@@ -248,7 +246,7 @@ export function HomePage() {
       <section className="relative min-h-[90vh] overflow-hidden border-b border-border lg:min-h-screen">
         <HeroShowcaseBackground />
 
-        <div className="relative mx-auto flex min-h-[90vh] max-w-[1400px] items-center px-6 py-20 lg:min-h-screen lg:grid lg:grid-cols-[2fr_3fr] lg:gap-12 lg:px-12 lg:py-16">
+        <div className="relative mx-auto flex min-h-[90vh] max-w-[1400px] flex-col items-center px-6 py-20 lg:min-h-screen lg:grid lg:grid-cols-[1.1fr_1fr] lg:gap-12 lg:px-12 lg:py-16">
           <div className="flex flex-col justify-center lg:max-w-xl lg:pr-4 xl:pr-8">
             <motion.p
               initial={{ opacity: 0, y: 16 }}
@@ -307,8 +305,8 @@ export function HomePage() {
             </motion.div>
           </div>
 
-          <div className="mt-12 hidden items-center justify-center lg:mt-0 lg:flex">
-            <HeroPortfolioShowcase />
+          <div className="mt-10 flex items-center justify-center lg:mt-0">
+            <HeroPhone3D locale={locale === "zh" ? "zh" : "en"} />
           </div>
         </div>
       </section>
