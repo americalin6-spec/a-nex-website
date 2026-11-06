@@ -4,8 +4,7 @@ import {
   breadcrumbJsonLd,
   serviceJsonLd,
 } from "@/lib/seo/json-ld";
-import { SectionHeader } from "../../components/ui/section-header";
-import { Reveal } from "../../components/ui/reveal";
+import { ServiceTemplate, type ServiceTemplateCopy } from "../../components/seo/service-template";
 import { ServicePageExtras } from "../../components/seo/service-page-extras";
 
 const title = "網站設計｜企業官網與客製化網站開發｜AXORA";
@@ -19,15 +18,43 @@ export const metadata = pageMetadata({
   path,
 });
 
-const features = [
-  "企業官網資訊架構",
-  "響應式頁面設計與開發",
-  "基礎 SEO（標題、sitemap、OG）",
-  "諮詢表單／LINE 入口",
-  "內容後台（依需求建置）",
-];
+const zh: ServiceTemplateCopy = {
+  "label": "網站設計",
+  "title": "網站設計",
+  "intro": "官網不只好看，還要讓潛在客戶找得到服務、留得下名單。",
+  "features": [
+    "企業官網資訊架構",
+    "響應式頁面設計與開發",
+    "基礎 SEO（標題、sitemap、OG）",
+    "諮詢表單／LINE 入口",
+    "內容後台（依需求建置）"
+  ],
+  "audiences": [
+    "需要專業形象官網的品牌",
+    "服務型／工作室產業",
+    "要承接諮詢名單的公司",
+    "準備重做舊站的中小企業"
+  ]
+};
 
-const audiences = ["需要專業形象官網的品牌", "服務型／工作室產業", "要承接諮詢名單的公司", "準備重做舊站的中小企業"];
+const en: ServiceTemplateCopy = {
+  "label": "Website Design",
+  "title": "Website Design",
+  "intro": "A website should do more than look good — it should help customers find your services and get in touch.",
+  "features": [
+    "Clear site structure for your business",
+    "Responsive design that works on every device",
+    "Basic SEO (titles, sitemap, social previews)",
+    "Contact form and chat buttons",
+    "Content editor (if you need one)"
+  ],
+  "audiences": [
+    "Brands that need a professional website",
+    "Service businesses and studios",
+    "Companies that want more enquiries",
+    "Businesses replacing an outdated site"
+  ]
+};
 
 export default function WebDesignPage() {
   return (
@@ -47,52 +74,7 @@ export default function WebDesignPage() {
         ])}
       />
       <div className="pt-20">
-        <section className="section-glow mesh-accent relative border-b border-border py-16 lg:py-20">
-          <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
-            <Reveal>
-              <p className="text-label font-mono uppercase tracking-[0.3em] text-accent-blue">
-                網站設計
-              </p>
-              <h1 className="text-display page-title mt-4">
-                <span className="gradient-text">網站設計</span>
-              </h1>
-              <p className="mt-6 max-w-2xl text-body text-muted-light">
-                官網不只好看，還要讓潛在客戶找得到服務、留得下名單。
-              </p>
-            </Reveal>
-          </div>
-        </section>
-
-        <section className="section-elevated border-b border-border py-16 lg:py-20">
-          <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
-            <SectionHeader label="功能特色" title="功能特色" align="center" />
-            <ul className="mx-auto mt-10 grid max-w-3xl gap-4 sm:grid-cols-2">
-              {features.map((feature, index) => (
-                <Reveal key={feature} delay={index * 0.04}>
-                  <li className="glass-card flex items-center gap-3 rounded-xl px-6 py-4 text-body text-foreground">
-                    <span className="text-accent-blue">✓</span>
-                    <span>{feature}</span>
-                  </li>
-                </Reveal>
-              ))}
-            </ul>
-          </div>
-        </section>
-
-        <section className="border-b border-border py-16 lg:py-20">
-          <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
-            <SectionHeader label="適合對象" title="適合對象" align="center" />
-            <div className="mt-10 flex flex-wrap justify-center gap-3">
-              {audiences.map((audience, index) => (
-                <Reveal key={audience} delay={index * 0.04}>
-                  <span className="glass-card rounded-full px-5 py-2.5 text-label font-mono uppercase tracking-wider text-muted-light">
-                    {audience}
-                  </span>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </section>
+        <ServiceTemplate zh={zh} en={en} />
 
         <ServicePageExtras serviceSlug="web-design" />
       </div>

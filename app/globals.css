@@ -446,3 +446,8 @@ html.ios-safari-services-gpu-safe {
       0 30px 50px -28px rgba(28, 26, 23, 0.3);
   }
 }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}

@@ -1,6 +1,6 @@
 import type { ServiceSlug } from "@/app/data/relations";
 import { getRelatedProjectsForService } from "@/app/data/relations";
-import { getServiceFaqs } from "@/app/data/service-faqs";
+import { getServiceFaqs, getServiceFaqsEn } from "@/app/data/service-faqs";
 import { ContactCtaSection } from "./contact-cta-section";
 import { RelatedProjectsSection } from "./related-sections";
 import { ServiceFaqSection } from "./service-faq-section";
@@ -12,7 +12,7 @@ export function ServicePageExtras({ serviceSlug }: { serviceSlug: ServiceSlug })
   return (
     <>
       <RelatedProjectsSection projects={relatedProjects} />
-      <ServiceFaqSection faqs={faqs} />
+      <ServiceFaqSection faqs={faqs} faqsEn={getServiceFaqsEn(serviceSlug)} />
       <ContactCtaSection />
     </>
   );

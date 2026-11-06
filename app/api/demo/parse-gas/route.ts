@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { GAS_CATALOG, REGULAR, finalizeGas, parseGasWithRules, type GasOrder } from "@/lib/demo/gas";
+import { GAS_CATALOG, REGULAR, finalizeGas, parseGasEnglish, parseGasWithRules, type GasOrder } from "@/lib/demo/gas";
 
 export const runtime = "nodejs";
 
@@ -74,18 +74,30 @@ async function parseWithAI(text: string, apiKey: string): Promise<GasOrder | nul
 export async function POST(request: Request) {
   const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
   if (rateLimited(ip)) {
-    return NextResponse.json({ error: "試太多次了，請稍等一分鐘再試。" }, { status: 429 });
+    return NextResponse.json(
+      { error: "試太多次了，請稍等一分鐘再試。 / Too many tries — please wait a minute." },
+      { status: 429 },
+    );
   }
   let text = "";
+  let en = false;
   try {
-    const body = (await request.json()) as { text?: unknown };
+    const body = (await request.json()) as { text?: unknown; lang?: unknown };
     text = typeof body.text === "string" ? body.text.trim().slice(0, MAX_LEN) : "";
+    en = body.lang === "en";
   } catch {
-    return NextResponse.json({ error: "格式錯誤" }, { status: 400 });
+    return NextResponse.json({ error: "格式錯誤 / Invalid request" }, { status: 400 });
   }
-  if (!text) return NextResponse.json({ error: "請先說要叫什麼瓦斯" }, { status: 400 });
+  if (!text) {
+    return NextResponse.json({ error: en ? "Please tell us what you need." : "請先說要叫什麼瓦斯" }, { status: 400 });
+  }
 
-  const leak = /聞到|漏氣|瓦斯味|怪味/.test(text);
+  const leak = /聞到|漏氣|瓦斯味|怪味|smell gas|gas smell|smells? like gas|\bleak/i.test(text);
+
+  // English orders (text without Chinese characters) use the English parser.
+  if (!/[\u4e00-\u9fff]/.test(text)) {
+    return NextResponse.json({ order: parseGasEnglish(text), engine: "rules", leak });
+  }
   const apiKey = process.env.OPENAI_API_KEY;
   if (apiKey) {
     const ai = await parseWithAI(text, apiKey);

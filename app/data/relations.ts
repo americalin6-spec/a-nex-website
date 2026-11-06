@@ -23,53 +23,71 @@ export type ServiceLink = {
   name: string;
   href: `/services/${ServiceSlug}`;
   shortName: string;
+  nameEn: string;
+  shortNameEn: string;
 };
 
 export const SERVICE_LINKS: ServiceLink[] = [
   {
     slug: "ai-crm",
+    nameEn: "AI CRM",
+    shortNameEn: "AI CRM",
     name: "AI客戶管理系統",
     shortName: "AI CRM",
     href: "/services/ai-crm",
   },
   {
     slug: "ai-customer-service",
+    nameEn: "AI Customer Service",
+    shortNameEn: "AI Support",
     name: "AI客服系統",
     shortName: "AI客服",
     href: "/services/ai-customer-service",
   },
   {
     slug: "crm-system",
+    nameEn: "CRM System",
+    shortNameEn: "CRM",
     name: "CRM客戶管理系統",
     shortName: "CRM",
     href: "/services/crm-system",
   },
   {
     slug: "line-oa",
+    nameEn: "LINE Auto-Reply",
+    shortNameEn: "LINE",
     name: "LINE官方帳號整合",
     shortName: "LINE OA",
     href: "/services/line-oa",
   },
   {
     slug: "saas-development",
+    nameEn: "SaaS Development",
+    shortNameEn: "SaaS",
     name: "SaaS平台開發",
     shortName: "SaaS",
     href: "/services/saas-development",
   },
   {
     slug: "ai-automation",
+    nameEn: "AI Automation",
+    shortNameEn: "AI Automation",
     name: "AI自動化系統",
     shortName: "AI自動化",
     href: "/services/ai-automation",
   },
   {
     slug: "app-development",
+    nameEn: "App Development",
+    shortNameEn: "Apps",
     name: "APP開發",
     shortName: "APP",
     href: "/services/app-development",
   },
   {
     slug: "web-design",
+    nameEn: "Website Design",
+    shortNameEn: "Website",
     name: "網站設計",
     shortName: "Website",
     href: "/services/web-design",

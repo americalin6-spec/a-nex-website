@@ -3,6 +3,7 @@ import {
   FOOD_OPTIONS,
   ICE_OPTIONS,
   SUGAR_OPTIONS,
+  MENU_EN,
   finalizeOrder,
   type ParsedOrder,
 } from "./menu";
@@ -135,4 +136,121 @@ export function parseOrderWithRules(input: string): ParsedOrder {
   const note = noteMatch ? [...new Set(noteMatch)].join("、") : null;
 
   return finalizeOrder(raw, findPickup(text), note, unknown);
+}
+
+/* ------------------------------------------------------------------ */
+/* English orders: "two black teas light sugar less ice and a chicken  */
+/* bento, pick up at 6"                                                */
+/* ------------------------------------------------------------------ */
+
+const EN_NUM: Record<string, number> = {
+  a: 1, an: 1, one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9, ten: 10,
+  eleven: 11, twelve: 12, couple: 2,
+};
+const EN_NUM_RE = "(\\d{1,2}|a|an|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve)";
+const EN_UNIT = "(?:\\s+(?:cups?|glass(?:es)?|bowls?|boxes|box|plates?|orders?\\s+of|servings?\\s+of|pieces?))?";
+
+const EN_ALIASES = Object.entries(MENU_EN)
+  .flatMap(([id, v]) => v.aliases.map((alias) => ({ alias, id, kind: DEMO_MENU.find((m) => m.id === id)!.kind })))
+  .sort((a, b) => b.alias.length - a.alias.length);
+
+const EN_DRINK_OPTS: [RegExp, string][] = [
+  [/\b(no|zero|0%)\s*sugar|sugar[- ]?free|unsweetened/, "無糖"],
+  [/\b(light|30%|less than half)\s*sugar|\blightly sweet/, "微糖"],
+  [/\b(half|50%)\s*sugar|half sweet/, "半糖"],
+  [/\b(less|70%)\s*sugar|less sweet/, "少糖"],
+  [/\b(full|regular|normal|100%)\s*sugar/, "全糖"],
+  [/\bno\s*ice|without ice|ice[- ]?free/, "去冰"],
+  [/\blight\s*ice|a little ice/, "微冰"],
+  [/\bless\s*ice/, "少冰"],
+  [/\b(regular|normal|full)\s*ice/, "正常冰"],
+  [/\broom\s*temp(erature)?/, "常溫"],
+  [/\b(hot|warm)\b/, "熱"],
+];
+const EN_FOOD_OPTS: [RegExp, string][] = [
+  [/\bno\s*(cilantro|coriander)/, "不要香菜"],
+  [/\bno\s*(green onions?|scallions?|spring onions?)/, "不要蔥"],
+  [/\bless\s*rice/, "飯少"],
+  [/\b(more|extra)\s*rice/, "飯多"],
+  [/\b(not|no|non)[- ]?spicy|without (chili|spice)/, "不辣"],
+  [/\b(extra\s*)?spicy\b/, "加辣"],
+  [/\b(add|extra|with)\s*(an?\s*)?egg/, "加蛋"],
+];
+
+function enOptions(segment: string, kind: "drink" | "food"): string[] {
+  const out: string[] = [];
+  const list = kind === "drink" ? EN_DRINK_OPTS : EN_FOOD_OPTS;
+  for (const [re, opt] of list) if (re.test(segment)) out.push(opt);
+  if (out.includes("不辣") && out.includes("加辣")) out.splice(out.indexOf("加辣"), 1);
+  const uniq = [...new Set(out)];
+  if (kind === "food") return uniq;
+  const sugar = uniq.find((o) => SUGAR_OPTIONS.includes(o));
+  const ice = uniq.find((o) => ICE_OPTIONS.includes(o));
+  return [sugar, ice].filter(Boolean) as string[];
+}
+
+function enPickup(text: string): string | null {
+  let m = text.match(/\b(\d{1,2}):(\d{2})\s*(am|pm)?/);
+  if (m) {
+    let h = parseInt(m[1], 10);
+    if (m[3] === "pm" && h < 12) h += 12;
+    else if (!m[3] && h >= 1 && h <= 9) h += 12;
+    return `${String(h).padStart(2, "0")}:${m[2]}`;
+  }
+  m = text.match(/\b(?:at|by|around|for)\s+(\d{1,2})\s*(am|pm|o'?clock)?\b|\b(\d{1,2})\s*(am|pm)\b/);
+  if (m) {
+    let h = parseInt(m[1] ?? m[3], 10);
+    const ap = m[2] ?? m[4];
+    if (ap === "pm" && h < 12) h += 12;
+    else if (ap !== "am" && h >= 1 && h <= 9) h += 12;
+    return `${String(h).padStart(2, "0")}:00`;
+  }
+  m = text.match(/\bin\s+(\d{1,2})\s*(?:min|minutes)/);
+  if (m) return `${m[1]} min`;
+  if (/\bhalf an hour\b/.test(text)) return "30 min";
+  if (/\b(asap|right now|now|as soon as possible)\b/.test(text)) return "ASAP";
+  return null;
+}
+
+/** Rule-based parser for English orders (used when no AI key is configured). */
+export function parseOrderEnglish(input: string): ParsedOrder {
+  const text = " " + input.toLowerCase().replace(/\s+/g, " ").trim() + " ";
+  const segments = text.split(/[,.;!\n]| and | plus | also | then /).filter((s) => s.trim());
+  const raw: { id: string; qty: number; options: string[] }[] = [];
+  const unknown: string[] = [];
+
+  for (const seg of segments) {
+    let masked = seg;
+    const hits: { pos: number; len: number; id: string; kind: "drink" | "food" }[] = [];
+    for (const { alias, id, kind } of EN_ALIASES) {
+      const re = new RegExp(`\\b${alias.replace(/ /g, "\\s+")}s?\\b`);
+      let m = masked.match(re);
+      while (m && m.index !== undefined) {
+        hits.push({ pos: m.index, len: m[0].length, id, kind });
+        masked = masked.slice(0, m.index) + "_".repeat(m[0].length) + masked.slice(m.index + m[0].length);
+        m = masked.match(re);
+      }
+    }
+    hits.sort((a, b) => a.pos - b.pos);
+
+    hits.forEach((h, k) => {
+      const prevEnd = k > 0 ? hits[k - 1].pos + hits[k - 1].len : 0;
+      const nextStart = k < hits.length - 1 ? hits[k + 1].pos : seg.length;
+      const before = seg.slice(prevEnd, h.pos);
+      const after = seg.slice(h.pos + h.len, nextStart);
+      let qty = 1;
+      const mb = before.match(new RegExp(`\\b${EN_NUM_RE}${EN_UNIT}\\s*(?:\\w+\\s+)?$`));
+      const ma = after.match(new RegExp(`^\\s*(?:[x×*]\\s*(\\d{1,2})|\\(\\s*(\\d{1,2})\\s*\\))`));
+      if (mb) qty = /^\d+$/.test(mb[1]) ? parseInt(mb[1], 10) : EN_NUM[mb[1]] ?? 1;
+      else if (ma) qty = parseInt(ma[1] ?? ma[2], 10) || 1;
+      raw.push({ id: h.id, qty, options: enOptions(after + " " + before, h.kind) });
+    });
+
+    if (hits.length === 0) {
+      const m = seg.match(/\b(pizza|burgers?|fries|sandwich(?:es)?|pasta|salad|sushi|ramen|tacos?|steak|cola|coke|juice|cake|hot ?dog)\b/);
+      if (m) unknown.push(m[1]);
+    }
+  }
+
+  return finalizeOrder(raw, enPickup(text), null, [...new Set(unknown)]);
 }

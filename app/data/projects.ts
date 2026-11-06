@@ -44,6 +44,8 @@ export type ProjectTechTag = (typeof PROJECT_TECH_TAG_ORDER)[number];
 export type Project = {
   id: string;
   name: string;
+  /** English display name when `name` is Chinese. */
+  nameEn?: string;
   category: string;
   industry: ProjectIndustry;
   status: ProjectStatus;
@@ -58,6 +60,7 @@ export const projects: Project[] = [
   {
     id: "line-ai-reply",
     name: "LINE AI 自動回覆客服",
+    nameEn: "AI Auto-Reply for LINE",
     category: "LINE",
     industry: "AI",
     status: "Completed",

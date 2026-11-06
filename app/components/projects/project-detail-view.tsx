@@ -79,6 +79,7 @@ export function ProjectDetailView({
   relatedArticles,
 }: ProjectDetailViewProps) {
   const { t, locale } = useLanguage();
+  const nameOf = (p: { name: string; nameEn?: string }) => (locale === "en" ? p.nameEn ?? p.name : p.name);
   const labels = t.projects.detail;
   const overview = useLocalized(project.overview);
   const background = useLocalized(detail.background);
@@ -100,7 +101,7 @@ export function ProjectDetailView({
           <Reveal>
             <ProjectCoverImage
               src={project.coverImage}
-              alt={`${project.name} — AXORA Case Study`}
+              alt={`${nameOf(project)} — AXORA Case Study`}
               className="relative aspect-[21/9] overflow-hidden rounded-b-xl border border-border/60 bg-charcoal"
               priority
             />
@@ -111,7 +112,7 @@ export function ProjectDetailView({
                 {project.category}
               </p>
               <h1 className="text-display page-title mt-4">
-                <span className="gradient-text">{project.name}</span>
+                <span className="gradient-text">{nameOf(project)}</span>
               </h1>
               <p className="mt-6 max-w-3xl text-body text-muted-light">
                 {overview}
@@ -264,7 +265,7 @@ export function ProjectDetailView({
                 <ProjectCoverImage
                   key={`${src}-${index}`}
                   src={src}
-                  alt={`${project.name} 專案展示圖 ${index + 1}`}
+                  alt={locale === "en" ? `${nameOf(project)} screenshot ${index + 1}` : `${project.name} 專案展示圖 ${index + 1}`}
                   showFallback={false}
                   className="relative aspect-[16/10] overflow-hidden rounded-lg border border-border/60 bg-charcoal"
                   sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
@@ -305,7 +306,7 @@ export function ProjectDetailView({
                     ← {labels.previousProject}
                   </p>
                   <p className="mt-3 text-xl font-medium text-foreground group-hover:text-accent-blue">
-                    {previousProject.name}
+                    {nameOf(previousProject)}
                   </p>
                 </Link>
               ) : (
@@ -320,7 +321,7 @@ export function ProjectDetailView({
                     {labels.nextProject} →
                   </p>
                   <p className="mt-3 text-xl font-medium text-foreground group-hover:text-accent-blue">
-                    {nextProject.name}
+                    {nameOf(nextProject)}
                   </p>
                 </Link>
               ) : null}

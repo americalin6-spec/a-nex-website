@@ -72,3 +72,32 @@ export function finalizeOrder(
   const total = items.reduce((s, i) => s + i.qty * i.unitPrice, 0);
   return { items, pickup, note, unknown: unknown.slice(0, 3), total };
 }
+
+/* ------------------------------------------------------------------ */
+/* English layer for the demo (display names, aliases, option labels) */
+/* ------------------------------------------------------------------ */
+
+export const DEMO_SHOP_NAME_EN = "Good Taste Kitchen";
+
+export const MENU_EN: Record<string, { name: string; aliases: string[] }> = {
+  "bubble-milk-tea": { name: "Bubble Milk Tea", aliases: ["bubble milk tea", "pearl milk tea", "bubble tea", "boba tea", "boba"] },
+  "milk-tea": { name: "Milk Tea", aliases: ["milk tea"] },
+  "black-tea": { name: "Black Tea", aliases: ["black tea"] },
+  "green-tea": { name: "Green Tea", aliases: ["green tea"] },
+  latte: { name: "Latte", aliases: ["caffe latte", "coffee latte", "lattes", "latte"] },
+  americano: { name: "Americano", aliases: ["americanos", "americano", "black coffee"] },
+  "chicken-bento": { name: "Chicken Leg Bento", aliases: ["chicken leg bento", "chicken bento", "chicken rice", "chicken leg", "chicken"] },
+  "pork-bento": { name: "Pork Chop Bento", aliases: ["pork chop bento", "pork chop rice", "pork chops", "pork chop", "pork bento"] },
+  "braised-bento": { name: "Braised Pork Belly Bento", aliases: ["braised pork belly bento", "braised pork belly", "pork belly bento", "pork belly"] },
+  "beef-noodle": { name: "Beef Noodle Soup", aliases: ["beef noodle soup", "beef noodles", "beef noodle"] },
+  "braised-rice": { name: "Braised Pork Rice", aliases: ["braised pork rice", "minced pork rice", "pork rice"] },
+  veggie: { name: "Blanched Greens", aliases: ["blanched greens", "vegetables", "veggies", "greens"] },
+};
+
+/** Option label in English (options are stored with their Chinese key). */
+export const OPTION_EN: Record<string, string> = {
+  無糖: "No sugar", 微糖: "Light sugar", 半糖: "Half sugar", 少糖: "Less sugar", 全糖: "Full sugar",
+  去冰: "No ice", 微冰: "Light ice", 少冰: "Less ice", 正常冰: "Regular ice", 常溫: "Room temp", 熱: "Hot",
+  不要香菜: "No cilantro", 不要蔥: "No green onion", 飯少: "Less rice", 飯多: "More rice",
+  加辣: "Spicy", 不辣: "Not spicy", 加蛋: "Add egg",
+};

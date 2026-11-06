@@ -7,7 +7,7 @@ import { useLanguage } from "../../context/language-context";
 type SubmitStatus = "idle" | "submitting" | "success" | "error";
 
 export function ContactForm() {
-  const { t } = useLanguage();
+  const { t, locale } = useLanguage();
   const [status, setStatus] = useState<SubmitStatus>("idle");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
@@ -49,14 +49,14 @@ export function ContactForm() {
 
       if (!res.ok) {
         setStatus("error");
-        setErrorMessage("送出失敗，請稍後再試或改用 LINE 聯絡");
+        setErrorMessage(locale === "en" ? "Sending failed. Please try again later, or contact us on WhatsApp." : "送出失敗，請稍後再試或改用 LINE 聯絡");
         return;
       }
 
       setStatus("success");
     } catch {
       setStatus("error");
-      setErrorMessage("送出失敗，請稍後再試或改用 LINE 聯絡");
+      setErrorMessage(locale === "en" ? "Sending failed. Please try again later, or contact us on WhatsApp." : "送出失敗，請稍後再試或改用 LINE 聯絡");
     }
   }
 
@@ -75,7 +75,7 @@ export function ContactForm() {
           {t.contact.success.title}
         </h2>
         <p className="text-editorial mt-4 max-w-md text-muted-light">
-          送出成功，我們會盡快回覆您
+          {locale === "en" ? "Sent! We will get back to you soon." : "送出成功，我們會盡快回覆您"}
         </p>
       </motion.div>
     );
@@ -185,7 +185,7 @@ export function ContactForm() {
         disabled={isSubmitting}
         className="border border-foreground px-10 py-4 font-mono text-base uppercase tracking-[0.2em] text-foreground transition-all duration-500 hover:bg-foreground hover:text-background disabled:cursor-not-allowed disabled:opacity-60"
       >
-        {isSubmitting ? "送出中..." : t.contact.form.submit}
+        {isSubmitting ? (locale === "en" ? "Sending..." : "送出中...") : t.contact.form.submit}
       </button>
 
       {status === "error" && errorMessage ? (

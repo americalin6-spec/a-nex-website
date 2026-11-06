@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useLanguage } from "../../context/language-context";
-import { EN_ROUTES, ZH_ROUTES } from "../../i18n-routes";
+import { isEnglishPath, toEnPath, toZhPath } from "../../i18n-routes";
 import type { Locale } from "../../translations";
 
 const OPTIONS = [
@@ -12,9 +12,8 @@ const OPTIONS = [
 ] as const;
 
 /**
- * Capsule language toggle. Pages with a dedicated English URL switch via a
- * real link (/ ↔ /en, /contact ↔ /en/contact); other pages keep the
- * in-page language toggle.
+ * Capsule language toggle. Pages with an English twin switch via a real link
+ * (/x ↔ /en/x); Chinese-only pages (the blog) keep the in-page toggle.
  */
 export function LanguageSwitcher() {
   const { locale, setLocale } = useLanguage();
@@ -40,8 +39,12 @@ export function LanguageSwitcher() {
         }`;
         const target =
           option.id === "en"
-            ? EN_ROUTES[pathname] ?? (ZH_ROUTES[pathname] ? pathname : undefined)
-            : ZH_ROUTES[pathname] ?? (EN_ROUTES[pathname] ? pathname : undefined);
+            ? toEnPath(pathname)
+            : isEnglishPath(pathname)
+              ? toZhPath(pathname)
+              : toEnPath(pathname)
+                ? pathname
+                : undefined;
 
         if (target) {
           return (

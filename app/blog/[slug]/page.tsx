@@ -1,3 +1,4 @@
+import { ChineseOnlyNotice } from "../../components/blog/chinese-only-notice";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -94,6 +95,7 @@ export default async function BlogPostPage({ params }: PageProps) {
 
   return (
     <>
+      <ChineseOnlyNotice />
       <JsonLd
         data={articleJsonLd({
           title: post.seo.seoTitle,

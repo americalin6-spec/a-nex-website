@@ -123,3 +123,77 @@ export function parseGasWithRules(input: string): GasOrder {
 
   return finalizeGas(raw, address, parseTime(t), notes.length ? notes.join("、") : null);
 }
+
+/* ------------------------------------------------------------------ */
+/* English layer                                                       */
+/* ------------------------------------------------------------------ */
+
+export const GAS_SHOP_NAME_EN = "Daming Gas Delivery";
+export const REGULAR_EN = {
+  name: "Mrs. Wang",
+  address: "5F, No. 100, Sec. 2, Xinglong Rd., Wenshan Dist., Taipei",
+};
+export const GAS_NAME_EN: Record<string, string> = {
+  "gas-20": "Gas cylinder 20 kg",
+  "gas-16": "Gas cylinder 16 kg",
+  "gas-4": "Gas cylinder 4 kg",
+};
+
+const EN_N: Record<string, number> = { a: 1, an: 1, one: 1, two: 2, three: 3, four: 4, five: 5, six: 6 };
+const EN_N_RE = "(\\d{1,2}|a|an|one|two|three|four|five|six)";
+
+function enGasTime(s: string): string | null {
+  let m = s.match(/\b(before|by|after|around|at)?\s*(\d{1,2})(?::(\d{2}))?\s*(am|pm)\b/);
+  if (!m) m = s.match(/\b(before|by|after|around|at)\s+(\d{1,2})(?::(\d{2}))?\b()/);
+  if (m) {
+    let h = parseInt(m[2], 10);
+    if (m[4] === "pm" && h < 12) h += 12;
+    else if (!m[4] && h >= 1 && h <= 7) h += 12;
+    const t = `${String(h).padStart(2, "0")}:${m[3] ?? "00"}`;
+    return m[1] === "before" || m[1] === "by" ? `before ${t}` : m[1] === "after" ? `after ${t}` : t;
+  }
+  if (/\b(asap|right now|now|as soon as possible|quickly|hurry|urgent)\b/.test(s)) return "ASAP";
+  if (/\btomorrow\b/.test(s)) return /morning/.test(s) ? "tomorrow morning" : /afternoon/.test(s) ? "tomorrow afternoon" : "tomorrow";
+  if (/\bthis afternoon\b|\bafternoon\b/.test(s)) return "this afternoon";
+  if (/\bthis morning\b|\bmorning\b/.test(s)) return "this morning";
+  if (/\btoday\b/.test(s)) return "today";
+  return null;
+}
+
+/** Rule-based parser for English gas orders. */
+export function parseGasEnglish(input: string): GasOrder {
+  const t = " " + input.toLowerCase().replace(/\s+/g, " ").trim() + " ";
+  const raw: { id: string; qty: number }[] = [];
+
+  const re = new RegExp(
+    `(?:\\b${EN_N_RE}\\s*(?:x\\s*)?(?:cylinders?|tanks?|bottles?)?\\s*(?:of\\s*)?)?\\b(20|16|4)\\s*(?:-\\s*)?(?:kg|kgs|kilo|kilos|kilograms?)\\b(?:\\s*(?:cylinders?|tanks?|bottles?))?(?:\\s*[x×*]\\s*(\\d{1,2}))?`,
+    "g",
+  );
+  for (const m of t.matchAll(re)) {
+    const kg = parseInt(m[2], 10);
+    const q = m[1] ? (/^\d+$/.test(m[1]) ? parseInt(m[1], 10) : EN_N[m[1]]) : m[3] ? parseInt(m[3], 10) : 1;
+    raw.push({ id: `gas-${kg}`, qty: q ?? 1 });
+  }
+  if (raw.length === 0) {
+    const big = /\b(big|large)\b/.test(t);
+    const small = /\bsmall\b/.test(t);
+    const q = t.match(new RegExp(`\\b${EN_N_RE}\\s*(?:cylinders?|tanks?|bottles?)`));
+    if (big || small || q) {
+      raw.push({ id: small ? "gas-4" : "gas-20", qty: q ? (/^\d+$/.test(q[1]) ? parseInt(q[1], 10) : EN_N[q[1]] ?? 1) : 1 });
+    }
+  }
+
+  // "to 200 Fuxing S Rd Sec 1, 3F" style addresses
+  const addr = input.match(
+    /\b(?:deliver to|send to|to|address(?: is)?:?)\s+((?:\d+\s*f,?\s*)?(?:no\.?\s*)?\d+[^]*?\b(?:road|rd|street|st|avenue|ave|lane|ln|blvd|boulevard)\b.*?)(?=,\s*(?:call|please|before|by|after|asap|thanks)\b|[!?]|$)/i,
+  );
+  const address = addr && !/same address/i.test(addr[1]) ? addr[1].trim() : null;
+
+  const notes: string[] = [];
+  if (/\b(check|inspect|leak|smell)\b/.test(t)) notes.push("Please check the gas line");
+  if (/\b(hose|pipe)\b/.test(t)) notes.push("Needs a new gas hose");
+  if (/\b(no one|nobody|not home|leave it|front desk|reception|concierge)\b/.test(t)) notes.push("May not be home — leave at the front desk");
+  if (/\b(call|phone) (me )?(first|before)\b/.test(t)) notes.push("Call before arriving");
+
+  return finalizeGas(raw, address, enGasTime(t), notes.length ? notes.join("; ") : null);
+}

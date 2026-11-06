@@ -4,8 +4,7 @@ import {
   breadcrumbJsonLd,
   serviceJsonLd,
 } from "@/lib/seo/json-ld";
-import { SectionHeader } from "../../components/ui/section-header";
-import { Reveal } from "../../components/ui/reveal";
+import { ServiceTemplate, type ServiceTemplateCopy } from "../../components/seo/service-template";
 import { ServicePageExtras } from "../../components/seo/service-page-extras";
 
 const title = "SaaS平台開發｜雲端系統與訂閱制平台開發｜AXORA";
@@ -19,15 +18,43 @@ export const metadata = pageMetadata({
   path,
 });
 
-const features = [
-  "核心工作流程 MVP",
-  "帳號／角色權限",
-  "營運後台與資料模型",
-  "訂閱與帳單流程（可分期）",
-  "部署、監控與文件交付",
-];
+const zh: ServiceTemplateCopy = {
+  "label": "SaaS平台開發",
+  "title": "SaaS平台開發",
+  "intro": "先做出能上線的核心流程，再擴充會員、訂閱與營運後台。",
+  "features": [
+    "核心工作流程 MVP",
+    "帳號／角色權限",
+    "營運後台與資料模型",
+    "訂閱與帳單流程（可分期）",
+    "部署、監控與文件交付"
+  ],
+  "audiences": [
+    "新創產品團隊",
+    "要產品化內部流程的企業",
+    "既有服務轉訂閱制",
+    "需要客製雲端後台的公司"
+  ]
+};
 
-const audiences = ["新創產品團隊", "要產品化內部流程的企業", "既有服務轉訂閱制", "需要客製雲端後台的公司"];
+const en: ServiceTemplateCopy = {
+  "label": "SaaS Development",
+  "title": "SaaS Development",
+  "intro": "Launch the core workflow first, then add accounts, subscriptions and an admin back office.",
+  "features": [
+    "MVP of the core workflow",
+    "Accounts, roles and permissions",
+    "Admin back office and data model",
+    "Subscriptions and billing (can come later)",
+    "Deployment, monitoring and documentation"
+  ],
+  "audiences": [
+    "Start-up product teams",
+    "Companies turning internal processes into products",
+    "Services moving to subscriptions",
+    "Businesses that need a custom cloud platform"
+  ]
+};
 
 export default function SaasDevelopmentPage() {
   return (
@@ -47,52 +74,7 @@ export default function SaasDevelopmentPage() {
         ])}
       />
       <div className="pt-20">
-        <section className="section-glow mesh-accent relative border-b border-border py-16 lg:py-20">
-          <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
-            <Reveal>
-              <p className="text-label font-mono uppercase tracking-[0.3em] text-accent-blue">
-                SaaS平台開發
-              </p>
-              <h1 className="text-display page-title mt-4">
-                <span className="gradient-text">SaaS平台開發</span>
-              </h1>
-              <p className="mt-6 max-w-2xl text-body text-muted-light">
-                先做出能上線的核心流程，再擴充會員、訂閱與營運後台。
-              </p>
-            </Reveal>
-          </div>
-        </section>
-
-        <section className="section-elevated border-b border-border py-16 lg:py-20">
-          <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
-            <SectionHeader label="功能特色" title="功能特色" align="center" />
-            <ul className="mx-auto mt-10 grid max-w-3xl gap-4 sm:grid-cols-2">
-              {features.map((feature, index) => (
-                <Reveal key={feature} delay={index * 0.04}>
-                  <li className="glass-card flex items-center gap-3 rounded-xl px-6 py-4 text-body text-foreground">
-                    <span className="text-accent-blue">✓</span>
-                    <span>{feature}</span>
-                  </li>
-                </Reveal>
-              ))}
-            </ul>
-          </div>
-        </section>
-
-        <section className="border-b border-border py-16 lg:py-20">
-          <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
-            <SectionHeader label="適合對象" title="適合對象" align="center" />
-            <div className="mt-10 flex flex-wrap justify-center gap-3">
-              {audiences.map((audience, index) => (
-                <Reveal key={audience} delay={index * 0.04}>
-                  <span className="glass-card rounded-full px-5 py-2.5 text-label font-mono uppercase tracking-wider text-muted-light">
-                    {audience}
-                  </span>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </section>
+        <ServiceTemplate zh={zh} en={en} />
 
         <ServicePageExtras serviceSlug="saas-development" />
       </div>

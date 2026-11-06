@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { blogPosts } from "@/app/data/blog-posts";
 import { projects } from "@/app/data/projects";
 import { SITE_URL } from "@/lib/site";
-import { EN_ROUTES, ZH_ROUTES } from "@/app/i18n-routes";
+import { hasEnglish, toEnPath } from "@/app/i18n-routes";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();
@@ -27,23 +27,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/services/ordering-system",
     "/services/booking-system",
     "/services/gas-delivery-system",
-    "/en",
-    "/en/contact",
   ] as const;
 
   const projectPaths = projects.map((project) => `/projects/${project.id}`);
   const blogPaths = blogPosts.map((post) => `/blog/${post.slug}`);
 
-  return [...staticPaths, ...projectPaths, ...blogPaths].map((path) => {
+  const zhPaths: string[] = [...staticPaths, ...projectPaths, ...blogPaths];
+  const enPaths = zhPaths.filter((p) => hasEnglish(p)).map((p) => toEnPath(p)!);
+
+  return [...zhPaths, ...enPaths].map((path) => {
     const blogPost = blogPosts.find((post) => `/blog/${post.slug}` === path);
 
     // zh-TW / en / x-default alternates for pages that exist in both languages
-    const zhPath = ZH_ROUTES[path] ?? (EN_ROUTES[path] ? path : undefined);
-    const alternates = zhPath
+    const zhPath = path === "/en" ? "/" : path.startsWith("/en/") ? path.slice(3) : path;
+    const alternates = hasEnglish(zhPath)
       ? {
           languages: {
             "zh-TW": `${SITE_URL}${zhPath}`,
-            en: `${SITE_URL}${EN_ROUTES[zhPath]}`,
+            en: `${SITE_URL}${toEnPath(zhPath)}`,
             "x-default": `${SITE_URL}${zhPath}`,
           },
         }

@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useIsClient } from "@/lib/ios-safari";
 import { useLanguage } from "../../context/language-context";
+import { localizeHref } from "../../i18n-routes";
 import { LineAddButton } from "../line/line-add-button";
 import { WhatsAppButton } from "../contact/whatsapp-button";
 import { LanguageSwitcher } from "./language-switcher";
@@ -43,7 +44,8 @@ export function Navbar() {
 
   function isActive(href: string) {
     if (href.startsWith("/#")) return false;
-    return href === "/" ? pathname === "/" : pathname.startsWith(href);
+    const p = pathname.startsWith("/en/") ? pathname.slice(3) : pathname === "/en" ? "/" : pathname;
+    return href === "/" ? p === "/" : p.startsWith(href);
   }
 
   return (
@@ -60,7 +62,7 @@ export function Navbar() {
       <nav className="mx-auto flex h-16 max-w-[1400px] items-center gap-2 overflow-visible px-4 sm:gap-3 sm:px-6 md:grid md:grid-cols-[auto_minmax(0,1fr)_auto] md:gap-x-3 lg:gap-x-4 lg:px-12">
         <div className="flex shrink-0 items-center md:justify-self-start">
           <Link
-            href="/"
+            href={localizeHref("/", locale)}
             className="flex shrink-0 items-center transition-opacity duration-300 hover:opacity-70"
           >
             <span className="font-serif text-lg font-bold tracking-[0.24em] text-foreground md:text-xl lg:text-2xl lg:tracking-[0.32em]">
@@ -74,7 +76,7 @@ export function Navbar() {
           {navItems.map((item) => (
             <li key={item.key}>
               <Link
-                href={item.href}
+                href={localizeHref(item.href, locale)}
                 className={`whitespace-nowrap text-sm font-mono font-semibold uppercase leading-none tracking-[0.06em] lg:tracking-[0.14em] antialiased transition-colors duration-300 ${
                   isActive(item.href)
                     ? "text-foreground"
@@ -96,7 +98,7 @@ export function Navbar() {
             className="inline-flex shrink-0 max-md:!px-2 max-md:!py-1.5 max-md:text-xs"
           />
           <Link
-            href="/contact"
+            href={localizeHref("/contact", locale)}
             className={`btn-primary hidden shrink-0 rounded-lg px-2 py-1.5 text-xs md:inline-flex md:max-lg:hidden! font-mono font-semibold uppercase leading-none tracking-[0.1em] sm:px-3 sm:py-2 md:px-4 md:py-2.5 md:text-sm md:tracking-[0.12em] ${wideNav ? "max-md:hidden!" : ""}`}
           >
             {t.nav.contact}
@@ -131,7 +133,7 @@ export function Navbar() {
               {navItems.map((item) => (
                 <li key={item.key}>
                   <Link
-                    href={item.href}
+                    href={localizeHref(item.href, locale)}
                     className="block py-3 text-sm font-mono font-semibold uppercase leading-snug tracking-[0.14em] text-muted-light/90 antialiased transition-colors hover:text-foreground"
                   >
                     {t.nav[item.key]}

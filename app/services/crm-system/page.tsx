@@ -4,8 +4,7 @@ import {
   breadcrumbJsonLd,
   serviceJsonLd,
 } from "@/lib/seo/json-ld";
-import { SectionHeader } from "../../components/ui/section-header";
-import { Reveal } from "../../components/ui/reveal";
+import { ServiceTemplate, type ServiceTemplateCopy } from "../../components/seo/service-template";
 import { ServicePageExtras } from "../../components/seo/service-page-extras";
 
 const title = "CRM客戶管理系統｜客戶管理與業務追蹤平台｜AXORA";
@@ -19,15 +18,43 @@ export const metadata = pageMetadata({
   path,
 });
 
-const features = [
-  "依公司流程客製銷售階段",
-  "商機負責人與狀態追蹤",
-  "跟進提醒與逾時警示",
-  "名單匯入與欄位整理",
-  "成交與漏斗基礎報表",
-];
+const zh: ServiceTemplateCopy = {
+  "label": "CRM客戶管理系統",
+  "title": "CRM客戶管理系統",
+  "intro": "把成交流程寫進系統：誰負責、卡在哪、下一步是什麼，一次看清。",
+  "features": [
+    "依公司流程客製銷售階段",
+    "商機負責人與狀態追蹤",
+    "跟進提醒與逾時警示",
+    "名單匯入與欄位整理",
+    "成交與漏斗基礎報表"
+  ],
+  "audiences": [
+    "多人協作的業務部",
+    "開始標準化流程的中小企業",
+    "需要權限分層的團隊",
+    "準備汰換試算表的公司"
+  ]
+};
 
-const audiences = ["多人協作的業務部", "開始標準化流程的中小企業", "需要權限分層的團隊", "準備汰換試算表的公司"];
+const en: ServiceTemplateCopy = {
+  "label": "CRM System",
+  "title": "CRM System",
+  "intro": "Put your sales process into one system: who owns each deal, where it is stuck, and what happens next.",
+  "features": [
+    "Sales stages that match your process",
+    "Deal owners and status tracking",
+    "Follow-up reminders and overdue alerts",
+    "Contact import and data clean-up",
+    "Win rates and pipeline reports"
+  ],
+  "audiences": [
+    "Sales teams working together",
+    "Small businesses standardising their process",
+    "Teams that need permission levels",
+    "Companies outgrowing spreadsheets"
+  ]
+};
 
 export default function CrmSystemPage() {
   return (
@@ -47,52 +74,7 @@ export default function CrmSystemPage() {
         ])}
       />
       <div className="pt-20">
-        <section className="section-glow mesh-accent relative border-b border-border py-16 lg:py-20">
-          <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
-            <Reveal>
-              <p className="text-label font-mono uppercase tracking-[0.3em] text-accent-blue">
-                CRM客戶管理系統
-              </p>
-              <h1 className="text-display page-title mt-4">
-                <span className="gradient-text">CRM客戶管理系統</span>
-              </h1>
-              <p className="mt-6 max-w-2xl text-body text-muted-light">
-                把成交流程寫進系統：誰負責、卡在哪、下一步是什麼，一次看清。
-              </p>
-            </Reveal>
-          </div>
-        </section>
-
-        <section className="section-elevated border-b border-border py-16 lg:py-20">
-          <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
-            <SectionHeader label="功能特色" title="功能特色" align="center" />
-            <ul className="mx-auto mt-10 grid max-w-3xl gap-4 sm:grid-cols-2">
-              {features.map((feature, index) => (
-                <Reveal key={feature} delay={index * 0.04}>
-                  <li className="glass-card flex items-center gap-3 rounded-xl px-6 py-4 text-body text-foreground">
-                    <span className="text-accent-blue">✓</span>
-                    <span>{feature}</span>
-                  </li>
-                </Reveal>
-              ))}
-            </ul>
-          </div>
-        </section>
-
-        <section className="border-b border-border py-16 lg:py-20">
-          <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
-            <SectionHeader label="適合對象" title="適合對象" align="center" />
-            <div className="mt-10 flex flex-wrap justify-center gap-3">
-              {audiences.map((audience, index) => (
-                <Reveal key={audience} delay={index * 0.04}>
-                  <span className="glass-card rounded-full px-5 py-2.5 text-label font-mono uppercase tracking-wider text-muted-light">
-                    {audience}
-                  </span>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </section>
+        <ServiceTemplate zh={zh} en={en} />
 
         <ServicePageExtras serviceSlug="crm-system" />
       </div>

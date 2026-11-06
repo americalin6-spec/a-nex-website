@@ -9,10 +9,10 @@ import { Reveal } from "../components/ui/reveal";
 import { LineAddButton } from "../components/line/line-add-button";
 
 const showcase = [
-  { src: "/projects/ashley-english.png", name: "Ashley English", type: "英文教學網站" },
-  { src: "/projects/huaren-tong.png", name: "HuarenTong 華人通", type: "服務平台" },
-  { src: "/projects/zhongzhi-studio.png", name: "Zhongzhi Studio", type: "品牌官網" },
-  { src: "/projects/onlymate.png", name: "OnlyMate", type: "AI 網站與 App" },
+  { src: "/projects/ashley-english.png", name: "Ashley English", type: "英文教學網站", typeEn: "English teaching website" },
+  { src: "/projects/huaren-tong.png", name: "HuarenTong 華人通", nameEn: "HuarenTong", type: "服務平台", typeEn: "Service platform" },
+  { src: "/projects/zhongzhi-studio.png", name: "Zhongzhi Studio", type: "品牌官網", typeEn: "Brand website" },
+  { src: "/projects/onlymate.png", name: "OnlyMate", type: "AI 網站與 App", typeEn: "AI website & app" },
 ];
 
 const promisesZh = [
@@ -61,7 +61,7 @@ export default function AboutPage() {
             <div className="grid grid-cols-2 gap-4">
               {showcase.map((item, i) => (
                 <Link
-                  key={item.name}
+                  key={isZh ? item.name : ("nameEn" in item && item.nameEn) || item.name}
                   href="/projects"
                   className={`glass-card group block overflow-hidden p-2 ${
                     i % 2 === 1 ? "sm:translate-y-8" : ""
@@ -70,15 +70,15 @@ export default function AboutPage() {
                   <div className="relative aspect-[4/3] overflow-hidden rounded-xl bg-background-secondary">
                     <Image
                       src={item.src}
-                      alt={item.name}
+                      alt={isZh ? item.name : ("nameEn" in item && item.nameEn) || item.name}
                       fill
                       sizes="(min-width: 1024px) 320px, 45vw"
                       className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
                     />
                   </div>
                   <div className="px-2 pb-1 pt-3">
-                    <p className="text-body-sm font-bold text-foreground">{item.name}</p>
-                    <p className="text-caption text-muted">{item.type}</p>
+                    <p className="text-body-sm font-bold text-foreground">{isZh ? item.name : ("nameEn" in item && item.nameEn) || item.name}</p>
+                    <p className="text-caption text-muted">{isZh ? item.type : item.typeEn}</p>
                   </div>
                 </Link>
               ))}

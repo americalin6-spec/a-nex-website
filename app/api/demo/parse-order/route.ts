@@ -7,7 +7,7 @@ import {
   finalizeOrder,
   type ParsedOrder,
 } from "@/lib/demo/menu";
-import { parseOrderWithRules } from "@/lib/demo/parse-order-rules";
+import { parseOrderEnglish, parseOrderWithRules } from "@/lib/demo/parse-order-rules";
 
 export const runtime = "nodejs";
 
@@ -39,6 +39,7 @@ ${DEMO_MENU.map((m) => `${m.id}｜${m.name}｜${m.aliases.join("、")}`).join("\
 - 菜單上沒有的東西放進 unknown（用客人原本的說法）。
 - pickup：取餐時間，用 24 小時制 HH:MM；沒講就 null。「6點」通常指 18:00。
 - note：其他備註（例如分開裝、不用餐具），沒有就 null。
+- 客人也可能用英文點餐，一樣對應到菜單 id；選項仍然只能從上面的中文選項裡選（例如 light sugar=微糖、less ice=少冰）。unknown 用客人原本的說法。
 只輸出 JSON：{"items":[{"id":"...","qty":1,"options":["..."]}],"pickup":null,"note":null,"unknown":[]}`;
 
 async function parseWithAI(text: string, apiKey: string): Promise<ParsedOrder | null> {
@@ -86,17 +87,26 @@ async function parseWithAI(text: string, apiKey: string): Promise<ParsedOrder | 
 export async function POST(request: Request) {
   const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
   if (rateLimited(ip)) {
-    return NextResponse.json({ error: "試太多次了，請稍等一分鐘再試。" }, { status: 429 });
+    return NextResponse.json(
+      { error: "試太多次了，請稍等一分鐘再試。 / Too many tries — please wait a minute." },
+      { status: 429 },
+    );
   }
 
   let text = "";
+  let en = false;
   try {
-    const body = (await request.json()) as { text?: unknown };
+    const body = (await request.json()) as { text?: unknown; lang?: unknown };
     text = typeof body.text === "string" ? body.text.trim().slice(0, MAX_LEN) : "";
+    en = body.lang === "en";
   } catch {
-    return NextResponse.json({ error: "格式錯誤" }, { status: 400 });
+    return NextResponse.json({ error: "格式錯誤 / Invalid request" }, { status: 400 });
   }
-  if (!text) return NextResponse.json({ error: "請先輸入想點的東西" }, { status: 400 });
+  if (!text) {
+    return NextResponse.json({ error: en ? "Please type what you would like to order." : "請先輸入想點的東西" }, { status: 400 });
+  }
+  // Text without Chinese characters is parsed as an English order.
+  const englishText = !/[\u4e00-\u9fff]/.test(text);
 
   const apiKey = process.env.OPENAI_API_KEY;
   if (apiKey) {
@@ -105,5 +115,6 @@ export async function POST(request: Request) {
       return NextResponse.json({ order: ai, engine: "ai" });
     }
   }
-  return NextResponse.json({ order: parseOrderWithRules(text), engine: "rules" });
+  const order = englishText ? parseOrderEnglish(text) : parseOrderWithRules(text);
+  return NextResponse.json({ order, engine: "rules" });
 }

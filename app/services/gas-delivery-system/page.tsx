@@ -70,10 +70,82 @@ const data: SmallBizLandingData = {
   ],
 };
 
+const dataEn: Omit<SmallBizLandingData, "path" | "description"> = {
+  "name": "gas delivery ordering system",
+  "eyebrow": "Gas delivery · Order by chat · Dispatch management",
+  "headline": "Customers message once — the gas arrives",
+  "intro": "No more answering calls, writing down addresses and remembering who needs which size. Customers simply type or say “one 20 kg cylinder, same address” in a chat app, the system turns it into an order, you dispatch a driver with one tap, and the customer is notified on delivery. Older customers can just speak instead of typing.",
+  "pains": [
+    "The phone never stops ringing at busy times",
+    "Asking for and writing down addresses every time — often wrongly",
+    "Not knowing where the driver is, so customers keep calling",
+    "Regular customers run out suddenly and peak hours get overloaded"
+  ],
+  "features": [
+    {
+      "title": "Order by chat",
+      "desc": "Customers order by text or voice message instead of phoning."
+    },
+    {
+      "title": "Remembers regulars",
+      "desc": "“Same address” or “the usual” fills in the address and usual size automatically."
+    },
+    {
+      "title": "One-tap dispatch",
+      "desc": "Assign each order to a driver and see who is delivering what."
+    },
+    {
+      "title": "Delivery notifications",
+      "desc": "Customers are notified automatically when their gas arrives."
+    },
+    {
+      "title": "Refill reminders",
+      "desc": "Based on each customer’s ordering cycle, remind them before they run out."
+    },
+    {
+      "title": "Reports",
+      "desc": "Cylinders delivered per day, popular sizes and busiest areas at a glance."
+    }
+  ],
+  "audiences": [
+    "Gas cylinder delivery shops",
+    "Gas filling stations",
+    "Water, rice and water-dispenser delivery",
+    "Any home-delivery business"
+  ],
+  "faqs": [
+    {
+      "question": "What about older customers who can’t type?",
+      "answer": "They can just speak. Holding the microphone and saying “one 20 kg cylinder, same address” is enough for the system to understand. Phone orders can stay too — both work together."
+    },
+    {
+      "question": "How much does the system cost?",
+      "answer": "It depends on features such as the number of drivers, a delivery map or refill reminders. We learn how your shop works first and send a clear quote. Asking is free."
+    },
+    {
+      "question": "Can we use our own business messaging account?",
+      "answer": "Yes. The system connects to your own LINE Official Account, so all customer data stays yours."
+    },
+    {
+      "question": "What if a customer says they smell gas?",
+      "answer": "When the system detects words like “smell gas” or “leak”, it immediately replies with safety instructions (turn off the valve, open windows, no flames) and flags the order as urgent."
+    },
+    {
+      "question": "How does it know who is about to run out?",
+      "answer": "It records each customer’s order dates, estimates how long a cylinder lasts them, and asks a few days before whether they want a delivery. No sensors needed, and customers can always say no."
+    },
+    {
+      "question": "We have a new account with no customer data. How do we start?",
+      "answer": "Give us your existing customer book or spreadsheet to import, and put a QR code on your cylinders so customers can add you. Addresses stop needing to be written down from the first month, and reminders get more accurate after two or three months."
+    }
+  ]
+};
+
 export default function GasDeliverySystemPage() {
   return (
     <SmallBizLanding
       data={data}
+      dataEn={dataEn}
       demo={
         <>
           <GasOrderDemo />

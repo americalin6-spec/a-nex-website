@@ -10,7 +10,8 @@ import {
 } from "react";
 import { usePathname } from "next/navigation";
 import { translations, type Locale, type TranslationKeys } from "../translations";
-import { EN_ROUTES, isEnglishPath as isEnPath } from "../i18n-routes";
+import { hasEnglish, isEnglishPath as isEnPath, localizeHref } from "../i18n-routes";
+import { useRouter } from "next/navigation";
 
 type LanguageContextValue = {
   locale: Locale;
@@ -24,7 +25,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const isEnglishPath = isEnPath(pathname);
   // Chinese pages that also have an English URL (/, /contact) are always Chinese.
-  const isPairedZhPath = !!pathname && pathname in EN_ROUTES;
+  const isPairedZhPath = hasEnglish(pathname);
   const [locale, setLocale] = useState<Locale>(isEnglishPath ? "en" : "zh");
 
   // The URL decides the language on pages that exist in both languages
@@ -33,6 +34,26 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     if (isEnglishPath) setLocale("en");
     else if (isPairedZhPath) setLocale("zh");
   }, [isEnglishPath, isPairedZhPath, pathname]);
+
+  // While browsing in English, internal links to Chinese pages go to their
+  // English twins instead (e.g. /about → /en/about).
+  const router = useRouter();
+  useEffect(() => {
+    if (locale !== "en") return;
+    function onClick(e: MouseEvent) {
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      const a = (e.target as HTMLElement | null)?.closest?.("a");
+      if (!a || a.target === "_blank" || a.hasAttribute("download")) return;
+      const href = a.getAttribute("href");
+      if (!href || !href.startsWith("/") || href.startsWith("//")) return;
+      const next = localizeHref(href, "en");
+      if (next === href) return;
+      e.preventDefault();
+      router.push(next);
+    }
+    document.addEventListener("click", onClick, true);
+    return () => document.removeEventListener("click", onClick, true);
+  }, [locale, router]);
 
   const t = useMemo(() => translations[locale], [locale]);
 
@@ -61,4 +82,12 @@ export function useLanguage() {
 export function useLocalized<T extends { zh: string; en: string }>(text: T) {
   const { locale } = useLanguage();
   return text[locale];
+}
+
+/** Pick the Chinese or English value for the current locale. */
+export function usePick() {
+  const { locale } = useLanguage();
+  return function pick<T>(zh: T, en: T): T {
+    return locale === "en" ? en : zh;
+  };
 }

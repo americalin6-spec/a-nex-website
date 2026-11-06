@@ -8,6 +8,7 @@ import {
 import { LineAddButton } from "../line/line-add-button";
 import { ContactWhatsAppActions, WhatsAppButton } from "../contact/whatsapp-button";
 import { useLanguage } from "../../context/language-context";
+import { localizeHref } from "../../i18n-routes";
 
 const footerNav = [
   { href: "/services", key: "platform" as const },
@@ -18,7 +19,7 @@ const footerNav = [
 ];
 
 export function Footer() {
-  const { t } = useLanguage();
+  const { t, locale } = useLanguage();
 
   return (
     <footer className="relative border-t border-border bg-background-secondary">
@@ -48,7 +49,7 @@ export function Footer() {
               {footerNav.map((item) => (
                 <li key={item.key}>
                   <Link
-                    href={item.href}
+                    href={localizeHref(item.href, locale)}
                     className="text-base font-light text-muted-light transition-colors duration-300 hover:text-foreground"
                   >
                     {t.nav[item.key]}

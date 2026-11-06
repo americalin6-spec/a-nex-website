@@ -1,3 +1,4 @@
+import { ChineseOnlyNotice } from "../components/blog/chinese-only-notice";
 import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/seo/page-metadata";
 import { JsonLd, breadcrumbJsonLd } from "@/lib/seo/json-ld";
@@ -22,6 +23,7 @@ export default function BlogPage() {
           { name: "Blog", path: "/blog" },
         ])}
       />
+      <ChineseOnlyNotice />
       <BlogIndex posts={latestPosts} />
     </>
   );

@@ -57,6 +57,71 @@ const data: SmallBizLandingData = {
   ],
 };
 
+const dataEn: Omit<SmallBizLandingData, "path" | "description"> = {
+  "name": "online ordering system",
+  "eyebrow": "Online ordering · Menu ordering · Group orders",
+  "headline": "Customers order themselves — you just check your phone",
+  "intro": "No more copying orders from chat messages and reconciling until midnight. Customers order and pay from their phone, and every order lands in one tidy list.",
+  "pains": [
+    "Reconciling chat orders late every night",
+    "Wrong or missed orders and unhappy customers",
+    "Messaging every group-order customer one by one to settle payments",
+    "Not knowing which products sell best or how much you made this month"
+  ],
+  "features": [
+    {
+      "title": "Online ordering",
+      "desc": "Customers pick items and quantities on their phone and order in 30 seconds."
+    },
+    {
+      "title": "Online payment",
+      "desc": "Accept cards or bank transfers, with paid orders marked automatically."
+    },
+    {
+      "title": "Orders organised",
+      "desc": "New, to ship and completed orders at a glance — nothing slips through."
+    },
+    {
+      "title": "Instant notifications",
+      "desc": "Get notified of new orders, and keep customers updated automatically."
+    },
+    {
+      "title": "Sales reports",
+      "desc": "Daily and monthly revenue and best sellers, right on your phone."
+    },
+    {
+      "title": "Customer records",
+      "desc": "Remember what each customer bought, to bring them back with offers."
+    }
+  ],
+  "audiences": [
+    "Restaurants & food stalls",
+    "Drink & dessert shops",
+    "Group-buy organisers",
+    "Delivery businesses",
+    "Wholesale & re-ordering",
+    "Live-stream sellers"
+  ],
+  "faqs": [
+    {
+      "question": "How is this different from taking orders by chat?",
+      "answer": "With chat you read every message, copy orders and reconcile payments by hand. With an ordering system customers fill in their own order, and orders and payment status are organised automatically — you just follow the list."
+    },
+    {
+      "question": "How much does an online ordering system cost?",
+      "answer": "It depends on features such as online payment, memberships or reports. We learn about your needs first and send a clear quote. Asking is free."
+    },
+    {
+      "question": "I’m not good with computers. Can I manage orders myself?",
+      "answer": "Yes. The back office is as simple as a phone app, and we walk you through it step by step at launch."
+    },
+    {
+      "question": "Can it work with our messaging account?",
+      "answer": "Yes. We can put an ordering link in your LINE or WhatsApp business account, and notify you of new orders there."
+    }
+  ]
+};
+
 export default function OrderingSystemPage() {
-  return <SmallBizLanding data={data} demo={<AiOrderDemo />} />;
+  return <SmallBizLanding data={data} dataEn={dataEn} demo={<AiOrderDemo />} />;
 }

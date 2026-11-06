@@ -16,8 +16,9 @@ export function ProjectCard({
   index: number;
   disableScrollAnimation?: boolean;
 }) {
-  const { t } = useLanguage();
+  const { t, locale } = useLanguage();
   const overview = useLocalized(project.overview);
+  const name = locale === "en" ? project.nameEn ?? project.name : project.name;
 
   return (
     <Reveal delay={index * 0.04} disableScrollAnimation={disableScrollAnimation}>
@@ -26,7 +27,7 @@ export function ProjectCard({
         <div className="gradient-border-inner flex h-full flex-col overflow-hidden rounded-[inherit]">
           <ProjectCoverImage
             src={project.coverImage}
-            alt={`${project.name} — AXORA 專案案例`}
+            alt={locale === "en" ? `${name} — AXORA project` : `${name} — AXORA 專案案例`}
             showFallback={false}
             className="relative aspect-[16/10] overflow-hidden border-b border-border/60 bg-charcoal"
             sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
@@ -37,7 +38,7 @@ export function ProjectCard({
               {project.category}
             </p>
             <h2 className="mt-3 text-xl font-medium text-foreground lg:text-2xl">
-              {project.name}
+              {name}
             </h2>
             <p className="mt-3 flex-1 text-body text-muted-light">{overview}</p>
 

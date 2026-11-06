@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { DEFAULT_OG_IMAGE, SITE_NAME } from "@/lib/site";
+import { hasEnglish, hreflangLanguages } from "@/app/i18n-routes";
 
 type PageMetadataInput = {
   title: string;
@@ -17,6 +18,7 @@ export function pageMetadata({
     description,
     alternates: {
       canonical: path,
+      ...(hasEnglish(path) ? { languages: hreflangLanguages(path) } : {}),
     },
     openGraph: {
       type: "website",

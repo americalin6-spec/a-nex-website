@@ -59,6 +59,25 @@ export const serviceFaqs: Record<ServiceSlug, ServiceFaq[]> = {
   ],
   "line-oa": [
     {
+      question: "我已經有 LINE 官方帳號了，可以直接用嗎？",
+      answer:
+        "可以。我們直接幫你現有的官方帳號加上 AI 自動回覆，不用換帳號，原本的好友也都還在。",
+    },
+    {
+      question: "AI 回錯話怎麼辦？",
+      answer:
+        "AI 只會根據你提供的店家資料回答。遇到不確定或比較複雜的問題，會請客人稍等並通知你親自回覆，不會亂回。上線前也會先讓你測試。",
+    },
+    {
+      question: "需要一直開著電腦嗎？",
+      answer: "不用。系統在雲端 24 小時運作，你的電腦和手機關機也照樣會自動回覆。",
+    },
+    {
+      question: "費用怎麼算？",
+      answer:
+        "依你需要的功能而定（例如只要自動回答，或還要接單、預約、後台）。先用 LINE 跟我們聊，我們會給你清楚的報價，先聊不用錢。",
+    },
+    {
       question: "LINE 官方帳號整合會做到什麼程度？",
       answer:
         "依需求可包含歡迎訊息、圖文選單、關鍵字回覆、Webhook、潛客建檔，以及與 CRM／後台同步對話與標籤。",
@@ -146,4 +165,55 @@ export const serviceFaqs: Record<ServiceSlug, ServiceFaq[]> = {
 
 export function getServiceFaqs(slug: ServiceSlug): ServiceFaq[] {
   return serviceFaqs[slug] ?? [];
+}
+
+export const serviceFaqsEn: Record<ServiceSlug, ServiceFaq[]> = {
+  "ai-crm": [
+    { question: "How is an AI CRM different from a normal CRM?", answer: "A normal CRM relies on your team updating it by hand. AXORA's AI CRM can pull in chat conversations, write summaries and intent tags, and use reminders and sales stages to keep follow-ups on schedule — so fewer deals slip through." },
+    { question: "Do we need a LINE Official Account?", answer: "Only if your customers mainly talk to you on LINE. In that case an Official Account with the Messaging API lets conversations sync reliably into the system. We can also connect other channels such as WhatsApp, email or web forms." },
+    { question: "How soon will we see results?", answer: "Usually as soon as conversations are logged, stages are visible and reminders are on, missed follow-ups drop. Smarter prioritisation is tuned later, once real usage data builds up." },
+  ],
+  "ai-customer-service": [
+    { question: "Which questions should AI handle first?", answer: "Repetitive ones: opening hours, plans and pricing, booking steps, what to prepare. Complaints, negotiations and exceptions should still go to a person." },
+    { question: "Can it answer on both our website and messaging apps?", answer: "Yes. We build one shared knowledge base, reply on each channel, and collect every conversation in one back office so answers never contradict each other." },
+    { question: "How do you reduce the risk of wrong answers?", answer: "We limit what the AI is allowed to answer, block sensitive topics, and hand over to a person when it is unsure. After launch we keep adding knowledge from questions it could not answer." },
+  ],
+  "crm-system": [
+    { question: "We already use spreadsheets. Do we really need a CRM?", answer: "For a few people and a short process, a spreadsheet is fine. Once several people share leads, you need to see where deals get stuck, or you need permissions and reminders, a CRM is far more reliable." },
+    { question: "Can the sales stages match our own process?", answer: "Yes. We map your real process first (for example: new lead → contacted → quoted → negotiating → won), then set required fields and next actions for each stage." },
+    { question: "How do we move our existing contacts?", answer: "We import from Excel or CSV and clean up the key fields (source, owner, current stage) before launch." },
+  ],
+  "line-oa": [
+    { question: "I already have a LINE Official Account. Can I keep using it?", answer: "Yes. We add AI auto-reply to your existing account. No new account, and all your existing friends stay." },
+    { question: "What if the AI gives a wrong answer?", answer: "The AI only answers from the business information you provide. If it is unsure or the question is complex, it asks the customer to wait and notifies you to reply yourself. You can test everything before launch." },
+    { question: "Does my computer need to stay on?", answer: "No. The system runs in the cloud 24/7, so it keeps replying even when your computer and phone are off." },
+    { question: "How much does it cost?", answer: "It depends on what you need — answering questions only, or also taking orders, bookings and a back office. Message us and we will send a clear quote. Asking is free." },
+    { question: "What can a LINE integration include?", answer: "Welcome messages, a rich menu, automatic replies, webhooks, lead records, and syncing conversations and tags to your CRM or back office." },
+    { question: "We use a personal LINE today. What about existing customers?", answer: "We usually run both for a while: new enquiries go to the Official Account, and existing customers are invited over gradually so service is never interrupted." },
+    { question: "How do we know it is working?", answer: "Track the number of enquiries, how many the AI answered, how many went to a person, new leads created and follow-ups completed — and review the same numbers every week." },
+  ],
+  "saas-development": [
+    { question: "Can we start without a full specification?", answer: "Yes. We start by clarifying the core users and must-have workflows, launch a working MVP, then grow it based on real feedback instead of building everything at once." },
+    { question: "Should accounts, permissions and subscriptions be built together?", answer: "Accounts and permissions are usually part of the MVP. Subscriptions and payments can come in a later phase, depending on your business model." },
+    { question: "How is it maintained after launch?", answer: "We can provide monitoring, error tracking and ongoing improvements, plus documentation and a full handover. The scope is written clearly in the proposal." },
+  ],
+  "ai-automation": [
+    { question: "Which processes should we automate first?", answer: "Ones that are repetitive, have clear rules and are low-risk if something goes wrong: routing enquiries, standard replies, renewal reminders and data syncing. Keep high-risk decisions with people." },
+    { question: "If an automation fails, does everything stop?", answer: "No. We add error alerts, retries and a manual fallback, so a person can take over instead of things silently breaking." },
+    { question: "Do we have to replace our current systems?", answer: "Not necessarily. Many projects start by connecting your existing tools through APIs, webhooks or scheduled jobs." },
+  ],
+  "app-development": [
+    { question: "Native or cross-platform?", answer: "If you want iOS and Android quickly and the app is mostly business workflows, cross-platform is usually more efficient. If you rely heavily on special device features, we look at native." },
+    { question: "Can the app connect to our existing back office?", answer: "Yes — usually through APIs to your existing accounts, CRM, orders or notifications. If the back end is missing pieces, we plan those too." },
+    { question: "Do you handle testing and App Store submission?", answer: "We can include testing, review preparation and publishing support. What is included is listed clearly in the quote." },
+  ],
+  "web-design": [
+    { question: "Do you do SEO for the website?", answer: "We set up solid basic SEO: clear page structure, headings, canonical URLs, a sitemap, Open Graph and indexable content. Ongoing content marketing can be planned separately." },
+    { question: "Can we add a contact form and messaging buttons?", answer: "Yes. Most business sites have both a contact form and a chat button (LINE, WhatsApp, etc.) so customers can reach you the way they prefer." },
+    { question: "Who updates the content after launch?", answer: "If you need it, we add a simple content editor so your team can update pages and articles. Otherwise we deliver static pages first and add an editor later." },
+  ],
+};
+
+export function getServiceFaqsEn(slug: ServiceSlug): ServiceFaq[] {
+  return serviceFaqsEn[slug] ?? [];
 }

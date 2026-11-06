@@ -55,6 +55,71 @@ const data: SmallBizLandingData = {
   ],
 };
 
+const dataEn: Omit<SmallBizLandingData, "path" | "description"> = {
+  "name": "online booking system",
+  "eyebrow": "Online booking · Scheduling · Automatic reminders",
+  "headline": "Customers book themselves — no more double bookings",
+  "intro": "Stop answering calls and messages just to arrange times. Customers see your free slots on their phone and book on their own, and the system reminds both you and them automatically.",
+  "pains": [
+    "Constant calls and messages to arrange times interrupt your work",
+    "Times get mixed up and two customers end up in the same slot",
+    "Customers don’t show up and the slot is wasted",
+    "Scheduling several stylists or teachers is a headache"
+  ],
+  "features": [
+    {
+      "title": "Pick a time online",
+      "desc": "Customers see available times and book by themselves."
+    },
+    {
+      "title": "Automatic reminders",
+      "desc": "Customers are reminded before their appointment, so fewer no-shows."
+    },
+    {
+      "title": "Staff schedules",
+      "desc": "Separate calendars for each stylist, teacher or room."
+    },
+    {
+      "title": "Instant notifications",
+      "desc": "Get notified right away when someone books or cancels."
+    },
+    {
+      "title": "Booking history",
+      "desc": "See how often each customer visits and which services they had."
+    },
+    {
+      "title": "Reports",
+      "desc": "Daily and monthly bookings and revenue at a glance."
+    }
+  ],
+  "audiences": [
+    "Hair & nail salons",
+    "Beauty & massage",
+    "Classes & studios",
+    "Clinics & consultants",
+    "Photographers",
+    "Venue & room rentals"
+  ],
+  "faqs": [
+    {
+      "question": "Can an online booking system prevent double bookings?",
+      "answer": "Yes. Customers can only choose free slots, and booked times close automatically, so two people can never book the same time."
+    },
+    {
+      "question": "How much does a booking system cost?",
+      "answer": "It depends on what you need, such as how many staff calendars or whether customers pay a deposit online. We learn about your needs first and send a clear quote. Asking is free."
+    },
+    {
+      "question": "Do customers have to download an app?",
+      "answer": "No. Customers book from their phone browser or by tapping a link in a chat app — no download needed."
+    },
+    {
+      "question": "Can customers book from our messaging account?",
+      "answer": "Yes. We can add a booking button to your LINE or WhatsApp business account, and send confirmations there too."
+    }
+  ]
+};
+
 export default function BookingSystemPage() {
-  return <SmallBizLanding data={data} />;
+  return <SmallBizLanding data={data} dataEn={dataEn} />;
 }

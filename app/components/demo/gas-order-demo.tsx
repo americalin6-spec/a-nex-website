@@ -2,8 +2,10 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { GAS_SHOP_NAME, REGULAR, type GasOrder } from "@/lib/demo/gas";
+import { GAS_NAME_EN, GAS_SHOP_NAME, GAS_SHOP_NAME_EN, REGULAR, REGULAR_EN, type GasOrder } from "@/lib/demo/gas";
+import { useLanguage } from "@/app/context/language-context";
 import { LineAddButton } from "../line/line-add-button";
+import { WhatsAppButton } from "../contact/whatsapp-button";
 
 type Msg =
   | { id: number; from: "user" | "bot"; text: string }
@@ -14,6 +16,12 @@ type NewMsg =
   | { from: "order"; order: GasOrder; engine: string; confirmed: boolean };
 
 type Stage = "idle" | "received" | "delivering" | "delivered";
+
+const EXAMPLES_EN = [
+  "Hi, one 20 kg cylinder please, same address, before 3pm",
+  "Running out of gas — the usual, as soon as possible",
+  "Two 16 kg cylinders to 200 Fuxing S. Rd., Sec. 1, 3F, Taipei, call me first",
+];
 
 const EXAMPLES = [
   "老闆，20公斤的送一桶，地址一樣，下午三點前",
@@ -50,10 +58,22 @@ function getSpeechCtor(): SpeechCtor | null {
 }
 
 export function GasOrderDemo() {
+  const { locale } = useLanguage();
+  const en = locale === "en";
+  const L = (zh: string, e: string) => (en ? e : zh);
+  const regularName = en ? REGULAR_EN.name : REGULAR.name;
+  const gasName = (id: string, zhName: string) => (en ? GAS_NAME_EN[id] ?? zhName : zhName);
+  const addrOf = (o: GasOrder) => (en && o.addressFromMemory ? REGULAR_EN.address : o.address);
+  const examples = en ? EXAMPLES_EN : EXAMPLES;
+  const welcome = (isEn: boolean): Msg => ({
+    id: 0,
+    from: "bot",
+    text: isEn
+      ? `Hello ${REGULAR_EN.name} 👋 Just tell us what you need, e.g. "one 20 kg cylinder, same address"`
+      : `${REGULAR.name}您好 👋 要叫瓦斯直接說就可以，例如「20 公斤一桶，地址一樣」`,
+  });
   const [input, setInput] = useState("");
-  const [msgs, setMsgs] = useState<Msg[]>([
-    { id: 0, from: "bot", text: `${REGULAR.name}您好 👋 要叫瓦斯直接說就可以，例如「20 公斤一桶，地址一樣」` },
-  ]);
+  const [msgs, setMsgs] = useState<Msg[]>([welcome(en)]);
   const [loading, setLoading] = useState(false);
   const [stage, setStage] = useState<Stage>("idle");
   const [active, setActive] = useState<GasOrder | null>(null);
@@ -64,6 +84,14 @@ export function GasOrderDemo() {
   const said = useRef("");
   const chatRef = useRef<HTMLDivElement>(null);
   const idRef = useRef(1);
+
+  // Restart the demo when the language changes.
+  useEffect(() => {
+    setMsgs([welcome(en)]);
+    setStage("idle");
+    setActive(null);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [en]);
 
   useEffect(() => {
     setVoiceOK(getSpeechCtor() !== null);
@@ -85,23 +113,26 @@ export function GasOrderDemo() {
       const res = await fetch("/api/demo/parse-gas", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text: t }),
+        body: JSON.stringify({ text: t, lang: en ? "en" : "zh" }),
       });
       const data = (await res.json()) as { order?: GasOrder; engine?: string; leak?: boolean; error?: string };
       await new Promise((r) => setTimeout(r, 450));
       if (!res.ok || !data.order) {
-        push({ from: "bot", text: data.error ?? "系統忙碌中，請再試一次。" });
+        push({ from: "bot", text: data.error ?? L("系統忙碌中，請再試一次。", "The system is busy — please try again.") });
         return;
       }
       if (data.leak) {
         push({
           from: "bot",
-          text: "⚠️ 安全提醒：如果聞到瓦斯味，請先關掉瓦斯開關、打開窗戶，不要開關電器或點火，我們會請師傅順便檢查。",
+          text: L(
+            "⚠️ 安全提醒：如果聞到瓦斯味，請先關掉瓦斯開關、打開窗戶，不要開關電器或點火，我們會請師傅順便檢查。",
+            "⚠️ Safety first: if you smell gas, turn off the valve, open the windows, and don't touch switches or light a flame. Our driver will check it for you.",
+          ),
         });
       }
       push({ from: "order", order: data.order, engine: data.engine ?? "rules", confirmed: false });
     } catch {
-      push({ from: "bot", text: "網路好像不太穩，請再試一次。" });
+      push({ from: "bot", text: L("網路好像不太穩，請再試一次。", "The connection seems unstable — please try again.") });
     } finally {
       setLoading(false);
     }
@@ -112,13 +143,18 @@ export function GasOrderDemo() {
     setActive(order);
     setStage("received");
     setEta(12);
-    setTimeout(() => push({ from: "bot", text: `✅ 已收到！共 NT$${order.total}，${order.time ?? "會盡快"}幫您送到。` }), 400);
+    setTimeout(() => push({
+          from: "bot",
+          text: en
+            ? `✅ Got it! Total NT$${order.total}. We'll deliver ${order.time ? order.time : "as soon as possible"}.`
+            : `✅ 已收到！共 NT$${order.total}，${order.time ?? "會盡快"}幫您送到。`,
+        }), 400);
   }
 
   function dispatch() {
     if (stage !== "received") return;
     setStage("delivering");
-    push({ from: "bot", text: "🛵 師傅阿明已出發，大約 12 分鐘到，可以在地圖上看他的位置～" });
+    push({ from: "bot", text: L("🛵 師傅阿明已出發，大約 12 分鐘到，可以在地圖上看他的位置～", "🛵 Our driver Ming is on the way — about 12 minutes. You can follow him on the map.") });
     let n = 12;
     const iv = setInterval(() => {
       n -= 1;
@@ -126,7 +162,7 @@ export function GasOrderDemo() {
       if (n <= 0) {
         clearInterval(iv);
         setStage("delivered");
-        push({ from: "bot", text: "🔔 瓦斯送到了！師傅已幫您裝好並檢查管線 ✓ 謝謝您～" });
+        push({ from: "bot", text: L("🔔 瓦斯送到了！師傅已幫您裝好並檢查管線 ✓ 謝謝您～", "🔔 Your gas has arrived! The driver installed it and checked the line ✓ Thank you!") });
       }
     }, 450);
   }
@@ -157,7 +193,7 @@ export function GasOrderDemo() {
     rec.onerror = (e) => {
       setListening(false);
       if (e.error === "not-allowed" || e.error === "service-not-allowed")
-        push({ from: "bot", text: "麥克風沒有被允許使用，請在瀏覽器設定允許，或直接打字喔～" });
+        push({ from: "bot", text: L("麥克風沒有被允許使用，請在瀏覽器設定允許，或直接打字喔～", "Microphone access was blocked. Please allow it in your browser settings, or just type.") });
     };
     rec.onend = () => {
       setListening(false);
@@ -181,10 +217,13 @@ export function GasOrderDemo() {
     <section id="try-gas" className="scroll-mt-24 border-b border-border py-16 lg:py-24">
       <div className="mx-auto max-w-[1300px] px-6 lg:px-12">
         <div className="max-w-2xl">
-          <p className="text-label uppercase text-accent-blue">親手試試看 · AI 叫瓦斯</p>
-          <h2 className="section-title mt-3">長輩用講的叫瓦斯，系統自動派車</h2>
+          <p className="text-label uppercase text-accent-blue">{L("親手試試看 · AI 叫瓦斯", "Try it yourself · AI gas ordering")}</p>
+          <h2 className="section-title mt-3">{L("長輩用講的叫瓦斯，系統自動派車", "Customers just say it — the system dispatches the driver")}</h2>
           <p className="mt-4 text-body text-muted-light">
-            這是我們做的瓦斯行 LINE 叫瓦斯系統展示。客人說「地址一樣」「老樣子」，AI 會自動帶出常客資料；老闆按一下派車，地圖上就看得到師傅送到哪了。
+            {L(
+              "這是我們做的瓦斯行 LINE 叫瓦斯系統展示。客人說「地址一樣」「老樣子」，AI 會自動帶出常客資料；老闆按一下派車，地圖上就看得到師傅送到哪了。",
+              "A demo of the chat ordering system we built for gas delivery shops. When a customer says “same address” or “the usual”, the AI fills in their details; the owner taps once to dispatch and can follow the driver on the map.",
+            )}
           </p>
         </div>
 
@@ -195,12 +234,12 @@ export function GasOrderDemo() {
               <div className="flex items-center gap-3">
                 <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#c2410c] text-base">🔥</span>
                 <div>
-                  <p className="text-sm font-bold">{GAS_SHOP_NAME}</p>
-                  <p className="text-[11px] opacity-70">LINE 官方帳號 · 客人看到的畫面</p>
+                  <p className="text-sm font-bold">{en ? GAS_SHOP_NAME_EN : GAS_SHOP_NAME}</p>
+                  <p className="text-[11px] opacity-70">{L("LINE 官方帳號 · 客人看到的畫面", "Messaging account · what the customer sees")}</p>
                 </div>
               </div>
               <span className="rounded-full bg-white/15 px-3 py-1 text-[11px] font-semibold">
-                常客 · {REGULAR.name} · 已記住地址
+                {en ? `Regular · ${regularName} · address saved` : `常客 · ${REGULAR.name} · 已記住地址`}
               </span>
             </div>
 
@@ -222,16 +261,16 @@ export function GasOrderDemo() {
                     {m.from === "order" && (
                       <div className="w-[88%] max-w-[340px] overflow-hidden rounded-2xl bg-white text-[#111] shadow-sm">
                         <div className="flex items-center justify-between bg-[#c2410c] px-4 py-2.5 text-white">
-                          <p className="text-[13px] font-bold">請確認叫瓦斯內容</p>
+                          <p className="text-[13px] font-bold">{L("請確認叫瓦斯內容", "Please confirm your order")}</p>
                           <span className="rounded-full bg-white/20 px-2 py-0.5 text-[10.5px]">
-                            {m.engine === "ai" ? "AI 解析" : "智慧解析"}
+                            {m.engine === "ai" ? L("AI 解析", "AI parsed") : L("智慧解析", "Smart parsed")}
                           </span>
                         </div>
                         <div className="divide-y divide-[#eee] px-4">
                           {m.order.items.map((it) => (
                             <div key={it.id} className="flex justify-between py-2.5 text-[14px]">
                               <span className="font-semibold">
-                                {it.name} <span className="text-[#c2410c]">×{it.qty}</span>
+                                {gasName(it.id, it.name)} <span className="text-[#c2410c]">×{it.qty}</span>
                               </span>
                               <span className="font-semibold">${it.qty * it.unitPrice}</span>
                             </div>
@@ -239,30 +278,30 @@ export function GasOrderDemo() {
                         </div>
                         <div className="space-y-1 bg-[#faf8f4] px-4 py-3 text-[12.5px]">
                           <p>
-                            📍 {m.order.address}
+                            📍 {addrOf(m.order)}
                             {m.order.addressFromMemory && (
                               <span className="ml-1 rounded-full bg-[#1f4d3a]/10 px-1.5 py-0.5 text-[10.5px] text-[#1f4d3a]">
-                                已記住的地址
+                                {L("已記住的地址", "Saved address")}
                               </span>
                             )}
                           </p>
-                          {m.order.time && <p>🕒 送達時間：<b>{m.order.time}</b></p>}
+                          {m.order.time && <p>🕒 {L("送達時間：", "Delivery: ")}<b>{m.order.time}</b></p>}
                           {m.order.note && <p>📝 {m.order.note}</p>}
                           <p className="flex justify-between pt-1 text-[15px] font-bold">
-                            <span>合計（示範價格）</span>
+                            <span>{L("合計（示範價格）", "Total (demo prices)")}</span>
                             <span className="text-[#c2410c]">NT${m.order.total}</span>
                           </p>
                         </div>
                         <div className="px-4 pb-4">
                           {m.confirmed ? (
-                            <p className="rounded-xl bg-[#06C755]/10 py-2.5 text-center text-[13px] font-bold text-[#05833c]">✓ 已確認</p>
+                            <p className="rounded-xl bg-[#06C755]/10 py-2.5 text-center text-[13px] font-bold text-[#05833c]">✓ {L("已確認", "Confirmed")}</p>
                           ) : (
                             <button
                               type="button"
                               onClick={() => confirm(m.id, m.order)}
                               className="w-full rounded-xl bg-[#06C755] py-2.5 text-[14px] font-bold text-white hover:brightness-105"
                             >
-                              確認叫瓦斯
+                              {L("確認叫瓦斯", "Confirm order")}
                             </button>
                           )}
                         </div>
@@ -289,7 +328,7 @@ export function GasOrderDemo() {
 
             <div className="border-t border-border bg-surface p-3">
               <div className="mb-2 flex gap-2 overflow-x-auto pb-1">
-                {EXAMPLES.map((e) => (
+                {examples.map((e) => (
                   <button
                     key={e}
                     type="button"
@@ -313,7 +352,7 @@ export function GasOrderDemo() {
                     type="button"
                     onClick={toggleVoice}
                     disabled={loading}
-                    aria-label={listening ? "停止錄音" : "用講的叫瓦斯"}
+                    aria-label={listening ? L("停止錄音", "Stop recording") : L("用講的叫瓦斯", "Order by voice")}
                     className={`relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-white ${
                       listening ? "bg-[#dc2626]" : "bg-[#c2410c] hover:brightness-110"
                     } disabled:opacity-40`}
@@ -328,7 +367,7 @@ export function GasOrderDemo() {
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   maxLength={200}
-                  placeholder={listening ? "正在聽你說…" : "打字，或按麥克風用講的…"}
+                  placeholder={listening ? L("正在聽你說…", "Listening…") : L("打字，或按麥克風用講的…", "Type, or tap the mic to speak…")}
                   className="min-w-0 flex-1 rounded-full border border-border bg-background px-4 py-2.5 text-[15px] outline-none focus:border-accent-blue"
                 />
                 <button
@@ -336,7 +375,7 @@ export function GasOrderDemo() {
                   disabled={loading || !input.trim()}
                   className="shrink-0 rounded-full bg-[#06C755] px-5 text-[14px] font-bold text-white disabled:opacity-40"
                 >
-                  送出
+                  {L("送出", "Send")}
                 </button>
               </form>
             </div>
@@ -346,12 +385,12 @@ export function GasOrderDemo() {
           <div className="glass-card flex flex-col p-6" style={{ transform: "none" }}>
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-label uppercase text-accent-blue">瓦斯行後台 · 派送看板</p>
+                <p className="text-label uppercase text-accent-blue">{L("瓦斯行後台 · 派送看板", "Shop dashboard · dispatch board")}</p>
                 <p className="mt-1 text-lg font-bold">
-                  {stage === "idle" && "等待新訂單"}
-                  {stage === "received" && "新訂單！請派車"}
-                  {stage === "delivering" && `配送中 · 約 ${eta} 分鐘到`}
-                  {stage === "delivered" && "已送達 ✓"}
+                  {stage === "idle" && L("等待新訂單", "Waiting for orders")}
+                  {stage === "received" && L("新訂單！請派車", "New order — dispatch a driver")}
+                  {stage === "delivering" && (en ? `On the way · about ${eta} min` : `配送中 · 約 ${eta} 分鐘到`)}
+                  {stage === "delivered" && L("已送達 ✓", "Delivered ✓")}
                 </p>
               </div>
               <div className="flex gap-1.5">
@@ -385,7 +424,7 @@ export function GasOrderDemo() {
                 {/* shop */}
                 <g transform="translate(40 165)">
                   <circle r="11" fill="#1f4d3a" />
-                  <text y="4" textAnchor="middle" fontSize="11" fill="#fff">店</text>
+                  <text y="4" textAnchor="middle" fontSize="10" fill="#fff">{en ? "Shop" : "店"}</text>
                 </g>
                 {/* customer */}
                 <g transform="translate(280 40)">
@@ -393,7 +432,7 @@ export function GasOrderDemo() {
                     <animate attributeName="r" values="11;18;11" dur="1.6s" repeatCount="indefinite" />
                   </circle>
                   <circle r="10" fill={stage === "delivered" ? "#06C755" : "#c2410c"} />
-                  <text y="4" textAnchor="middle" fontSize="10" fill="#fff">家</text>
+                  <text y="4" textAnchor="middle" fontSize="9" fill="#fff">{en ? "Home" : "家"}</text>
                 </g>
                 {/* truck */}
                 {stage !== "idle" && (
@@ -413,34 +452,34 @@ export function GasOrderDemo() {
                   </motion.g>
                 )}
               </svg>
-              <div className="absolute bottom-2 left-2 rounded-lg bg-white/90 px-2 py-1 text-[11px] text-muted">示意地圖</div>
+              <div className="absolute bottom-2 left-2 rounded-lg bg-white/90 px-2 py-1 text-[11px] text-muted">{L("示意地圖", "Illustrative map")}</div>
             </div>
 
             {/* active order */}
             <div className="mt-4 min-h-[118px] rounded-2xl border border-border bg-surface p-4">
               {!active ? (
-                <p className="py-6 text-center text-body-sm text-muted">在左邊叫瓦斯並按「確認」，訂單會出現在這裡</p>
+                <p className="py-6 text-center text-body-sm text-muted">{L("在左邊叫瓦斯並按「確認」，訂單會出現在這裡", "Order on the left and tap “Confirm” — it will appear here")}</p>
               ) : (
                 <>
                   <div className="flex items-start justify-between gap-3">
                     <div>
                       <p className="text-[15px] font-bold">
-                        {REGULAR.name} · {active.items.map((i) => `${i.name.replace("桶裝瓦斯 ", "")}×${i.qty}`).join("、")}
+                        {regularName} · {active.items.map((i) => (en ? `${GAS_NAME_EN[i.id]?.replace("Gas cylinder ", "") ?? i.name} ×${i.qty}` : `${i.name.replace("桶裝瓦斯 ", "")}×${i.qty}`)).join(en ? ", " : "、")}
                       </p>
-                      <p className="mt-1 text-caption text-muted">📍 {active.address}</p>
+                      <p className="mt-1 text-caption text-muted">📍 {addrOf(active)}</p>
                       {active.note && <p className="text-caption text-muted">📝 {active.note}</p>}
                     </div>
                     <p className="shrink-0 font-serif text-xl text-accent-blue">NT${active.total}</p>
                   </div>
                   <div className="mt-3 flex items-center justify-between">
-                    <p className="text-caption text-muted">師傅：阿明 · 機車</p>
+                    <p className="text-caption text-muted">{L("師傅：阿明 · 機車", "Driver: Ming · scooter")}</p>
                     {stage === "received" && (
                       <button
                         type="button"
                         onClick={dispatch}
                         className="rounded-full bg-[#c2410c] px-4 py-1.5 text-[13px] font-bold text-white hover:brightness-110"
                       >
-                        🛵 派車出發
+                        🛵 {L("派車出發", "Dispatch")}
                       </button>
                     )}
                     {stage === "delivered" && (
@@ -449,7 +488,7 @@ export function GasOrderDemo() {
                         onClick={reset}
                         className="rounded-full border border-border px-4 py-1.5 text-[13px] font-semibold hover:border-foreground"
                       >
-                        再試一次
+                        {L("再試一次", "Try again")}
                       </button>
                     )}
                   </div>
@@ -459,21 +498,27 @@ export function GasOrderDemo() {
 
             {/* smart reminder */}
             <div className="mt-4 rounded-2xl bg-[#c2410c]/[0.07] p-4">
-              <p className="text-body-sm font-bold">🧠 智慧提醒</p>
+              <p className="text-body-sm font-bold">🧠 {L("智慧提醒", "Smart reminder")}</p>
               <p className="mt-1 text-caption text-muted-light">
-                {REGULAR.name}平均每 {REGULAR.avgDays} 天叫一次瓦斯（上次 {REGULAR.lastOrder}）。系統會在快用完前 3 天，自動用 LINE 問她要不要送新的一桶。
+                {en
+                  ? `${regularName} orders gas about every ${REGULAR.avgDays} days (last order: Oct 8). Three days before she runs out, the system automatically asks whether she wants a new cylinder.`
+                  : `${REGULAR.name}平均每 ${REGULAR.avgDays} 天叫一次瓦斯（上次 ${REGULAR.lastOrder}）。系統會在快用完前 3 天，自動用 LINE 問她要不要送新的一桶。`}
               </p>
               <div className="mt-2 h-2 overflow-hidden rounded-full bg-[#e4ded4]">
                 <div className="h-full w-[86%] rounded-full bg-gradient-to-r from-[#f59e0b] to-[#c2410c]" />
               </div>
-              <p className="mt-1 text-right text-[11px] text-muted">預估已用 86%</p>
+              <p className="mt-1 text-right text-[11px] text-muted">{L("預估已用 86%", "Estimated 86% used")}</p>
             </div>
 
             <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
               <a href="/services/gas-delivery-system" className="text-caption text-accent-blue underline-offset-4 hover:underline">
-                想讓你的瓦斯行也這樣接單？看瓦斯行系統 →
+                {L("想讓你的瓦斯行也這樣接單？看瓦斯行系統 →", "Want this for your delivery business? See the system →")}
               </a>
-              <LineAddButton variant="primary" className="px-5 py-2" />
+              {en ? (
+                <WhatsAppButton className="px-5 py-2" />
+              ) : (
+                <LineAddButton variant="primary" className="px-5 py-2" />
+              )}
             </div>
           </div>
         </div>
