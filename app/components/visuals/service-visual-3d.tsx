@@ -58,7 +58,7 @@ function scene(index: number, en: boolean) {
               </div>
             ))}
           </div>
-          <p className="mt-3 text-[11px] text-muted">{L("Google 搜尋第 1 頁 ✓", "Page 1 on Google ✓")}</p>
+          <p className="mt-3 text-[11px] text-muted">{L("Google 搜尋得到 ✓", "Found on Google ✓")}</p>
         </Screen>
       );
     case 1: // ordering
@@ -186,6 +186,27 @@ function scene(index: number, en: boolean) {
             ))}
           </div>
           <p className="mt-4 text-[11px] text-muted">{L("今天自動完成 46 件，省下約 2 小時", "46 tasks done automatically today — about 2 hours saved")}</p>
+        </Screen>
+      );
+    case 100: // SEO basics
+      return (
+        <Screen>
+          <div className="flex items-center gap-2 rounded-full border border-border bg-background px-3 py-1.5 text-[11px] text-muted">
+            <span>🔍</span>
+            <span>{L("台北 家常菜 訂位", "family restaurant near me")}</span>
+          </div>
+          <div className="mt-3 rounded-xl border border-border bg-background p-3">
+            <p className="text-[10px] text-[#05833c]">goodtaste.tw</p>
+            <p className="mt-0.5 text-[13px] font-semibold text-[#1a0dab]">{L("好味小館｜在地 20 年家常菜", "Good Taste Kitchen | Home-style cooking")}</p>
+            <p className="mt-1 text-[10.5px] leading-snug text-muted">{L("線上訂位、招牌菜、交通資訊⋯", "Book online, specials, directions…")}</p>
+          </div>
+          <div className="mt-3 grid grid-cols-2 gap-1.5 text-[10.5px]">
+            {(en ? ["Search Console", "Sitemap", "Page titles", "Speed check"] : ["Search Console", "Sitemap 地圖", "標題與描述", "速度檢查"]).map((t) => (
+              <p key={t} className="flex items-center justify-between rounded-lg bg-background px-2 py-1.5">
+                {t} <span className="text-[#05833c]">✓</span>
+              </p>
+            ))}
+          </div>
         </Screen>
       );
     default: // maintenance

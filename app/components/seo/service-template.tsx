@@ -3,6 +3,8 @@
 import { useLanguage } from "@/app/context/language-context";
 import { SectionHeader } from "../ui/section-header";
 import { Reveal } from "../ui/reveal";
+import Link from "next/link";
+import { localizeHref } from "@/app/i18n-routes";
 
 export type ServiceTemplateCopy = {
   label: string;
@@ -10,6 +12,8 @@ export type ServiceTemplateCopy = {
   intro: string;
   features: string[];
   audiences: string[];
+  /** Optional line under the features list linking to a related page. */
+  note?: { text: string; href: string; linkLabel: string };
 };
 
 /** Bilingual body of the simple service pages (hero, features, audiences). */
@@ -49,6 +53,17 @@ export function ServiceTemplate({ zh, en }: { zh: ServiceTemplateCopy; en: Servi
               </Reveal>
             ))}
           </ul>
+          {c.note && (
+            <p className="mx-auto mt-8 max-w-3xl text-center text-body-sm text-muted-light">
+              {c.note.text}{" "}
+              <Link
+                href={localizeHref(c.note.href, locale)}
+                className="font-semibold text-accent-blue underline underline-offset-4 hover:opacity-80"
+              >
+                {c.note.linkLabel}
+              </Link>
+            </p>
+          )}
         </div>
       </section>
 

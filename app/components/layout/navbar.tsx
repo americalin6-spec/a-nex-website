@@ -14,6 +14,7 @@ import { LanguageSwitcher } from "./language-switcher";
 const navItems = [
   { href: "/about", key: "about" as const },
   { href: "/services", key: "platform" as const },
+  { href: "/services/seo", key: "seo" as const },
   { href: "/services/line-oa", key: "lineAi" as const },
   { href: "/projects", key: "projects" as const },
   { href: "/contact", key: "contact" as const },
@@ -45,7 +46,13 @@ export function Navbar() {
   function isActive(href: string) {
     if (href.startsWith("/#")) return false;
     const p = pathname.startsWith("/en/") ? pathname.slice(3) : pathname === "/en" ? "/" : pathname;
-    return href === "/" ? p === "/" : p.startsWith(href);
+    if (href === "/") return p === "/";
+    // Only the most specific matching item is active (e.g. /services/seo → SEO, not 服務項目).
+    const best = navItems
+      .map((i) => i.href)
+      .filter((h) => h !== "/" && (p === h || p.startsWith(h + "/")))
+      .sort((a, b) => b.length - a.length)[0];
+    return best === href;
   }
 
   return (
@@ -72,7 +79,7 @@ export function Navbar() {
         </div>
 
 
-        <ul className={`hidden items-center gap-x-3 lg:gap-x-6 2xl:gap-x-10 md:justify-self-center ${wideNav ? "xl:flex" : "md:flex"}`}>
+        <ul className={`hidden items-center gap-x-2 lg:gap-x-6 2xl:gap-x-10 md:justify-self-center ${wideNav ? "xl:flex" : "md:flex"}`}>
           {navItems.map((item) => (
             <li key={item.key}>
               <Link
@@ -99,7 +106,7 @@ export function Navbar() {
           />
           <Link
             href={localizeHref("/contact", locale)}
-            className={`btn-primary hidden shrink-0 rounded-lg px-2 py-1.5 text-xs md:inline-flex md:max-lg:hidden! font-mono font-semibold uppercase leading-none tracking-[0.1em] sm:px-3 sm:py-2 md:px-4 md:py-2.5 md:text-sm md:tracking-[0.12em] ${wideNav ? "max-md:hidden!" : ""}`}
+            className={`btn-primary hidden shrink-0 rounded-lg px-2 py-1.5 text-xs md:inline-flex md:max-xl:hidden! font-mono font-semibold uppercase leading-none tracking-[0.1em] sm:px-3 sm:py-2 md:px-4 md:py-2.5 md:text-sm md:tracking-[0.12em] ${wideNav ? "max-md:hidden!" : ""}`}
           >
             {t.nav.contact}
           </Link>

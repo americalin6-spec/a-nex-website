@@ -34,7 +34,12 @@ const zh: ServiceTemplateCopy = {
     "服務型／工作室產業",
     "要承接諮詢名單的公司",
     "準備重做舊站的中小企業"
-  ]
+  ],
+  "note": {
+    "text": "每個網站都包含基礎 SEO 設定，讓 Google 找得到你。",
+    "href": "/services/seo",
+    "linkLabel": "看包含什麼 →"
+  }
 };
 
 const en: ServiceTemplateCopy = {
@@ -53,7 +58,12 @@ const en: ServiceTemplateCopy = {
     "Service businesses and studios",
     "Companies that want more enquiries",
     "Businesses replacing an outdated site"
-  ]
+  ],
+  "note": {
+    "text": "Every website includes basic SEO setup so Google can find you.",
+    "href": "/services/seo",
+    "linkLabel": "See what's included →"
+  }
 };
 
 export default function WebDesignPage() {

@@ -1,6 +1,8 @@
 "use client";
 
 import type { ReactNode } from "react";
+import Link from "next/link";
+import { localizeHref } from "@/app/i18n-routes";
 import type { CaseStudyVisual } from "../../data/case-studies";
 import { useLanguage } from "../../context/language-context";
 import { HeroPlatform } from "./hero-platform";
@@ -89,7 +91,7 @@ export function HeroVisualCluster() {
   );
 }
 
-type CardKey = "website" | "app" | "crm" | "dashboard" | "automation";
+type CardKey = "website" | "seo" | "app" | "crm" | "dashboard" | "automation";
 
 export function PlatformServiceVisualCards() {
   const { locale } = useLanguage();
@@ -97,6 +99,7 @@ export function PlatformServiceVisualCards() {
 
   const cards: { key: CardKey; title: string }[] = [
     { key: "website", title: zh ? "企業網站" : "Corporate site" },
+    { key: "seo", title: zh ? "SEO 基礎設定" : "SEO basics" },
     { key: "app", title: zh ? "Web / App" : "Web / App" },
     { key: "crm", title: zh ? "客戶管理" : "Customer mgmt" },
     { key: "dashboard", title: zh ? "儀表板" : "Dashboard" },
@@ -104,10 +107,10 @@ export function PlatformServiceVisualCards() {
   ];
 
   return (
-    <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-      {cards.map(({ key, title }) => (
-        <div key={key} className="gradient-border rounded-xl">
-          <div className="gradient-border-inner p-3">
+    <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
+      {cards.map(({ key, title }) => {
+        const inner = (
+          <div className="gradient-border-inner h-full p-3">
             <p className="text-xs font-mono uppercase tracking-wider text-accent-cyan">
               {title}
             </p>
@@ -183,11 +186,11 @@ export function PlatformServiceVisualCards() {
                 </div>
               )}
               {key === "automation" && (
-                <div className="flex items-center gap-1 rounded-md border border-border/60 bg-background/50 px-2 py-3">
+                <div className="flex items-center gap-0.5 rounded-md border border-border/60 bg-background/50 px-1.5 py-3">
                   {[zh ? "表單" : "Form", zh ? "審批" : "OK", zh ? "通知" : "Push"].map(
                     (s, j) => (
                       <div key={s} className="flex flex-1 items-center gap-0.5">
-                        <div className="min-w-0 flex-1 rounded border border-accent-purple/30 bg-accent-purple/10 px-1 py-1.5 text-center text-xs text-muted-light">
+                        <div className="min-w-0 flex-1 whitespace-nowrap rounded border border-accent-purple/30 bg-accent-purple/10 px-0.5 py-1.5 text-center text-xs text-muted-light">
                           {s}
                         </div>
                         {j < 2 && (
@@ -198,10 +201,41 @@ export function PlatformServiceVisualCards() {
                   )}
                 </div>
               )}
+              {key === "seo" && (
+                <div className="space-y-1.5 rounded-md border border-border/60 bg-background/50 p-2">
+                  <div className="flex items-center gap-1 rounded-full border border-border/60 bg-background/80 px-2 py-1 text-xs text-muted">
+                    <span>🔍</span>
+                    <span className="truncate">{zh ? "台北 網站設計" : "web design near me"}</span>
+                  </div>
+                  <div className="rounded border border-border/40 bg-background/80 px-2 py-1.5">
+                    <div className="h-1 w-1/3 rounded bg-emerald-500/50" />
+                    <div className="mt-1 h-1.5 w-4/5 rounded bg-[#1a0dab]/50" />
+                    <div className="mt-1 h-1 w-full rounded bg-border/60" />
+                  </div>
+                </div>
+              )}
             </div>
+            {key === "seo" && (
+              <p className="mt-2 text-xs font-semibold text-accent-blue">
+                {zh ? "讓 Google 找得到你 →" : "Get found on Google →"}
+              </p>
+            )}
           </div>
-        </div>
-      ))}
+        );
+        return key === "seo" ? (
+          <Link
+            key={key}
+            href={localizeHref("/services/seo", locale)}
+            className="gradient-border block rounded-xl transition hover:-translate-y-0.5 hover:shadow-lg"
+          >
+            {inner}
+          </Link>
+        ) : (
+          <div key={key} className="gradient-border rounded-xl">
+            {inner}
+          </div>
+        );
+      })}
     </div>
   );
 }
