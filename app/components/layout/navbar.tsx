@@ -19,7 +19,9 @@ const navItems = [
 
 export function Navbar() {
   const pathname = usePathname();
-  const { t } = useLanguage();
+  const { t, locale } = useLanguage();
+  // English nav labels are longer, so the inline menu needs a wider screen.
+  const wideNav = locale === "en";
   const mounted = useIsClient();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -54,25 +56,25 @@ export function Navbar() {
           : "bg-transparent"
       }`}
     >
-      <nav className="mx-auto flex h-16 max-w-[1400px] items-center gap-2 overflow-visible px-4 sm:gap-3 sm:px-6 md:grid md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] md:gap-x-3 lg:gap-x-4 lg:px-12">
+      <nav className="mx-auto flex h-16 max-w-[1400px] items-center gap-2 overflow-visible px-4 sm:gap-3 sm:px-6 md:grid md:grid-cols-[auto_minmax(0,1fr)_auto] md:gap-x-3 lg:gap-x-4 lg:px-12">
         <div className="flex shrink-0 items-center md:justify-self-start">
           <Link
             href="/"
             className="flex shrink-0 items-center transition-opacity duration-300 hover:opacity-70"
           >
-            <span className="font-serif text-lg font-bold tracking-[0.24em] text-foreground md:text-2xl md:tracking-[0.32em]">
+            <span className="font-serif text-lg font-bold tracking-[0.24em] text-foreground md:text-xl lg:text-2xl lg:tracking-[0.32em]">
               AXORA
             </span>
           </Link>
         </div>
 
 
-        <ul className="hidden items-center gap-x-9 lg:gap-x-10 md:flex md:justify-self-center">
+        <ul className={`hidden items-center gap-x-3 lg:gap-x-6 2xl:gap-x-10 md:justify-self-center ${wideNav ? "xl:flex" : "md:flex"}`}>
           {navItems.map((item) => (
             <li key={item.key}>
               <Link
                 href={item.href}
-                className={`whitespace-nowrap text-sm font-mono font-semibold uppercase leading-none tracking-[0.14em] antialiased transition-colors duration-300 ${
+                className={`whitespace-nowrap text-sm font-mono font-semibold uppercase leading-none tracking-[0.06em] lg:tracking-[0.14em] antialiased transition-colors duration-300 ${
                   isActive(item.href)
                     ? "text-foreground"
                     : "text-muted-light/85 hover:text-foreground"
@@ -85,7 +87,7 @@ export function Navbar() {
         </ul>
 
         <div className="ml-auto flex shrink-0 items-center justify-end gap-1.5 sm:gap-2 md:col-start-3 md:ml-0 md:gap-3 lg:gap-4">
-          <div className="hidden shrink-0 md:block">
+          <div className={`hidden shrink-0 ${wideNav ? "xl:block" : "md:block"}`}>
             <LanguageSwitcher />
           </div>
           <LineAddButton
@@ -94,14 +96,14 @@ export function Navbar() {
           />
           <Link
             href="/contact"
-            className="btn-primary hidden shrink-0 rounded-lg px-2 py-1.5 text-xs md:inline-flex font-mono font-semibold uppercase leading-none tracking-[0.1em] sm:px-3 sm:py-2 md:px-4 md:py-2.5 md:text-sm md:tracking-[0.12em]"
+            className={`btn-primary hidden shrink-0 rounded-lg px-2 py-1.5 text-xs md:inline-flex md:max-lg:hidden! font-mono font-semibold uppercase leading-none tracking-[0.1em] sm:px-3 sm:py-2 md:px-4 md:py-2.5 md:text-sm md:tracking-[0.12em] ${wideNav ? "max-md:hidden!" : ""}`}
           >
             {t.nav.contact}
           </Link>
           <button
             type="button"
             onClick={() => setMenuOpen(!menuOpen)}
-            className="flex h-9 w-9 flex-col items-center justify-center gap-1.5 md:hidden"
+            className={`flex h-9 w-9 flex-col items-center justify-center gap-1.5 ${wideNav ? "xl:hidden" : "md:hidden"}`}
             aria-label="Menu"
             aria-expanded={menuOpen}
           >
@@ -122,7 +124,7 @@ export function Navbar() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="overflow-hidden border-t border-border md:hidden"
+            className={`overflow-hidden border-t border-border ${wideNav ? "xl:hidden" : "md:hidden"}`}
           >
             <ul className="space-y-0 px-6 py-4">
               {navItems.map((item) => (

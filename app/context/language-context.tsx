@@ -10,6 +10,7 @@ import {
 } from "react";
 import { usePathname } from "next/navigation";
 import { translations, type Locale, type TranslationKeys } from "../translations";
+import { EN_ROUTES, isEnglishPath as isEnPath } from "../i18n-routes";
 
 type LanguageContextValue = {
   locale: Locale;
@@ -21,13 +22,17 @@ const LanguageContext = createContext<LanguageContextValue | null>(null);
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const pathname = usePathname();
-  const isEnglishPath = pathname === "/en" || pathname?.startsWith("/en/");
+  const isEnglishPath = isEnPath(pathname);
+  // Chinese pages that also have an English URL (/, /contact) are always Chinese.
+  const isPairedZhPath = !!pathname && pathname in EN_ROUTES;
   const [locale, setLocale] = useState<Locale>(isEnglishPath ? "en" : "zh");
 
-  // English URLs (/en, /en/...) always show the English interface.
+  // The URL decides the language on pages that exist in both languages
+  // (also after browser back/forward). Other pages keep the manual toggle.
   useEffect(() => {
     if (isEnglishPath) setLocale("en");
-  }, [isEnglishPath]);
+    else if (isPairedZhPath) setLocale("zh");
+  }, [isEnglishPath, isPairedZhPath, pathname]);
 
   const t = useMemo(() => translations[locale], [locale]);
 

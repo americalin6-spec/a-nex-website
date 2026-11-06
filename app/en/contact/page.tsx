@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { hreflangLanguages } from "@/app/i18n-routes";
 import { DEFAULT_OG_IMAGE, SITE_NAME } from "@/lib/site";
 import ContactPage from "../../contact/page";
 
@@ -11,7 +12,7 @@ export const metadata: Metadata = {
   description,
   alternates: {
     canonical: "/en/contact",
-    languages: { "zh-Hant": "/contact", en: "/en/contact", "x-default": "/contact" },
+    languages: hreflangLanguages("/contact"),
   },
   openGraph: {
     type: "website",

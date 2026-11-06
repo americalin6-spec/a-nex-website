@@ -1,3 +1,4 @@
+import { hreflangLanguages } from "@/app/i18n-routes";
 import { pageMetadata } from "@/lib/seo/page-metadata";
 import { JsonLd, faqPageJsonLd } from "@/lib/seo/json-ld";
 import { HomePage } from "./components/home/home-page";
@@ -13,7 +14,7 @@ export const metadata = {
   ...baseMetadata,
   alternates: {
     canonical: "/",
-    languages: { "zh-Hant": "/", en: "/en", "x-default": "/" },
+    languages: hreflangLanguages("/"),
   },
 };
 

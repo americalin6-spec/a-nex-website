@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { hreflangLanguages } from "@/app/i18n-routes";
 import Link from "next/link";
 import { DEFAULT_OG_IMAGE, SITE_NAME } from "@/lib/site";
 import { JsonLd, faqPageJsonLd } from "@/lib/seo/json-ld";
@@ -6,6 +7,7 @@ import { projects } from "../data/projects";
 import { ProjectCard } from "../components/projects/project-card";
 import { SectionHeader } from "../components/ui/section-header";
 import { Reveal } from "../components/ui/reveal";
+import { HeroPhone3D } from "../components/home/hero-phone-3d";
 
 const title = "AXORA | Custom Websites, Web Apps & AI Automation — Built in Taiwan";
 const description =
@@ -16,7 +18,7 @@ export const metadata: Metadata = {
   description,
   alternates: {
     canonical: "/en",
-    languages: { "zh-Hant": "/", en: "/en", "x-default": "/" },
+    languages: hreflangLanguages("/"),
   },
   openGraph: {
     type: "website",
@@ -127,8 +129,8 @@ export default function EnglishHomePage() {
       <JsonLd data={faqPageJsonLd(faqs)} />
       <div className="pt-20">
         {/* Hero */}
-        <section className="hero-glow border-b border-border py-20 lg:py-28">
-          <div className="mx-auto max-w-[1100px] px-6 lg:px-12">
+        <section className="hero-glow overflow-hidden border-b border-border py-20 lg:py-24">
+          <div className="mx-auto max-w-[1400px] px-6 lg:grid lg:grid-cols-[1.1fr_1fr] lg:items-center lg:gap-12 lg:px-12">
             <Reveal>
               <p className="text-label uppercase text-accent-blue">
                 Websites · Web apps · AI automation · Built in Taiwan
@@ -150,6 +152,9 @@ export default function EnglishHomePage() {
                 </Link>
               </div>
             </Reveal>
+            <div className="mt-12 flex items-center justify-center lg:mt-0">
+              <HeroPhone3D locale="en" />
+            </div>
           </div>
         </section>
 
