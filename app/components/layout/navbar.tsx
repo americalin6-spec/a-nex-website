@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { useIsClient } from "@/lib/ios-safari";
 import { useLanguage } from "../../context/language-context";
 import { LineAddButton } from "../line/line-add-button";
+import { WhatsAppButton } from "../contact/whatsapp-button";
 import { LanguageSwitcher } from "./language-switcher";
 
 const navItems = [
@@ -143,6 +144,11 @@ export function Navbar() {
               <li className="pt-2">
                 <LineAddButton variant="primary" className="w-full" />
               </li>
+              {locale === "en" && (
+                <li className="pt-3">
+                  <WhatsAppButton className="w-full" />
+                </li>
+              )}
             </ul>
           </motion.div>
         )}

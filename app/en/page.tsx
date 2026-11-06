@@ -8,6 +8,7 @@ import { ProjectCard } from "../components/projects/project-card";
 import { SectionHeader } from "../components/ui/section-header";
 import { Reveal } from "../components/ui/reveal";
 import { HeroPhone3D } from "../components/home/hero-phone-3d";
+import { WhatsAppButton } from "../components/contact/whatsapp-button";
 
 const title = "AXORA | Custom Websites, Web Apps & AI Automation — Built in Taiwan";
 const description =
@@ -144,10 +145,11 @@ export default function EnglishHomePage() {
                 reliable product, clear written communication, and pricing that makes sense.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
-                <Link href="/en/contact" className="btn-primary px-7 py-3">
+                <Link href="/en/contact" className="btn-primary px-6 py-3">
                   Get a free quote
                 </Link>
-                <Link href="#work" className="btn-glass px-7 py-3">
+                <WhatsAppButton className="px-6 py-3" label="WhatsApp" always />
+                <Link href="#work" className="btn-glass px-6 py-3">
                   See our work
                 </Link>
               </div>
@@ -250,10 +252,11 @@ export default function EnglishHomePage() {
                 Send a few lines about your business and what you want to build. We will reply in
                 writing with ideas, a timeline and a fixed quote. No obligation.
               </p>
-              <div className="mt-8 flex justify-center">
+              <div className="mt-8 flex flex-wrap justify-center gap-3">
                 <Link href="/en/contact" className="btn-primary px-8 py-3.5">
                   Get a free quote
                 </Link>
+                <WhatsAppButton className="px-8 py-3.5" always />
               </div>
             </div>
           </div>

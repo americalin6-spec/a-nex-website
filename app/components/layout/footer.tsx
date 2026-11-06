@@ -6,6 +6,7 @@ import {
   ContactLineActions,
 } from "../contact/contact-info-actions";
 import { LineAddButton } from "../line/line-add-button";
+import { ContactWhatsAppActions, WhatsAppButton } from "../contact/whatsapp-button";
 import { useLanguage } from "../../context/language-context";
 
 const footerNav = [
@@ -17,7 +18,7 @@ const footerNav = [
 ];
 
 export function Footer() {
-  const { t } = useLanguage();
+  const { t, locale } = useLanguage();
 
   return (
     <footer className="relative border-t border-border bg-background-secondary">
@@ -33,8 +34,9 @@ export function Footer() {
             <p className="mt-4 max-w-sm text-base font-light leading-relaxed text-muted">
               {t.footer.description}
             </p>
-            <div className="mt-6">
+            <div className="mt-6 flex flex-wrap gap-3">
               <LineAddButton variant="outline" />
+              <WhatsAppButton variant="outline" />
             </div>
           </div>
 
@@ -67,6 +69,11 @@ export function Footer() {
               <li>
                 <ContactLineActions variant="footer" />
               </li>
+              {locale === "en" && (
+                <li>
+                  <ContactWhatsAppActions variant="footer" />
+                </li>
+              )}
               <li>
                 <a
                   href="https://www.axora.tw"

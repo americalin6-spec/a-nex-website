@@ -3,6 +3,7 @@
 import { useIsIosSafari } from "@/lib/ios-safari";
 import { useLanguage } from "../context/language-context";
 import { ContactEmailActions, ContactLineActions } from "../components/contact/contact-info-actions";
+import { ContactWhatsAppActions } from "../components/contact/whatsapp-button";
 import { ContactForm } from "../components/contact/contact-form";
 import { LineQrSection } from "../components/line/line-qr-section";
 import { Reveal } from "../components/ui/reveal";
@@ -32,6 +33,7 @@ export default function ContactPage() {
             <li>
               <ContactLineActions />
             </li>
+            <ContactWhatsAppLi />
             <li>
               <span className="text-muted">Website</span>
               <a
@@ -67,5 +69,15 @@ export default function ContactPage() {
         </div>
       </section>
     </div>
+  );
+}
+
+function ContactWhatsAppLi() {
+  const { locale } = useLanguage();
+  if (locale !== "en") return null;
+  return (
+    <li>
+      <ContactWhatsAppActions />
+    </li>
   );
 }
