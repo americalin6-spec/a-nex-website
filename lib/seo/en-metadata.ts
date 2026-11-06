@@ -94,6 +94,11 @@ export const EN_META: Record<string, { title: string; description: string }> = {
     title: "Online Booking System for Salons, Studios & Clinics | AXORA",
     description: "Customers pick a time slot themselves, reminders go out automatically, no more double bookings or no-shows.",
   },
+  "/services/seo": {
+    title: "Website SEO Setup | Help Customers Find You on Google | AXORA",
+    description:
+      "Every AXORA website includes the SEO foundations: page structure Google understands, sitemap and indexing requests, mobile optimisation, Google Business Profile help and bilingual sites. No ranking promises — just the basics done right.",
+  },
   "/services/gas-delivery-system": {
     title: "Ordering & Delivery System for Gas Delivery Shops | AXORA",
     description: "Take gas cylinder orders over LINE, dispatch drivers, track customers and get refill reminders automatically.",
