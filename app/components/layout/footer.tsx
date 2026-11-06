@@ -18,7 +18,7 @@ const footerNav = [
 ];
 
 export function Footer() {
-  const { t, locale } = useLanguage();
+  const { t } = useLanguage();
 
   return (
     <footer className="relative border-t border-border bg-background-secondary">
@@ -69,11 +69,9 @@ export function Footer() {
               <li>
                 <ContactLineActions variant="footer" />
               </li>
-              {locale === "en" && (
-                <li>
-                  <ContactWhatsAppActions variant="footer" />
-                </li>
-              )}
+              <li>
+                <ContactWhatsAppActions variant="footer" />
+              </li>
               <li>
                 <a
                   href="https://www.axora.tw"

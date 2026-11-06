@@ -144,11 +144,9 @@ export function Navbar() {
               <li className="pt-2">
                 <LineAddButton variant="primary" className="w-full" />
               </li>
-              {locale === "en" && (
-                <li className="pt-3">
-                  <WhatsAppButton className="w-full" />
-                </li>
-              )}
+              <li className="pt-3">
+                <WhatsAppButton className="w-full" />
+              </li>
             </ul>
           </motion.div>
         )}

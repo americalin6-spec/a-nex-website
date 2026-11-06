@@ -73,8 +73,6 @@ export default function ContactPage() {
 }
 
 function ContactWhatsAppLi() {
-  const { locale } = useLanguage();
-  if (locale !== "en") return null;
   return (
     <li>
       <ContactWhatsAppActions />

@@ -7,19 +7,18 @@ type WhatsAppButtonProps = {
   variant?: "primary" | "outline";
   className?: string;
   label?: string;
-  /** Show even when the interface is in Chinese (default: English only). */
+  /** Kept for compatibility; the button now shows in every language. */
   always?: boolean;
 };
 
-/** "Chat on WhatsApp" button — shown on the English interface by default. */
+/** "Chat on WhatsApp" button — for international clients, shown in both languages. */
 export function WhatsAppButton({
   variant = "primary",
   className = "",
-  label = "Chat on WhatsApp",
-  always = false,
+  label,
 }: WhatsAppButtonProps) {
   const { locale } = useLanguage();
-  if (!always && locale !== "en") return null;
+  const text = label ?? (locale === "en" ? "Chat on WhatsApp" : "WhatsApp");
 
   const base =
     "inline-flex items-center justify-center gap-2 whitespace-nowrap font-mono text-sm uppercase tracking-[0.15em] transition-all duration-300";
@@ -38,15 +37,15 @@ export function WhatsAppButton({
       className={`${base} ${variants[variant]} ${className}`}
     >
       <ChatIcon />
-      {label}
+      {text}
     </a>
   );
 }
 
-/** WhatsApp row for the contact page / footer contact list (English only). */
+/** WhatsApp row for the contact page / footer contact list. */
 export function ContactWhatsAppActions({ variant = "page" }: { variant?: "page" | "footer" }) {
   const { locale } = useLanguage();
-  if (locale !== "en") return null;
+  const cta = locale === "en" ? "Chat on WhatsApp" : "用 WhatsApp 聯絡";
 
   const btn =
     "inline-block rounded-lg bg-[#25D366] px-3 py-1.5 font-mono text-sm uppercase tracking-[0.12em] text-white transition-all duration-300 hover:brightness-110";
@@ -56,7 +55,7 @@ export function ContactWhatsAppActions({ variant = "page" }: { variant?: "page" 
       <div className="space-y-2">
         <p>WhatsApp: {WHATSAPP_DISPLAY}</p>
         <a href={getWhatsAppUrl()} target="_blank" rel="noopener noreferrer" className={btn}>
-          Chat on WhatsApp
+          {cta}
         </a>
       </div>
     );
@@ -68,7 +67,7 @@ export function ContactWhatsAppActions({ variant = "page" }: { variant?: "page" 
       <p className="mt-1 text-base text-foreground">{WHATSAPP_DISPLAY}</p>
       <div className="mt-3">
         <a href={getWhatsAppUrl()} target="_blank" rel="noopener noreferrer" className={btn}>
-          Chat on WhatsApp
+          {cta}
         </a>
       </div>
     </div>

@@ -6,6 +6,7 @@ import { useLanguage } from "../../context/language-context";
 import { SectionHeader } from "../ui/section-header";
 import { HeroShowcaseBackground } from "./hero-portfolio-showcase";
 import { HeroPhone3D } from "./hero-phone-3d";
+import { getWhatsAppUrl } from "@/lib/whatsapp";
 import { AiOrderDemo } from "../demo/ai-order-demo";
 import { GasOrderDemo } from "../demo/gas-order-demo";
 import { Reveal } from "../ui/reveal";
@@ -305,6 +306,24 @@ export function HomePage() {
                 {c.hero.secondary}
               </a>
             </motion.div>
+
+            {locale === "zh" && (
+              <p className="mt-5 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-muted-light">
+                <span>Outside Taiwan?</span>
+                <Link href="/en" hrefLang="en" className="font-semibold text-foreground underline underline-offset-4 hover:opacity-70">
+                  English site
+                </Link>
+                <span aria-hidden>·</span>
+                <a
+                  href={getWhatsAppUrl()}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold text-[#128C4B] underline underline-offset-4 hover:opacity-70"
+                >
+                  Chat on WhatsApp
+                </a>
+              </p>
+            )}
           </div>
 
           <div className="mt-10 flex items-center justify-center lg:mt-0">
