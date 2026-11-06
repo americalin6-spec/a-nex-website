@@ -8,6 +8,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import { usePathname } from "next/navigation";
 import { translations, type Locale, type TranslationKeys } from "../translations";
 
 type LanguageContextValue = {
@@ -19,7 +20,14 @@ type LanguageContextValue = {
 const LanguageContext = createContext<LanguageContextValue | null>(null);
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [locale, setLocale] = useState<Locale>("zh");
+  const pathname = usePathname();
+  const isEnglishPath = pathname === "/en" || pathname?.startsWith("/en/");
+  const [locale, setLocale] = useState<Locale>(isEnglishPath ? "en" : "zh");
+
+  // English URLs (/en, /en/...) always show the English interface.
+  useEffect(() => {
+    if (isEnglishPath) setLocale("en");
+  }, [isEnglishPath]);
 
   const t = useMemo(() => translations[locale], [locale]);
 

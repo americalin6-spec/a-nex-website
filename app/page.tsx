@@ -2,12 +2,20 @@ import { pageMetadata } from "@/lib/seo/page-metadata";
 import { JsonLd, faqPageJsonLd } from "@/lib/seo/json-ld";
 import { HomePage } from "./components/home/home-page";
 
-export const metadata = pageMetadata({
+const baseMetadata = pageMetadata({
   title: "AXORA｜網站設計、App 開發、訂單與預約系統｜先聊不用錢",
   description:
     "AXORA 幫店家和企業做官方網站、手機 App、線上訂單系統、預約系統與 LINE 自動回覆。不懂電腦也沒關係，用 LINE 說需求就好，免費諮詢報價。",
   path: "/",
 });
+
+export const metadata = {
+  ...baseMetadata,
+  alternates: {
+    canonical: "/",
+    languages: { "zh-Hant": "/", en: "/en", "x-default": "/" },
+  },
+};
 
 const homeFaqs = [
   {
