@@ -98,16 +98,17 @@ export function Navbar() {
         </ul>
 
         <div className="ml-auto flex shrink-0 items-center justify-end gap-1.5 sm:gap-2 md:col-start-3 md:ml-0 md:gap-3 lg:gap-4">
-          <div className={`hidden shrink-0 ${wideNav ? "xl:block" : "lg:block"}`}>
+          <div className="shrink-0">
             <LanguageSwitcher />
           </div>
           <LineAddButton
             variant="nav"
+            compact
             className="inline-flex shrink-0 max-md:!px-2 max-md:!py-1.5 max-md:text-xs"
           />
           <Link
             href={localizeHref("/contact", locale)}
-            className={`btn-primary hidden shrink-0 rounded-lg px-2 py-1.5 text-xs md:inline-flex md:max-xl:hidden! font-mono font-semibold uppercase leading-none tracking-[0.1em] sm:px-3 sm:py-2 md:px-4 md:py-2.5 md:text-sm md:tracking-[0.12em] ${wideNav ? "max-md:hidden! xl:hidden!" : ""}`}
+            className={`btn-primary hidden shrink-0 rounded-lg px-2 py-1.5 text-xs md:inline-flex md:max-xl:hidden! font-mono font-semibold uppercase leading-none tracking-[0.1em] sm:px-3 sm:py-2 md:px-4 md:py-2.5 md:text-sm md:tracking-[0.12em] max-md:hidden! ${wideNav ? "xl:hidden!" : ""}`}
           >
             {t.nav.contact}
           </Link>
@@ -148,9 +149,6 @@ export function Navbar() {
                   </Link>
                 </li>
               ))}
-              <li className="py-3">
-                <LanguageSwitcher />
-              </li>
               <li className="pt-2">
                 <LineAddButton variant="primary" className="w-full" />
               </li>

@@ -6,11 +6,14 @@ import { useLanguage } from "../../context/language-context";
 type LineAddButtonProps = {
   variant?: "primary" | "outline" | "nav";
   className?: string;
+  /** Show just "LINE" on phones to save header space. */
+  compact?: boolean;
 };
 
 export function LineAddButton({
   variant = "outline",
   className = "",
+  compact = false,
 }: LineAddButtonProps) {
   const { t } = useLanguage();
   const href = getLineAddFriendUrl();
@@ -34,7 +37,14 @@ export function LineAddButton({
       className={`${base} ${variants[variant]} ${className}`}
     >
       <LineIcon />
-      {t.line.addLine}
+      {compact ? (
+        <>
+          <span className="max-md:hidden">{t.line.addLine}</span>
+          <span className="md:hidden">LINE</span>
+        </>
+      ) : (
+        t.line.addLine
+      )}
     </a>
   );
 }

@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { AmbientBackground } from "../ui/ambient-background";
 import { Footer } from "./footer";
 import { Navbar } from "./navbar";
+import { EnglishSuggest } from "./english-suggest";
 
 export function SiteShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -47,6 +48,7 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
       <Navbar />
       <main className="relative z-10 min-h-screen">{children}</main>
       <Footer />
+      <EnglishSuggest />
     </>
   );
 }
