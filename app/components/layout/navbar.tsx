@@ -15,6 +15,7 @@ const navItems = [
   { href: "/about", key: "about" as const },
   { href: "/services", key: "platform" as const },
   { href: "/services/seo", key: "seo" as const },
+  { href: "/services/ai-outreach", key: "outreach" as const },
   { href: "/services/line-oa", key: "lineAi" as const },
   { href: "/projects", key: "projects" as const },
   { href: "/contact", key: "contact" as const },
@@ -79,7 +80,7 @@ export function Navbar() {
         </div>
 
 
-        <ul className={`hidden items-center gap-x-2 lg:gap-x-6 2xl:gap-x-10 md:justify-self-center ${wideNav ? "xl:flex" : "md:flex"}`}>
+        <ul className={`hidden items-center gap-x-2 lg:gap-x-4 xl:gap-x-6 2xl:gap-x-10 md:justify-self-center ${wideNav ? "xl:flex" : "lg:flex"}`}>
           {navItems.map((item) => (
             <li key={item.key}>
               <Link
@@ -97,7 +98,7 @@ export function Navbar() {
         </ul>
 
         <div className="ml-auto flex shrink-0 items-center justify-end gap-1.5 sm:gap-2 md:col-start-3 md:ml-0 md:gap-3 lg:gap-4">
-          <div className={`hidden shrink-0 ${wideNav ? "xl:block" : "md:block"}`}>
+          <div className={`hidden shrink-0 ${wideNav ? "xl:block" : "lg:block"}`}>
             <LanguageSwitcher />
           </div>
           <LineAddButton
@@ -106,14 +107,14 @@ export function Navbar() {
           />
           <Link
             href={localizeHref("/contact", locale)}
-            className={`btn-primary hidden shrink-0 rounded-lg px-2 py-1.5 text-xs md:inline-flex md:max-xl:hidden! font-mono font-semibold uppercase leading-none tracking-[0.1em] sm:px-3 sm:py-2 md:px-4 md:py-2.5 md:text-sm md:tracking-[0.12em] ${wideNav ? "max-md:hidden!" : ""}`}
+            className={`btn-primary hidden shrink-0 rounded-lg px-2 py-1.5 text-xs md:inline-flex md:max-xl:hidden! font-mono font-semibold uppercase leading-none tracking-[0.1em] sm:px-3 sm:py-2 md:px-4 md:py-2.5 md:text-sm md:tracking-[0.12em] ${wideNav ? "max-md:hidden! xl:hidden!" : ""}`}
           >
             {t.nav.contact}
           </Link>
           <button
             type="button"
             onClick={() => setMenuOpen(!menuOpen)}
-            className={`flex h-9 w-9 flex-col items-center justify-center gap-1.5 ${wideNav ? "xl:hidden" : "md:hidden"}`}
+            className={`flex h-9 w-9 flex-col items-center justify-center gap-1.5 ${wideNav ? "xl:hidden" : "lg:hidden"}`}
             aria-label="Menu"
             aria-expanded={menuOpen}
           >
@@ -134,7 +135,7 @@ export function Navbar() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className={`overflow-hidden border-t border-border ${wideNav ? "xl:hidden" : "md:hidden"}`}
+            className={`overflow-hidden border-t border-border ${wideNav ? "xl:hidden" : "lg:hidden"}`}
           >
             <ul className="space-y-0 px-6 py-4">
               {navItems.map((item) => (

@@ -28,6 +28,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/services/booking-system",
     "/services/gas-delivery-system",
     "/services/seo",
+    "/services/ai-outreach",
   ] as const;
 
   const projectPaths = projects.map((project) => `/projects/${project.id}`);
@@ -36,7 +37,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const zhPaths: string[] = [...staticPaths, ...projectPaths, ...blogPaths];
   const enPaths = zhPaths.filter((p) => hasEnglish(p)).map((p) => toEnPath(p)!);
 
-  return [...zhPaths, ...enPaths].map((path) => {
+  const enOnlyPaths = ["/en/pricing"];
+
+  return [...zhPaths, ...enPaths, ...enOnlyPaths].map((path) => {
     const blogPost = blogPosts.find((post) => `/blog/${post.slug}` === path);
 
     // zh-TW / en / x-default alternates for pages that exist in both languages

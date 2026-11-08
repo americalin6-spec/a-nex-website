@@ -23,10 +23,14 @@ export function toEnPath(zhPath: string): string | undefined {
   return (path === "/" ? "/en" : `/en${path}`) + rest;
 }
 
+/** English-only pages (no Chinese twin) → the closest Chinese page. */
+const EN_ONLY: Record<string, string> = { "/en/pricing": "/services" };
+
 /** /en/about → /about, /en → /. */
 export function toZhPath(enPath: string): string | undefined {
   const [path, rest = ""] = splitSuffix(enPath);
   if (!isEnglishPath(path)) return undefined;
+  if (EN_ONLY[path]) return EN_ONLY[path];
   const zh = path.slice(3);
   return (zh === "" ? "/" : zh) + rest;
 }

@@ -105,7 +105,7 @@ const faqs = [
   {
     question: "How much does a project cost?",
     answer:
-      "It depends on the scope. Send us a short description and we will reply with a fixed quote and timeline before any work starts. Asking for a quote is free.",
+      "Business websites start from USD 690 and booking websites from USD 1,490, or you can start for USD 199 with a small monthly plan. See our pricing page for details. Every project gets a fixed quote in writing before any work starts.",
   },
   {
     question: "Do we need to have calls?",
@@ -149,8 +149,8 @@ export default function EnglishHomePage() {
                   Get a free quote
                 </Link>
                 <WhatsAppButton className="px-6 py-3" label="WhatsApp" always />
-                <Link href="#work" className="btn-glass px-6 py-3">
-                  See our work
+                <Link href="/en/pricing" className="btn-glass px-6 py-3">
+                  See pricing
                 </Link>
               </div>
             </Reveal>

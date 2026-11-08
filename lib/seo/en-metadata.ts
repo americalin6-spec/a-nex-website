@@ -77,6 +77,10 @@ export const EN_META: Record<string, { title: string; description: string }> = {
     title: "AI Customer Service | 24/7 Automatic Replies | AXORA",
     description: "AI customer service that answers common questions instantly, hands complex ones to your team, and logs everything.",
   },
+  "/services/ai-outreach": {
+    title: "AI Email Outreach | Find Overseas Clients with Personal Emails | AXORA",
+    description: "AI finds businesses that fit your offer, writes a personal email to each one, follows up automatically and reports replies daily.",
+  },
   "/services/ai-automation": {
     title: "AI Automation for Business Workflows | AXORA",
     description: "Automate repetitive work with AI: sorting enquiries, turning messages into orders, reminders and data syncing.",

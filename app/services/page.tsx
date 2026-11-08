@@ -11,6 +11,35 @@ import { Reveal } from "../components/ui/reveal";
 import Link from "next/link";
 import { localizeHref } from "../i18n-routes";
 
+const OUTREACH_ITEM = {
+  zh: {
+    title: "AI 自動開發信",
+    desc: "想接國外生意，但不會英文、沒時間找客戶？AI 每天幫你找目標客戶，一封一封寫好開發信寄出，3 天後自動追蹤，有人回信就通知你。",
+    idealFor: "想接國外訂單的工廠、貿易商，以及沒有業務人員的老闆",
+    deliverables: [
+      "自動找目標客戶（國家、產業自己選）",
+      "每封個別撰寫的英文開發信",
+      "第 3 天自動追蹤",
+      "退信、拒收自動排除",
+      "每天回報寄送與回信狀況",
+    ],
+    linkLabel: "看 AI 自動開發信怎麼運作 →",
+  },
+  en: {
+    title: "AI Email Outreach",
+    desc: "Every day, AI finds businesses that fit your offer, writes a personal email to each one, follows up after 3 days and tells you when someone replies.",
+    idealFor: "Exporters, manufacturers and owners without a sales team",
+    deliverables: [
+      "Targeting by country and industry",
+      "A personal email for every business",
+      "Automatic follow-up after 3 days",
+      "Bounces and opt-outs removed",
+      "Daily report of emails and replies",
+    ],
+    linkLabel: "See how AI outreach works →",
+  },
+};
+
 const SEO_ITEM = {
   zh: {
     title: "網站 SEO 基礎設定",
@@ -105,6 +134,17 @@ export default function ServicesPage() {
           };
           const websiteIdx = base.findIndex((r) => r.title === "官方網站" || r.title === "Website");
           base.splice(websiteIdx >= 0 ? websiteIdx + 1 : 1, 0, seoRow);
+          const out = OUTREACH_ITEM[locale === "en" ? "en" : "zh"];
+          const outreachRow: Row = {
+            title: out.title,
+            desc: out.desc,
+            idealFor: out.idealFor,
+            deliverables: out.deliverables,
+            visual: 7,
+            link: { href: localizeHref("/services/ai-outreach", locale), label: out.linkLabel },
+          };
+          const autoIdx = base.findIndex((r) => r.title === "流程自動化" || r.title === "Workflow Automation");
+          base.splice(autoIdx >= 0 ? autoIdx + 1 : base.length, 0, outreachRow);
           return base;
         })().map((service, index) => {
           const num = String(index + 1).padStart(2, "0");

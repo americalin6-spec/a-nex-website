@@ -57,6 +57,16 @@ export function Footer() {
                   </Link>
                 </li>
               ))}
+              {locale === "en" && (
+                <li>
+                  <Link
+                    href="/en/pricing"
+                    className="text-base font-light text-muted-light transition-colors duration-300 hover:text-foreground"
+                  >
+                    Pricing
+                  </Link>
+                </li>
+              )}
             </ul>
           </div>
 
