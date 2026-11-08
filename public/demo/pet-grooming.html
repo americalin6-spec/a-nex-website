@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="寵物美容店線上預約系統範例：客人自動報價預約、店家行事曆、完成通知與回訪提醒。由 AXORA 製作。">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>寵物美容預約系統範例｜AXORA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chiron+GoRound+TC:wght@500;700&family=Noto+Sans+TC:wght@400;500;700&display=swap">
+<style>
+/* Layout: sticky app bar with a view switch; customer view is a phone-width booking flow, shop view is a dashboard with a groomer timetable. */
+:root{
+  --bg:#EEF4F5; --surface:#FFFFFF; --sunk:#E3ECEE; --line:#D3E0E3;
+  --ink:#16323A; --muted:#5A757D; --accent:#167E80; --accent-ink:#FFFFFF; --accent-soft:#D5ECEC;
+  --towel:#F0B53F; --towel-soft:#FBEBC6;
+  --ok:#2E8B57; --ok-soft:#DAF0E2; --warn:#B7791F; --warn-soft:#FBEBC6; --info:#2B6CB0; --info-soft:#DCE8F6; --done:#6B7C82; --done-soft:#E4E9EB;
+  --bubble:#E9F6E3; --shadow:0 1px 2px rgba(22,50,58,.06),0 6px 20px rgba(22,50,58,.06);
+  --display:"Chiron GoRound TC","Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+  --body:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0F1D21; --surface:#162A2F; --sunk:#1C3339; --line:#28434A;
+  --ink:#E4F0F2; --muted:#93AEB5; --accent:#4CC2C1; --accent-ink:#06282A; --accent-soft:#1D4446;
+  --towel:#F3C460; --towel-soft:#43391F;
+  --ok:#5CC98B; --ok-soft:#1D3A2A; --warn:#E9B45A; --warn-soft:#3D321C; --info:#79A9E6; --info-soft:#1E2F45; --done:#93A3A8; --done-soft:#253438;
+  --bubble:#1F3A2A; --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 20px rgba(0,0,0,.25); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0F1D21; --surface:#162A2F; --sunk:#1C3339; --line:#28434A;
+  --ink:#E4F0F2; --muted:#93AEB5; --accent:#4CC2C1; --accent-ink:#06282A; --accent-soft:#1D4446;
+  --towel:#F3C460; --towel-soft:#43391F;
+  --ok:#5CC98B; --ok-soft:#1D3A2A; --warn:#E9B45A; --warn-soft:#3D321C; --info:#79A9E6; --info-soft:#1E2F45; --done:#93A3A8; --done-soft:#253438;
+  --bubble:#1F3A2A; --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 20px rgba(0,0,0,.25); color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.6}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+h1,h2,h3{font-family:var(--display);line-height:1.3;margin:0;text-wrap:balance}
+.num{font-variant-numeric:tabular-nums}
+
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--surface);border-bottom:1px solid var(--line);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.bar-in{max-width:1180px;margin:0 auto;display:flex;align-items:center;gap:12px;padding-block:10px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;margin-right:auto}
+.brand svg{width:34px;height:34px;flex:none}
+.brand b{font-family:var(--display);font-size:18px;display:block;line-height:1.2}
+.brand small{color:var(--muted);font-size:12px}
+.seg{display:flex;background:var(--sunk);border-radius:999px;padding:3px}
+.seg button{border:0;background:transparent;padding:6px 14px;border-radius:999px;font-weight:500;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
+.demo{font-size:12px;color:var(--warn);background:var(--warn-soft);padding:3px 10px;border-radius:999px;white-space:nowrap}
+
+main{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 48px}
+
+/* ---------- customer ---------- */
+.phone{max-width:460px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+.remind{display:flex;gap:12px;align-items:center;background:var(--towel-soft);border-radius:14px;padding:12px 14px}
+.remind .dot{width:38px;height:38px;border-radius:50%;background:var(--towel);display:grid;place-items:center;flex:none;font-family:var(--display);font-weight:700;color:#3A2A05}
+.remind p{margin:0;font-size:14px}
+.steps{display:flex;gap:6px}
+.steps span{flex:1;height:4px;border-radius:4px;background:var(--line)}
+.steps span.on{background:var(--accent)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:14px}
+.card h2{font-size:20px}
+.hint{color:var(--muted);font-size:13px;margin:0}
+.lbl{font-size:12px;letter-spacing:.06em;color:var(--muted);font-weight:500}
+.opts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.opt{border:1.5px solid var(--line);background:var(--surface);border-radius:12px;padding:10px 12px;text-align:left;display:flex;flex-direction:column;gap:2px;min-width:0}
+.opt b{font-weight:700}
+.opt small{color:var(--muted);font-size:12px}
+.opt[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.opt.full{grid-column:1/-1}
+.pet{display:flex;gap:12px;align-items:center}
+.pet .av{width:44px;height:44px;border-radius:50%;background:var(--sunk);display:grid;place-items:center;flex:none}
+.pet .av svg{width:30px;height:30px}
+.field{display:flex;flex-direction:column;gap:4px}
+.field input,.field select{border:1.5px solid var(--line);background:var(--surface);border-radius:10px;padding:9px 10px;font:inherit;color:var(--ink);width:100%}
+.row2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.days{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px}
+.day{flex:none;width:56px;border:1.5px solid var(--line);background:var(--surface);border-radius:12px;padding:6px 0;text-align:center;line-height:1.3}
+.day small{display:block;color:var(--muted);font-size:11px}
+.day b{font-size:17px}
+.day[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.slots{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+.slot{border:1.5px solid var(--line);background:var(--surface);border-radius:10px;padding:8px 0;font-weight:500}
+.slot:disabled{opacity:.4;text-decoration:line-through;cursor:not-allowed}
+.slot[aria-pressed="true"]{border-color:var(--accent);background:var(--accent);color:var(--accent-ink)}
+.price{display:flex;flex-direction:column;gap:6px;background:var(--sunk);border-radius:12px;padding:12px 14px}
+.price div{display:flex;justify-content:space-between;gap:10px;font-size:14px}
+.price .tot{border-top:1px dashed var(--line);padding-top:8px;font-weight:700;font-size:16px}
+.nav{display:flex;gap:8px}
+.btn{border:0;border-radius:12px;padding:12px 16px;font-weight:700;background:var(--accent);color:var(--accent-ink);flex:1}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn.ghost{background:var(--sunk);color:var(--ink);flex:0 0 auto}
+.btn.sm{padding:7px 12px;font-size:13px;border-radius:10px;flex:none}
+.done-hero{text-align:center;display:flex;flex-direction:column;align-items:center;gap:8px}
+.check{width:56px;height:56px;border-radius:50%;background:var(--ok-soft);color:var(--ok);display:grid;place-items:center;font-size:28px;font-weight:700}
+
+/* LINE-style preview */
+.chat{background:var(--sunk);border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:6px}
+.chat .from{font-size:12px;color:var(--muted)}
+.bub{background:var(--bubble);border-radius:4px 14px 14px 14px;padding:10px 12px;font-size:14px;max-width:92%;white-space:pre-line}
+.bub .ph{margin-top:8px;border-radius:10px;overflow:hidden;background:var(--accent-soft);aspect-ratio:4/3;max-width:100%;display:grid;place-items:center}
+.bub .ph svg{width:46%;height:auto}
+
+/* ---------- shop ---------- */
+.dash{max-width:1180px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
+.dhead{display:flex;flex-wrap:wrap;align-items:flex-end;gap:10px;justify-content:space-between}
+.dhead h1{font-size:24px}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.stat small{color:var(--muted);font-size:12px;letter-spacing:.04em}
+.stat b{display:block;font-size:24px;font-family:var(--display);margin-top:2px}
+.stat em{font-style:normal;font-size:12px;color:var(--muted)}
+.cols{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:18px;align-items:start}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.panel h2{font-size:17px}
+.tt-wrap{overflow-x:auto}
+.tt{display:grid;grid-template-columns:52px repeat(3,minmax(170px,1fr));grid-template-rows:auto repeat(10,64px);min-width:580px;position:relative}
+.tt .gh{padding:6px 8px;font-weight:700;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:6px}
+.tt .gh i{width:8px;height:8px;border-radius:50%;display:inline-block}
+.tt .hr{font-size:12px;color:var(--muted);padding-top:2px;border-top:1px solid var(--line)}
+.tt .cell{border-top:1px solid var(--line);border-left:1px solid var(--line)}
+.appt{margin:3px 4px;border-radius:10px;padding:7px 9px;font-size:13px;line-height:1.35;display:flex;flex-direction:column;gap:2px;border:0;text-align:left;z-index:1;overflow:hidden;background:var(--info-soft);min-width:0}
+.appt b{font-size:14px}
+.appt .meta{color:var(--muted);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.appt.s-booked{background:var(--info-soft)}
+.appt.s-active{background:var(--warn-soft)}
+.appt.s-ready{background:var(--ok-soft)}
+.appt.s-picked{background:var(--done-soft);opacity:.75}
+.appt.new{box-shadow:0 0 0 2px var(--accent) inset}
+.appt[aria-pressed="true"]{box-shadow:0 0 0 2px var(--ink) inset}
+.chip{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:500;padding:1px 8px;border-radius:999px;white-space:nowrap}
+.chip.s-booked{color:var(--info);background:var(--info-soft)}
+.chip.s-active{color:var(--warn);background:var(--warn-soft)}
+.chip.s-ready{color:var(--ok);background:var(--ok-soft)}
+.chip.s-picked{color:var(--done);background:var(--done-soft)}
+.chip.flag{color:var(--warn);background:var(--warn-soft)}
+.detail{display:flex;flex-direction:column;gap:10px}
+.kv{display:grid;grid-template-columns:72px minmax(0,1fr);gap:4px 10px;font-size:14px}
+.kv dt{color:var(--muted)}
+.kv dd{margin:0}
+.note{background:var(--warn-soft);border-radius:10px;padding:8px 10px;font-size:13px}
+.list{display:flex;flex-direction:column}
+.li{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--line)}
+.li:first-child{border-top:0}
+.li .t{flex:1;min-width:0}
+.li .t b{display:block}
+.li .t small{color:var(--muted);font-size:12px}
+.empty{color:var(--muted);font-size:14px;padding:6px 0}
+
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--surface);padding:10px 16px;border-radius:12px;font-size:14px;z-index:20;max-width:calc(100% - 32px)}
+.modal{position:fixed;inset:0;background:rgba(10,25,30,.45);display:grid;place-items:center;z-index:30;padding:16px}
+.modal .card{max-width:400px;width:100%}
+
+@media (max-width:900px){.cols{grid-template-columns:minmax(0,1fr)}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (prefers-reduced-motion:no-preference){.appt,.opt,.slot,.day{transition:background .15s,border-color .15s}}
+</style>
+</head>
+<body>
+
+
+<header class="bar">
+  <div class="bar-in">
+    <div class="brand">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" fill="var(--accent)"/><ellipse cx="20" cy="24" rx="7" ry="6" fill="var(--accent-ink)"/><circle cx="11.5" cy="16" r="3.2" fill="var(--accent-ink)"/><circle cx="17" cy="11" r="3.2" fill="var(--accent-ink)"/><circle cx="23" cy="11" r="3.2" fill="var(--accent-ink)"/><circle cx="28.5" cy="16" r="3.2" fill="var(--accent-ink)"/></svg>
+      <div><b>毛毛日和 寵物美容</b><small>士林店 · 線上預約</small></div>
+    </div>
+    <div class="seg" role="group" aria-label="切換畫面">
+      <button id="tab-book" aria-pressed="true">客人預約</button>
+      <button id="tab-admin" aria-pressed="false">店家後台</button>
+    </div>
+    <span class="demo">範例展示 · 資料皆為虛構</span>
+  </div>
+</header>
+
+<main>
+  <section id="view-book" class="phone" aria-label="客人預約"></section>
+  <section id="view-admin" class="dash" aria-label="店家後台" hidden></section>
+</main>
+
+<footer style="max-width:1180px;margin:0 auto;padding:8px max(16px,env(safe-area-inset-left,0px)) 40px;text-align:center;color:var(--muted);font-size:13px">
+  這是 <a href="https://axora.tw" style="color:var(--accent)">AXORA</a> 製作的寵物美容預約系統範例，店名與資料皆為虛構。<br>
+  想讓你的店也用上？加 LINE：<b style="color:var(--ink)">@460jxzer</b>　·　<a href="https://line.me/R/ti/p/@460jxzer" style="color:var(--accent)">點我加好友</a>
+</footer>
+<div id="modal-root"></div>
+<div id="toast" class="toast" role="status" hidden></div>
+
+<script>
+(function(){
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const fmt=n=>"NT$"+n.toLocaleString("en-US");
+const WD=["日","一","二","三","四","五","六"];
+const today=new Date(); today.setHours(0,0,0,0);
+const dayAt=i=>{const d=new Date(today);d.setDate(d.getDate()+i);return d};
+const dlabel=d=>`${d.getMonth()+1}/${d.getDate()}（${WD[d.getDay()]}）`;
+
+const SIZES={S:{n:"小型犬",d:"5 公斤以下"},M:{n:"中型犬",d:"5–15 公斤"},L:{n:"大型犬",d:"15 公斤以上"},C:{n:"貓咪",d:"不分體型"}};
+const SERVICES={
+  bath:{n:"洗澡",d:"洗澡、吹整、清耳、擠肛門腺",p:{S:600,M:900,L:1400,C:1000},m:{S:60,M:90,L:120,C:90},main:true},
+  groom:{n:"洗澡＋美容剪毛",d:"含洗澡全套，加上全身造型修剪",p:{S:1200,M:1600,L:2400,C:1800},m:{S:120,M:150,L:180,C:150},main:true},
+  spa:{n:"護毛 SPA",d:"深層保濕，適合毛躁、打結",p:{S:300,M:400,L:500,C:400},m:{S:0,M:0,L:0,C:0}},
+  nail:{n:"剪指甲＋磨甲",d:"",p:{S:100,M:100,L:150,C:100},m:{S:0,M:0,L:0,C:0}},
+  teeth:{n:"刷牙",d:"",p:{S:150,M:150,L:150,C:150},m:{S:0,M:0,L:0,C:0}},
+  flea:{n:"除蚤藥浴",d:"",p:{S:250,M:300,L:400,C:300},m:{S:0,M:0,L:0,C:0}}
+};
+const LONG={S:200,M:300,L:500,C:300};
+const GROOMERS=[{id:"an",n:"小安",c:"var(--accent)",t:"資深 8 年 · 擅長泰迪熊造型"},{id:"kai",n:"阿凱",c:"var(--towel)",t:"大型犬專長"},{id:"mia",n:"Mia",c:"var(--info)",t:"貓咪美容專長"}];
+const HOURS=[10,11,12,13,14,15,16,17,18,19];
+
+function quote(size,coat,svc){
+  const lines=[];let total=0,mins=0;
+  svc.forEach(k=>{const s=SERVICES[k];lines.push([s.n,s.p[size]]);total+=s.p[size];mins+=s.m[size]});
+  if(coat==="long"&&svc.some(k=>SERVICES[k].main)){lines.push(["長毛加價",LONG[size]]);total+=LONG[size];mins+=30}
+  return {lines,total,mins:Math.max(mins,60)};
+}
+
+/* ---------- sample data ---------- */
+const myPets=[
+  {id:"p1",name:"Lucky",breed:"柴犬",size:"M",coat:"short",note:"怕吹風機，請用低溫",last:29},
+  {id:"p2",name:"奶茶",breed:"布偶貓",size:"C",coat:"long",note:"",last:12}
+];
+let seq=100;
+const appts=[
+  {id:1,day:0,h:10,g:"an",pet:"豆豆",breed:"貴賓",size:"S",coat:"long",owner:"陳小姐",svc:["groom","nail"],status:"picked",note:""},
+  {id:2,day:0,h:10,g:"kai",pet:"阿福",breed:"黃金獵犬",size:"L",coat:"long",owner:"林先生",svc:["bath","spa"],status:"ready",note:"關節不好，請慢慢抱"},
+  {id:3,day:0,h:12,g:"an",pet:"Mochi",breed:"博美",size:"S",coat:"long",owner:"王小姐",svc:["groom"],status:"active",note:""},
+  {id:4,day:0,h:11,g:"mia",pet:"咪咪",breed:"英國短毛貓",size:"C",coat:"short",owner:"張先生",svc:["bath","nail"],status:"ready",note:"會咬人，需兩人保定"},
+  {id:5,day:0,h:14,g:"kai",pet:"黑嚕嚕",breed:"拉布拉多",size:"L",coat:"short",owner:"黃小姐",svc:["bath","flea"],status:"booked",note:""},
+  {id:6,day:0,h:15,g:"an",pet:"布丁",breed:"柯基",size:"M",coat:"short",owner:"吳先生",svc:["bath","teeth"],status:"booked",note:"皮膚過敏，用低敏洗劑"},
+  {id:7,day:0,h:15,g:"mia",pet:"雪球",breed:"波斯貓",size:"C",coat:"long",owner:"李小姐",svc:["groom","spa"],status:"booked",note:""},
+  {id:8,day:0,h:17,g:"kai",pet:"小虎",breed:"雪納瑞",size:"M",coat:"long",owner:"蔡先生",svc:["groom"],status:"booked",note:""},
+  {id:9,day:1,h:11,g:"an",pet:"Coco",breed:"比熊",size:"S",coat:"long",owner:"周小姐",svc:["groom"],status:"booked",note:""},
+  {id:10,day:2,h:14,g:"mia",pet:"橘子",breed:"米克斯貓",size:"C",coat:"short",owner:"許先生",svc:["bath"],status:"booked",note:""}
+];
+appts.forEach(a=>{const q=quote(a.size,a.coat,a.svc);a.price=q.total;a.mins=q.mins});
+const noShows={done:46,total:47};
+const revisit=[
+  {pet:"Lucky",breed:"柴犬",owner:"Chris",days:29,sent:false},
+  {pet:"妞妞",breed:"西施",owner:"鄭小姐",days:35,sent:false},
+  {pet:"大白",breed:"薩摩耶",owner:"謝先生",days:42,sent:false},
+  {pet:"Lulu",breed:"馬爾濟斯",owner:"劉小姐",days:31,sent:true}
+];
+
+/* ---------- helpers ---------- */
+function busy(day,g,h){
+  return appts.some(a=>a.day===day&&a.g===g&&h>=a.h&&h<a.h+Math.ceil(a.mins/60));
+}
+function fakeBusy(day,g,h){return ((day*7+h*3+g.length*5)%5)===0}
+function slotFree(day,g,h,mins){
+  const n=Math.ceil(mins/60);
+  for(let i=0;i<n;i++){const x=h+i;if(x>19||busy(day,g,x)||(day>2&&fakeBusy(day,g,x)))return false}
+  if(day===0){const now=new Date();if(h<=now.getHours())return false}
+  return true;
+}
+const STATUS={booked:"已預約",active:"美容中",ready:"完成・待接回",picked:"已接回"};
+function toast(msg){const t=$("#toast");t.textContent=msg;t.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>t.hidden=true,2400)}
+const dogSvg=`<svg viewBox="0 0 120 100" aria-hidden="true"><ellipse cx="60" cy="58" rx="34" ry="30" fill="var(--towel)"/><ellipse cx="30" cy="40" rx="11" ry="20" fill="var(--warn)" transform="rotate(-18 30 40)"/><ellipse cx="90" cy="40" rx="11" ry="20" fill="var(--warn)" transform="rotate(18 90 40)"/><circle cx="48" cy="54" r="4" fill="var(--ink)"/><circle cx="72" cy="54" r="4" fill="var(--ink)"/><ellipse cx="60" cy="66" rx="7" ry="5" fill="var(--ink)"/><path d="M52 75 Q60 82 68 75" stroke="var(--ink)" stroke-width="3" fill="none" stroke-linecap="round"/><circle cx="20" cy="18" r="5" fill="var(--surface)" opacity=".8"/><circle cx="100" cy="22" r="7" fill="var(--surface)" opacity=".8"/><circle cx="108" cy="8" r="3" fill="var(--surface)" opacity=".8"/></svg>`;
+const catSvg=`<svg viewBox="0 0 120 100" aria-hidden="true"><path d="M30 30 L40 6 L52 26 Z M90 30 L80 6 L68 26 Z" fill="var(--muted)"/><ellipse cx="60" cy="54" rx="34" ry="30" fill="var(--muted)"/><circle cx="48" cy="50" r="4" fill="var(--surface)"/><circle cx="72" cy="50" r="4" fill="var(--surface)"/><path d="M56 62 L64 62 L60 66 Z" fill="var(--towel)"/></svg>`;
+const avatar=size=>size==="C"?catSvg:dogSvg;
+function showModal(html){
+  $("#modal-root").innerHTML=`<div class="modal" id="modal"><div class="card" role="dialog" aria-modal="true">${html}<button class="btn" id="m-close">關閉</button></div></div>`;
+  $("#m-close").focus();
+}
+document.addEventListener("click",e=>{if(e.target.id==="m-close"||e.target.id==="modal")$("#modal-root").innerHTML=""});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")$("#modal-root").innerHTML=""});
+const chat=(text,photo,size)=>`<div class="chat"><span class="from">LINE 官方帳號通知預覽 · 毛毛日和</span><div class="bub">${esc(text)}${photo?`<div class="ph">${avatar(size)}</div>`:""}</div></div>`;
+
+/* ---------- customer booking ---------- */
+const B={step:1,pet:"p1",newPet:{name:"",breed:"",size:"S",coat:"short"},svc:["bath"],g:"an",day:0,h:null,done:null};
+function curPet(){return B.pet==="new"?{...B.newPet,name:B.newPet.name||"新朋友",note:""}:myPets.find(p=>p.id===B.pet)}
+function firstDay(){for(let d=0;d<7;d++){if(HOURS.some(h=>slotFree(d,B.g,h,60)))return d}return 1}
+
+function renderBook(){
+  const v=$("#view-book");
+  if(B.done){v.innerHTML=renderDone();return}
+  const p=curPet();const q=quote(p.size,p.coat,B.svc);
+  let body="";
+  if(B.step===1){
+    body=`<h2>這次要幫誰預約？</h2>
+    <div class="opts">
+      ${myPets.map(x=>`<button class="opt pet" data-pet="${x.id}" aria-pressed="${B.pet===x.id}"><span class="av">${avatar(x.size)}</span><span style="min-width:0"><b>${esc(x.name)}</b><br><small>${esc(x.breed)} · ${SIZES[x.size].n}</small></span></button>`).join("")}
+      <button class="opt full" data-pet="new" aria-pressed="${B.pet==="new"}"><b>＋ 新增毛孩</b><small>第一次來，填一次資料以後就不用再講</small></button>
+    </div>
+    ${B.pet==="new"?`<div class="row2">
+      <label class="field"><span class="lbl">名字</span><input id="np-name" value="${esc(B.newPet.name)}" placeholder="例如：豆豆"></label>
+      <label class="field"><span class="lbl">品種</span><input id="np-breed" value="${esc(B.newPet.breed)}" placeholder="例如：貴賓"></label>
+    </div>
+    <span class="lbl">體型</span>
+    <div class="opts">${Object.entries(SIZES).map(([k,s])=>`<button class="opt" data-size="${k}" aria-pressed="${B.newPet.size===k}"><b>${s.n}</b><small>${s.d}</small></button>`).join("")}</div>
+    <span class="lbl">毛長</span>
+    <div class="opts"><button class="opt" data-coat="short" aria-pressed="${B.newPet.coat==="short"}"><b>短毛</b><small>柴犬、米克斯、短毛貓</small></button><button class="opt" data-coat="long" aria-pressed="${B.newPet.coat==="long"}"><b>長毛</b><small>貴賓、博美、波斯貓</small></button></div>`
+    :(p.note?`<div class="note">寵物檔案備註：${esc(p.note)}</div>`:"")}`;
+  }
+  if(B.step===2){
+    body=`<h2>選擇服務</h2><p class="hint">${esc(p.name)} · ${SIZES[p.size].n} · ${p.coat==="long"?"長毛":"短毛"}，價格已自動計算</p>
+    <span class="lbl">主要服務（擇一）</span>
+    <div class="opts">${["bath","groom"].map(k=>`<button class="opt full" data-main="${k}" aria-pressed="${B.svc.includes(k)}"><b>${SERVICES[k].n} <span class="num" style="float:right">${fmt(SERVICES[k].p[p.size])}</span></b><small>${SERVICES[k].d}</small></button>`).join("")}</div>
+    <span class="lbl">加購</span>
+    <div class="opts">${["spa","nail","teeth","flea"].map(k=>`<button class="opt" data-add="${k}" aria-pressed="${B.svc.includes(k)}"><b>${SERVICES[k].n}</b><small class="num">+${fmt(SERVICES[k].p[p.size])}</small></button>`).join("")}</div>
+    ${priceBox(q)}`;
+  }
+  if(B.step===3){
+    body=`<h2>選美容師和時間</h2><p class="hint">預計需要約 ${Math.round(q.mins/30)/2} 小時</p>
+    <div class="opts">${GROOMERS.map(g=>`<button class="opt ${g.id==="mia"?"full":""}" data-g="${g.id}" aria-pressed="${B.g===g.id}"><b>${g.n}</b><small>${g.t}</small></button>`).join("")}</div>
+    <span class="lbl">日期</span>
+    <div class="days">${[0,1,2,3,4,5,6].map(i=>{const d=dayAt(i);return `<button class="day" data-day="${i}" aria-pressed="${B.day===i}"><small>${i===0?"今天":"週"+WD[d.getDay()]}</small><b class="num">${d.getDate()}</b></button>`}).join("")}</div>
+    <span class="lbl">可預約時段</span>
+    <div class="slots">${HOURS.map(h=>{const ok=slotFree(B.day,B.g,h,q.mins);return `<button class="slot num" data-h="${h}" ${ok?"":"disabled"} aria-pressed="${B.h===h}">${h}:00</button>`}).join("")}</div>`;
+  }
+  if(B.step===4){
+    const g=GROOMERS.find(x=>x.id===B.g);
+    body=`<h2>確認預約</h2>
+    <dl class="kv"><dt>毛孩</dt><dd>${esc(p.name)}（${esc(p.breed||SIZES[p.size].n)}）</dd><dt>時間</dt><dd>${dlabel(dayAt(B.day))} ${B.h}:00</dd><dt>美容師</dt><dd>${g.n}</dd></dl>
+    ${priceBox(q)}
+    <div class="note">預約需先付訂金 NT$200，可折抵消費。前一天 18:00 前取消可全額退回。</div>`;
+  }
+  const can=B.step===1?(B.pet!=="new"||B.newPet.name.trim()):B.step===3?B.h!==null:true;
+  v.innerHTML=`${myPets[0].last>=28?`<div class="remind"><span class="dot">!</span><p><b>Lucky 上次洗澡是 ${myPets[0].last} 天前</b><br>差不多該洗香香了，現在預約週末還有空位。</p></div>`:""}
+  <div class="steps" aria-label="第 ${B.step} 步，共 4 步">${[1,2,3,4].map(i=>`<span class="${i<=B.step?"on":""}"></span>`).join("")}</div>
+  <div class="card">${body}
+    <div class="nav">${B.step>1?`<button class="btn ghost" id="back">上一步</button>`:""}<button class="btn" id="next" ${can?"":"disabled"}>${B.step===4?"付訂金並完成預約":"下一步"}</button></div>
+  </div>`;
+}
+function priceBox(q){return `<div class="price">${q.lines.map(([n,p])=>`<div><span>${n}</span><span class="num">${fmt(p)}</span></div>`).join("")}<div class="tot"><span>合計</span><span class="num">${fmt(q.total)}</span></div></div>`}
+function renderDone(){
+  const a=B.done;
+  return `<div class="card"><div class="done-hero"><span class="check">✓</span><h2>預約完成</h2><p class="hint">訂金 NT$200 已付款（範例）</p></div>
+  <dl class="kv"><dt>毛孩</dt><dd>${esc(a.pet)}</dd><dt>時間</dt><dd>${dlabel(dayAt(a.day))} ${a.h}:00</dd><dt>美容師</dt><dd>${GROOMERS.find(g=>g.id===a.g).n}</dd><dt>金額</dt><dd class="num">${fmt(a.price)}（現場付 ${fmt(a.price-200)}）</dd></dl>
+  ${chat(`${a.pet} 的預約成功囉！\n${dlabel(dayAt(a.day))} ${a.h}:00\n前一天我們會再提醒你一次。`)}
+  <div class="nav"><button class="btn ghost" id="again">再約一筆</button><button class="btn" id="see-admin">看店家後台收到的樣子</button></div></div>`;
+}
+$("#view-book").addEventListener("input",e=>{
+  if(e.target.id==="np-name"){B.newPet.name=e.target.value;$("#next").disabled=!B.newPet.name.trim()}
+  if(e.target.id==="np-breed")B.newPet.breed=e.target.value;
+});
+$("#view-book").addEventListener("click",e=>{
+  const t=e.target.closest("button");if(!t)return;const d=t.dataset;
+  if(d.pet){B.pet=d.pet;B.svc=["bath"]}
+  else if(d.size)B.newPet.size=d.size;
+  else if(d.coat)B.newPet.coat=d.coat;
+  else if(d.main){B.svc=[d.main,...B.svc.filter(k=>!SERVICES[k].main)]}
+  else if(d.add){B.svc=B.svc.includes(d.add)?B.svc.filter(k=>k!==d.add):[...B.svc,d.add]}
+  else if(d.g){B.g=d.g;B.h=null}
+  else if(d.day){B.day=+d.day;B.h=null}
+  else if(d.h){B.h=+d.h}
+  else if(t.id==="back")B.step--;
+  else if(t.id==="next"){
+    if(B.step===2){B.day=firstDay()}
+    if(B.step<4)B.step++;
+    else{
+      const p=curPet();const q=quote(p.size,p.coat,B.svc);
+      const a={id:++seq,day:B.day,h:B.h,g:B.g,pet:p.name,breed:p.breed||SIZES[p.size].n,size:p.size,coat:p.coat,owner:"Chris",svc:[...B.svc],status:"booked",note:p.note||"",price:q.total,mins:q.mins,isNew:true};
+      appts.push(a);B.done=a;
+      if(B.pet==="p1"){myPets[0].last=0;const r=revisit.find(x=>x.pet==="Lucky");if(r)revisit.splice(revisit.indexOf(r),1)}
+      if(a.day===0)A.sel=a.id;
+    }
+  }
+  else if(t.id==="again"){Object.assign(B,{step:1,svc:["bath"],h:null,done:null})}
+  else if(t.id==="see-admin"){go("admin");return}
+  else return;
+  renderBook();
+});
+
+/* ---------- shop dashboard ---------- */
+const A={sel:3};
+function renderAdmin(){
+  const td=appts.filter(a=>a.day===0);
+  const rev=td.reduce((s,a)=>s+a.price,0);
+  const fin=td.filter(a=>a.status==="ready"||a.status==="picked").length;
+  const later=appts.filter(a=>a.day>0).sort((a,b)=>a.day-b.day||a.h-b.h);
+  const sel=appts.find(a=>a.id===A.sel)||td[0];
+  const cells=[];
+  HOURS.forEach((h,ri)=>{cells.push(`<div class="hr num" style="grid-column:1;grid-row:${ri+2}">${h}:00</div>`);GROOMERS.forEach((g,ci)=>cells.push(`<div class="cell" style="grid-column:${ci+2};grid-row:${ri+2}"></div>`))});
+  const blocks=td.map(a=>{const ci=GROOMERS.findIndex(g=>g.id===a.g)+2;const ri=HOURS.indexOf(a.h)+2;const span=Math.min(Math.ceil(a.mins/60),12-ri);
+    return `<button class="appt s-${a.status} ${a.isNew?"new":""}" data-a="${a.id}" aria-pressed="${sel&&sel.id===a.id}" style="grid-column:${ci};grid-row:${ri}/span ${span}"><b>${esc(a.pet)} <span class="meta" style="font-weight:400">${esc(a.breed)}</span></b><span class="meta">${a.svc.map(k=>SERVICES[k].n).join("、")}</span><span><span class="chip s-${a.status}">${STATUS[a.status]}</span>${a.note?` <span class="chip flag">注意</span>`:""}${a.isNew?` <span class="chip s-ready">新預約</span>`:""}</span></button>`}).join("");
+  $("#view-admin").innerHTML=`
+  <div class="dhead"><div><span class="lbl">店家後台</span><h1>今天 ${dlabel(today)}</h1></div><p class="hint">點行事曆上的預約，可以看寵物檔案、更新進度</p></div>
+  <div class="stats">
+    <div class="stat"><small>今日預約</small><b class="num">${td.length} 筆</b><em>${fin} 筆已完成</em></div>
+    <div class="stat"><small>今日預估營收</small><b class="num">${fmt(rev)}</b><em>已收訂金 ${fmt(td.length*200)}</em></div>
+    <div class="stat"><small>本月到店率</small><b class="num">${Math.round(noShows.done/noShows.total*100)}%</b><em>收訂金後放鳥大幅減少</em></div>
+    <div class="stat"><small>該回訪的客人</small><b class="num">${revisit.filter(r=>!r.sent).length} 位</b><em>超過 4 週沒來</em></div>
+  </div>
+  <div class="cols">
+    <div class="panel"><h2>今日行事曆</h2>
+      <div class="tt-wrap"><div class="tt"><div class="gh" style="grid-column:1;grid-row:1"></div>${GROOMERS.map((g,i)=>`<div class="gh" style="grid-column:${i+2};grid-row:1"><i style="background:${g.c}"></i>${g.n}</div>`).join("")}${cells.join("")}${blocks}</div></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:18px;min-width:0">
+      <div class="panel">${sel?renderDetail(sel):`<p class="empty">今天還沒有預約</p>`}</div>
+      <div class="panel"><h2>回訪提醒</h2><p class="hint">超過 4 週沒來的客人，一鍵發 LINE 提醒</p>
+        <div class="list">${revisit.map((r,i)=>`<div class="li"><div class="t"><b>${esc(r.pet)}</b><small>${esc(r.breed)} · ${esc(r.owner)} · ${r.days} 天沒來</small></div>${r.sent?`<span class="chip s-picked">已提醒</span>`:`<button class="btn sm" data-remind="${i}">發送提醒</button>`}</div>`).join("")||`<p class="empty">目前沒有需要提醒的客人</p>`}</div>
+      </div>
+      <div class="panel"><h2>之後的預約</h2>
+        <div class="list">${later.map(a=>`<div class="li"><div class="t"><b>${esc(a.pet)} <small>${esc(a.breed)}</small></b><small class="num">${dlabel(dayAt(a.day))} ${a.h}:00 · ${GROOMERS.find(g=>g.id===a.g).n} · ${fmt(a.price)}</small></div>${a.isNew?`<span class="chip s-ready">新預約</span>`:""}</div>`).join("")||`<p class="empty">還沒有之後的預約</p>`}</div>
+      </div>
+    </div>
+  </div>`;
+}
+function renderDetail(a){
+  const g=GROOMERS.find(x=>x.id===a.g);
+  const act={booked:`<button class="btn" data-st="active">開始美容</button>`,active:`<button class="btn" data-st="ready">完成，傳照片通知飼主</button>`,ready:`<button class="btn" data-st="picked">飼主已接回</button>`,picked:""}[a.status];
+  return `<div class="detail"><div class="pet"><span class="av">${avatar(a.size)}</span><div style="min-width:0"><h2>${esc(a.pet)}</h2><small class="hint">${esc(a.breed)} · ${SIZES[a.size].n} · ${a.coat==="long"?"長毛":"短毛"}</small></div><span class="chip s-${a.status}" style="margin-left:auto">${STATUS[a.status]}</span></div>
+  ${a.note?`<div class="note">注意：${esc(a.note)}</div>`:""}
+  <dl class="kv"><dt>飼主</dt><dd>${esc(a.owner)}</dd><dt>時間</dt><dd class="num">${a.h}:00 · 約 ${Math.round(a.mins/30)/2} 小時</dd><dt>美容師</dt><dd>${g.n}</dd><dt>服務</dt><dd>${a.svc.map(k=>SERVICES[k].n).join("、")}</dd><dt>金額</dt><dd class="num">${fmt(a.price)}（訂金已付 NT$200）</dd></dl>
+  ${act?`<div class="nav">${act}</div>`:""}</div>`;
+}
+$("#view-admin").addEventListener("click",e=>{
+  const t=e.target.closest("button");if(!t)return;const d=t.dataset;
+  if(d.a){A.sel=+d.a}
+  else if(d.st){const a=appts.find(x=>x.id===A.sel);a.status=d.st;a.isNew=false;
+    if(d.st==="ready")showModal(`<h2>已通知飼主</h2>${chat(`${a.pet} 洗好香香囉！\n可以來接回家了，我們營業到 20:00。\n今天的照片：`,true,a.size)}`);
+    else toast(d.st==="active"?`${a.pet} 開始美容`:`${a.pet} 已接回，完成這筆預約`);
+  }
+  else if(d.remind!==undefined){const r=revisit[+d.remind];r.sent=true;showModal(`<h2>提醒已送出</h2>${chat(`${r.pet} 已經 ${r.days} 天沒來洗澡囉！\n這週還有空位，點這裡直接預約，回訪客人加購刷牙免費。`)}`)}
+  else return;
+  renderAdmin();
+});
+
+/* ---------- routing ---------- */
+function go(view){
+  const admin=view==="admin";
+  $("#view-book").hidden=admin;$("#view-admin").hidden=!admin;
+  $("#tab-book").setAttribute("aria-pressed",!admin);$("#tab-admin").setAttribute("aria-pressed",admin);
+  if(admin)renderAdmin();else renderBook();
+  if(location.hash!=="#"+view)history.replaceState(null,"","#"+view);
+  window.scrollTo(0,0);
+}
+$("#tab-book").onclick=()=>go("book");
+$("#tab-admin").onclick=()=>go("admin");
+window.addEventListener("hashchange",()=>go(location.hash==="#admin"?"admin":"book"));
+go(location.hash==="#admin"?"admin":"book");
+})();
+</script>
+
+</body>
+</html>
