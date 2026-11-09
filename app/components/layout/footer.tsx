@@ -13,7 +13,7 @@ import { localizeHref } from "../../i18n-routes";
 const footerNav = [
   { href: "/services", key: "platform" as const },
   { href: "/services/seo", key: "seo" as const },
-  { href: "/line-ai", key: "lineAi" as const },
+  { href: "/services/line-oa", key: "lineAi" as const },
   { href: "/projects", key: "projects" as const },
   { href: "/about", key: "about" as const },
   { href: "/contact", key: "contact" as const },

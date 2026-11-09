@@ -12,6 +12,7 @@ import { GasOrderDemo } from "../demo/gas-order-demo";
 import { Reveal } from "../ui/reveal";
 import { LineAddButton } from "../line/line-add-button";
 import { LineQrSection } from "../line/line-qr-section";
+import { FounderSection } from "../about/founder-section";
 
 // TEMP: disable whileInView scroll animations for iPhone Safari crash test
 const DISABLE_HOME_SCROLL_ANIM = true;
@@ -53,44 +54,26 @@ const content = {
       ],
     },
     services: {
-      label: "我們可以幫你做",
-      title: "從一個網站，到整套系統都可以",
+      label: "我們最擅長的 3 件事",
+      title: "專心把這三件事做好",
       items: [
         {
-          title: "官方網站",
-          href: "/services/web-design",
-          desc: "介紹你的店、商品和服務，讓客人一搜就找到你。",
-          fit: "適合：所有想讓客人更信任你的店家",
-        },
-        {
-          title: "線上訂單系統",
-          href: "/services/ordering-system",
-          desc: "客人自己點餐、下單、付款，訂單自動整理成清單。",
-          fit: "適合：餐飲、團購、送貨、批發",
-        },
-        {
-          title: "預約系統",
+          title: "網站＋預約系統",
           href: "/services/booking-system",
-          desc: "客人自己選時間，自動通知你和客人，不再漏約。",
-          fit: "適合：美髮、美甲、教室、診所、工作室",
+          desc: "好看的官方網站，加上客人自己線上預約、自動提醒，不再接電話排時間、不再漏約。",
+          fit: "適合：診所、美髮美甲、教室、工作室",
         },
         {
-          title: "會員與集點系統",
-          href: "/contact",
-          desc: "記住每位客人買過什麼，集點、優惠券讓客人一直回來。",
-          fit: "適合：想做回頭客生意的店家",
-        },
-        {
-          title: "LINE 自動回覆",
+          title: "AI 自動回覆＋接單",
           href: "/services/line-oa",
-          desc: "客人常問的問題自動回答，下班時間也不會漏掉客人。",
-          fit: "適合：每天被 LINE 訊息淹沒的老闆",
+          desc: "客人在 LINE 怎麼講都看得懂，AI 自動回答問題、整理成訂單，下班時間也不漏客。",
+          fit: "適合：每天被訊息淹沒的店家、餐飲、送貨",
         },
         {
-          title: "手機 App",
-          href: "/services/app-development",
-          desc: "把你的服務做成 App，讓客人隨時打開就能用。",
-          fit: "適合：有固定客群、想做品牌的店家",
+          title: "AI 自動開發信",
+          href: "/services/ai-outreach",
+          desc: "AI 每天幫你找國外目標客戶，一封一封寫好開發信寄出、自動追蹤，有人回信就通知你。",
+          fit: "適合：想接國外訂單的工廠、貿易商",
         },
       ],
     },
@@ -181,21 +164,15 @@ const content = {
       ],
     },
     services: {
-      label: "What we build",
-      title: "From a simple website to a complete system",
+      label: "What we do best",
+      title: "Three things, done really well",
       items: [
-        { title: "Business website",
-          href: "/services/web-design", desc: "Show your shop, products and services so customers can find you.", fit: "For: any business that wants to look trustworthy" },
-        { title: "Online ordering",
-          href: "/services/ordering-system", desc: "Customers order and pay online; orders arrive as a clean list.", fit: "For: food, group buying, delivery, wholesale" },
-        { title: "Booking system",
-          href: "/services/booking-system", desc: "Customers choose a time; you both get reminders automatically.", fit: "For: salons, studios, classes, clinics" },
-        { title: "Membership & points",
-          href: "/contact", desc: "Remember every customer and bring them back with rewards.", fit: "For: businesses built on repeat customers" },
-        { title: "LINE auto-replies",
-          href: "/services/line-oa", desc: "Common questions answered automatically, even after hours.", fit: "For: owners flooded with chat messages" },
-        { title: "Mobile app",
-          href: "/services/app-development", desc: "Turn your service into an app customers can open anytime.", fit: "For: brands with a loyal customer base" },
+        { title: "Website + online booking",
+          href: "/services/booking-system", desc: "A premium website where customers book a time themselves, with automatic reminders. No more phone scheduling or no-shows.", fit: "For: clinics, salons, spas, studios" },
+        { title: "AI auto-reply & ordering",
+          href: "/services/line-oa", desc: "AI understands how customers really write, answers questions and turns messages into orders — even after hours.", fit: "For: busy shops, restaurants, delivery" },
+        { title: "AI email outreach",
+          href: "/services/ai-outreach", desc: "AI finds businesses that fit your offer, writes a personal email to each one and follows up automatically.", fit: "For: exporters and B2B companies" },
       ],
     },
     steps: {
@@ -369,7 +346,7 @@ export function HomePage() {
             label={c.services.label}
             title={c.services.title}
           />
-          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-12 grid gap-4 md:grid-cols-3">
             {c.services.items.map((item, i) => (
               <Reveal disableScrollAnimation={DISABLE_HOME_SCROLL_ANIM} key={item.title} delay={i * 0.04}>
                 <Link href={item.href} className="glass-card group block h-full rounded-xl p-6 transition-transform duration-300 hover:-translate-y-0.5">
@@ -384,8 +361,16 @@ export function HomePage() {
               </Reveal>
             ))}
           </div>
+          <p className="mt-8 text-center text-body-sm text-muted-light">
+            {locale === "zh" ? "也做點餐系統、會員集點、手機 App、客製系統。" : "We also build online ordering, memberships, mobile apps and custom systems."}{" "}
+            <Link href={locale === "zh" ? "/services" : "/en/services"} className="font-semibold text-accent-blue underline underline-offset-4">
+              {locale === "zh" ? "看全部服務 →" : "See all services →"}
+            </Link>
+          </p>
         </div>
       </section>
+
+      <FounderSection />
 
       {/* How it works */}
       <section className="section-elevated py-16 lg:py-20">

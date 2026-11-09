@@ -116,13 +116,35 @@ export default function ServicesPage() {
             visual: number;
             link?: { href: string; label: string };
           };
-          const base: Row[] = t.services.items.map((s, i) => ({
-            title: s.title,
-            desc: s.desc,
-            idealFor: s.idealFor,
-            deliverables: s.deliverables,
-            visual: i,
-          }));
+          const detailLinks: Record<string, { href: string; zh: string; en: string }> = {
+            官方網站: { href: "/services/web-design", zh: "看網站設計詳細內容 →", en: "" },
+            Website: { href: "/services/web-design", zh: "", en: "More about websites →" },
+            "訂單與點餐系統": { href: "/services/ordering-system", zh: "看點餐系統詳細內容 →", en: "" },
+            "Online Ordering": { href: "/services/ordering-system", zh: "", en: "More about online ordering →" },
+            預約系統: { href: "/services/booking-system", zh: "看預約系統詳細內容 →", en: "" },
+            "Booking System": { href: "/services/booking-system", zh: "", en: "More about booking systems →" },
+            "LINE 官方帳號": { href: "/services/line-oa", zh: "看 LINE 自動回覆詳細內容 →", en: "" },
+            "Chat-App Auto-Reply": { href: "/services/line-oa", zh: "", en: "More about auto-replies →" },
+            "手機 App": { href: "/services/app-development", zh: "看 App 開發詳細內容 →", en: "" },
+            "Mobile App": { href: "/services/app-development", zh: "", en: "More about mobile apps →" },
+            "AI 小幫手": { href: "/services/ai-customer-service", zh: "看 AI 客服詳細內容 →", en: "" },
+            "AI Assistant": { href: "/services/ai-customer-service", zh: "", en: "More about AI assistants →" },
+            流程自動化: { href: "/services/ai-automation", zh: "看自動化系統詳細內容 →", en: "" },
+            "Workflow Automation": { href: "/services/ai-automation", zh: "", en: "More about automation →" },
+          };
+          const base: Row[] = t.services.items.map((s, i) => {
+            const d = detailLinks[s.title];
+            return {
+              title: s.title,
+              desc: s.desc,
+              idealFor: s.idealFor,
+              deliverables: s.deliverables,
+              visual: i,
+              link: d
+                ? { href: localizeHref(d.href, locale), label: locale === "en" ? d.en : d.zh }
+                : undefined,
+            };
+          });
           const seo = SEO_ITEM[locale === "en" ? "en" : "zh"];
           const seoRow: Row = {
             title: seo.title,

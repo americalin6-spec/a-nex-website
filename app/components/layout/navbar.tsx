@@ -14,7 +14,6 @@ import { LanguageSwitcher } from "./language-switcher";
 const navItems = [
   { href: "/about", key: "about" as const },
   { href: "/services", key: "platform" as const },
-  { href: "/services/seo", key: "seo" as const },
   { href: "/services/ai-outreach", key: "outreach" as const },
   { href: "/services/line-oa", key: "lineAi" as const },
   { href: "/projects", key: "projects" as const },

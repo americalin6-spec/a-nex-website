@@ -7,6 +7,7 @@ import { useLanguage } from "../context/language-context";
 import { SectionHeader } from "../components/ui/section-header";
 import { Reveal } from "../components/ui/reveal";
 import { LineAddButton } from "../components/line/line-add-button";
+import { FounderSection } from "../components/about/founder-section";
 
 const showcase = [
   { src: "/projects/ashley-english.png", name: "Ashley English", type: "英文教學網站", typeEn: "English teaching website" },
@@ -86,6 +87,8 @@ export default function AboutPage() {
           </Reveal>
         </div>
       </section>
+
+      <FounderSection />
 
       {/* Promises */}
       <section className="py-16 lg:py-20">

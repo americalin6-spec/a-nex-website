@@ -9,6 +9,7 @@ import { SectionHeader } from "../components/ui/section-header";
 import { Reveal } from "../components/ui/reveal";
 import { HeroPhone3D } from "../components/home/hero-phone-3d";
 import { WhatsAppButton } from "../components/contact/whatsapp-button";
+import { FounderSection } from "../components/about/founder-section";
 
 const title = "AXORA | Custom Websites, Web Apps & AI Automation — Built in Taiwan";
 const description =
@@ -64,28 +65,19 @@ const reasons = [
 
 const services = [
   {
-    title: "Business websites",
-    desc: "Fast, modern websites that look premium, rank on Google and turn visitors into enquiries. Multilingual on request.",
+    title: "Website + online booking",
+    desc: "A premium website where customers book a time themselves, with automatic confirmations and reminders. No more phone scheduling or no-shows.",
+    href: "/en/services/booking-system",
   },
   {
-    title: "Web apps & SaaS",
-    desc: "Customer portals, dashboards, booking platforms and subscription products — designed, built and hosted for you.",
+    title: "AI auto-reply & ordering",
+    desc: "AI understands how customers really write in chat, answers common questions and turns messages into orders — even after hours.",
+    href: "/en/services/line-oa",
   },
   {
-    title: "Mobile apps",
-    desc: "iOS and Android apps for customers or internal teams, connected to the same back office as your website.",
-  },
-  {
-    title: "Ordering & booking systems",
-    desc: "Online ordering, appointment booking and delivery management for restaurants, salons, clinics and local services.",
-  },
-  {
-    title: "AI automation",
-    desc: "AI that reads customer messages, answers common questions, turns free-text requests into structured orders and updates your CRM.",
-  },
-  {
-    title: "Chat app integrations",
-    desc: "Connect your business to the messaging apps your customers already use, with automatic replies, notifications and lead capture.",
+    title: "AI email outreach",
+    desc: "AI finds businesses that fit your offer, writes a personal email to each one, follows up automatically and tells you who replied.",
+    href: "/en/services/ai-outreach",
   },
 ];
 
@@ -175,21 +167,30 @@ export default function EnglishHomePage() {
           </div>
         </section>
 
+        <FounderSection />
+
         {/* Services */}
         <section className="py-16 lg:py-20">
           <div className="mx-auto max-w-[1100px] px-6 lg:px-12">
-            <SectionHeader label="Services" title="What we build" />
-            <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <SectionHeader label="What we do best" title="Three things, done really well" />
+            <div className="mt-10 grid gap-4 md:grid-cols-3">
               {services.map((s, i) => (
-                <div key={s.title} className="glass-card h-full p-6">
+                <Link key={s.title} href={s.href} className="glass-card block h-full p-6 transition-transform duration-300 hover:-translate-y-0.5">
                   <span className="font-serif text-sm tracking-[0.2em] text-accent-purple">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <h3 className="mt-3 text-lg font-bold text-foreground">{s.title}</h3>
                   <p className="mt-2 text-body-sm text-muted-light">{s.desc}</p>
-                </div>
+                  <p className="mt-4 text-label text-accent-blue">Learn more →</p>
+                </Link>
               ))}
             </div>
+            <p className="mt-8 text-center text-body-sm text-muted-light">
+              We also build online ordering, memberships, mobile apps and custom systems.{" "}
+              <Link href="/en/services" className="font-semibold text-accent-blue underline underline-offset-4">
+                See all services →
+              </Link>
+            </p>
           </div>
         </section>
 
