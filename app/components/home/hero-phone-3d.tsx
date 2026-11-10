@@ -353,6 +353,15 @@ export function HeroPhone3D({ locale = "zh" }: { locale?: "zh" | "en" }) {
     setIndustry(pendingIndustry);
     setCustomName(name);
     setRunKey((k) => k + 1);
+    // Close the phone keyboard and bring the demo phone into view
+    // (on mobile the phone sits above the form, out of sight).
+    (document.activeElement as HTMLElement | null)?.blur?.();
+    setTimeout(() => {
+      const el = wrapRef.current;
+      if (!el) return;
+      const top = el.getBoundingClientRect().top + window.scrollY - 72;
+      window.scrollTo({ top, behavior: reduce ? "auto" : "smooth" });
+    }, 250);
   }
 
   const caption =
@@ -380,7 +389,7 @@ export function HeroPhone3D({ locale = "zh" }: { locale?: "zh" | "en" }) {
       ref={wrapRef}
       onPointerMove={onMove}
       onPointerLeave={onLeave}
-      className="relative mx-auto flex h-[560px] w-full max-w-[600px] items-center justify-center sm:h-[640px]"
+      className="relative mx-auto flex h-[730px] w-full max-w-[600px] items-start justify-center pt-12 sm:h-[640px] sm:items-center sm:pt-0"
       style={{ perspective: 1400 }}
     >
       {/* ---------- blurred shop in the background (owner's view) ---------- */}
@@ -640,7 +649,7 @@ export function HeroPhone3D({ locale = "zh" }: { locale?: "zh" | "en" }) {
       </motion.div>
 
       {/* ---------- shop calendar ---------- */}
-      <motion.div style={{ x: front.x, y: front.y }} className="absolute bottom-[5%] right-[-2%] z-20 sm:bottom-[8%] sm:right-[-4%]">
+      <motion.div style={{ x: front.x, y: front.y }} className="absolute bottom-[1%] right-[2%] z-20 sm:bottom-[8%] sm:right-[-4%]">
         <motion.div
           animate={reduce ? undefined : { y: [0, -6, 0] }}
           transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.8 }}
